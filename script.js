@@ -4,35 +4,35 @@ const destinationsData = [
         id: 1,
         name: "Đèo Mã Pí Lèng",
         category: "Cảnh quan",
-        image: "https://pin.it/5JzX2YDq9",
+        image: "https://www.pinterest.com/pin/761108405800338981/",
         desc: "Được mệnh danh là 'vua của những cung đèo' tại Việt Nam, Mã Pí Lèng nằm trên con đường Hạnh Phúc nối liền Đồng Văn và Mèo Vạc."
     },
     {
         id: 2,
         name: "Sông Nho Quế",
         category: "Cảnh quan",
-        image: "https://pin.it/56n9h3snC",
+        image: "https://www.pinterest.com/pin/284078688989505411/",
         desc: "Dòng sông xanh biếc như dải lụa vắt ngang núi rừng, nơi du khách có thể đi thuyền xuyên qua hẻm vực Tu Sản hùng vĩ."
     },
     {
         id: 3,
         name: "Dinh Thự Họ Vương",
         category: "Văn hóa",
-        image: "https://pin.it/69d4dxVwT",
+        image: "https://www.pinterest.com/pin/552605816784827230/",
         desc: "Hay còn gọi là dinh Vua Mèo, một công trình kiến trúc cổ độc đáo kết hợp giữa văn hóa người Mông và kiến trúc Trung Hoa."
     },
     {
         id: 4,
         name: "Cột Cờ Lũng Cú",
         category: "Văn hóa",
-        image: "https://pin.it/nKQcSP1be",
+        image: "https://www.pinterest.com/pin/596797388161746124/",
         desc: "Điểm cực Bắc thiêng liêng nơi địa đầu Tổ quốc, biểu tượng của chủ quyền dân tộc Việt Nam trên cao nguyên đá."
     },
     {
         id: 5,
         name: "Thung Lũng Sủng Là",
         category: "Cảnh quan",
-        image: "https://pin.it/6ktk74omq",
+        image: "https://www.pinterest.com/pin/206110120438996314/",
         desc: "Nơi được chọn làm bối cảnh phim 'Chuyện của Pao', nổi tiếng với những cánh đồng hoa tam giác mạch tuyệt đẹp."
     }
 ];
@@ -93,3 +93,4 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
