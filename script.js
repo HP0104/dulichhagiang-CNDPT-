@@ -73,7 +73,7 @@ const destinationsData = [
     {
         id: 11,
         name: "Phó Bảng",
-        category: "Cảnh quan",
+        category: "Văn hóa",
         image: "images/nen-phobang.jpg", 
         desc: "Ẩn mình sau những dãy núi đá tai mèo, Phó Bảng mang vẻ đẹp yên bình với những ngôi nhà cổ phủ rêu phong, con đường nhỏ tĩnh lặng và nhịp sống chậm rãi của người dân vùng cao."
     },
