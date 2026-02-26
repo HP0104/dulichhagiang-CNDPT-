@@ -5,7 +5,8 @@ const destinationsData = [
         name: "Đèo Mã Pí Lèng",
         category: "Cảnh quan",
         image: "images/nen-mapileng.jpg",
-        desc: "Được mệnh danh là 'vua của những cung đèo' tại Việt Nam, Mã Pí Lèng nằm trên con đường Hạnh Phúc nối liền Đồng Văn và Mèo Vạc."
+        desc: "Được mệnh danh là 'vua của những cung đèo' tại Việt Nam, Mã Pí Lèng nằm trên con đường Hạnh Phúc nối liền Đồng Văn và Mèo Vạc.",
+        details: "Mã Pí Lèng là cung đường đèo hiểm trở dài khoảng 20km, nằm trên con đường Hạnh Phúc nối liền thành phố Hà Giang, Đồng Văn và thị trấn Mèo Vạc. Từ đỉnh đèo, bạn có thể ngắm nhìn toàn cảnh hẻm vực Tu Sản sâu nhất Đông Nam Á và dòng sông Nho Quế xanh ngắt như dải lụa."
     },
     {
         id: 2,
@@ -133,16 +134,21 @@ function displayDestinations(items) {
     }
 
     // Đổ dữ liệu vào HTML
-    grid.innerHTML = items.map(item => `
-        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
-            <img src="${item.image}" alt="${item.name}" class="w-full h-56 object-cover">
-            <div class="p-6">
-                <span class="text-xs font-bold uppercase text-emerald-600">${item.category}</span>
-                <h3 class="text-xl font-bold mt-1 mb-3">${item.name}</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">${item.desc}</p>
+  grid.innerHTML = items.map(item => `
+    <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="relative overflow-hidden">
+            <img src="${item.image}" alt="${item.name}" class="w-full h-56 object-cover group-hover:scale-110 transition duration-500">
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                <span class="bg-white text-emerald-700 px-4 py-2 rounded-full font-bold text-sm shadow-lg">Xem chi tiết</span>
             </div>
         </div>
-    `).join('');
+        <div class="p-6">
+            <span class="text-xs font-bold uppercase text-emerald-600">${item.category}</span>
+            <h3 class="text-xl font-bold mt-1 mb-3">${item.name}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">${item.desc}</p>
+        </div>
+    </div>
+`).join('');
 }
 
 //  TÍNH NĂNG LỌC THEO DANH MỤC
@@ -178,4 +184,43 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+// Hàm mở Modal
+function openModal(id) {
+    const item = destinationsData.find(d => d.id === id);
+    const modal = document.getElementById('modal');
+    const content = document.getElementById('modal-content');
+
+    if (item) {
+        content.innerHTML = `
+            <img src="${item.image}" class="w-full h-72 object-cover" alt="${item.name}">
+            <div class="p-8">
+                <span class="text-emerald-600 font-bold uppercase text-sm tracking-widest">${item.category}</span>
+                <h2 class="text-3xl font-bold text-emerald-900 mt-2 mb-4">${item.name}</h2>
+                <div class="w-16 h-1 bg-orange-500 mb-6"></div>
+                <p class="text-gray-700 leading-loose text-lg">${item.details || item.desc}</p>
+                <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
+                    <span class="text-gray-400 text-sm italic italic">#HaGiangExplore #CNDPT</span>
+                    <button onclick="closeModal()" class="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-800 transition">Đã hiểu</button>
+                </div>
+            </div>
+        `;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Ngăn cuộn trang web khi đang mở modal
+    }
+}
+
+// Hàm đóng Modal
+function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Cho phép cuộn trang lại bình thường
+}
+
+// Đóng modal khi click ra ngoài vùng trắng
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
 
