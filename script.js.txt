@@ -1,0 +1,95 @@
+//  DỮ LIỆU CỦA KHU DU LỊCH (có thể đổi nội dung ở đây)
+const destinationsData = [
+    {
+        id: 1,
+        name: "Đèo Mã Pí Lèng",
+        category: "Cảnh quan",
+        image: "https://pin.it/5JzX2YDq9",
+        desc: "Được mệnh danh là 'vua của những cung đèo' tại Việt Nam, Mã Pí Lèng nằm trên con đường Hạnh Phúc nối liền Đồng Văn và Mèo Vạc."
+    },
+    {
+        id: 2,
+        name: "Sông Nho Quế",
+        category: "Cảnh quan",
+        image: "https://pin.it/56n9h3snC",
+        desc: "Dòng sông xanh biếc như dải lụa vắt ngang núi rừng, nơi du khách có thể đi thuyền xuyên qua hẻm vực Tu Sản hùng vĩ."
+    },
+    {
+        id: 3,
+        name: "Dinh Thự Họ Vương",
+        category: "Văn hóa",
+        image: "https://pin.it/69d4dxVwT",
+        desc: "Hay còn gọi là dinh Vua Mèo, một công trình kiến trúc cổ độc đáo kết hợp giữa văn hóa người Mông và kiến trúc Trung Hoa."
+    },
+    {
+        id: 4,
+        name: "Cột Cờ Lũng Cú",
+        category: "Văn hóa",
+        image: "https://pin.it/nKQcSP1be",
+        desc: "Điểm cực Bắc thiêng liêng nơi địa đầu Tổ quốc, biểu tượng của chủ quyền dân tộc Việt Nam trên cao nguyên đá."
+    },
+    {
+        id: 5,
+        name: "Thung Lũng Sủng Là",
+        category: "Cảnh quan",
+        image: "https://pin.it/6ktk74omq",
+        desc: "Nơi được chọn làm bối cảnh phim 'Chuyện của Pao', nổi tiếng với những cánh đồng hoa tam giác mạch tuyệt đẹp."
+    }
+];
+
+//  HÀM HIỂN THỊ DỮ LIỆU LÊN GIAO DIỆN
+function displayDestinations(items) {
+    const grid = document.getElementById('destination-grid');
+    
+    // Nếu không có kết quả
+    if (items.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-20">Không tìm thấy địa danh nào phù hợp.</p>`;
+        return;
+    }
+
+    // Đổ dữ liệu vào HTML
+    grid.innerHTML = items.map(item => `
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+            <img src="${item.image}" alt="${item.name}" class="w-full h-56 object-cover">
+            <div class="p-6">
+                <span class="text-xs font-bold uppercase text-emerald-600">${item.category}</span>
+                <h3 class="text-xl font-bold mt-1 mb-3">${item.name}</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">${item.desc}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+//  TÍNH NĂNG LỌC THEO DANH MỤC
+function filterDestinations(category) {
+    // Đổi màu nút đang chọn
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-900');
+    });
+    event.target.classList.add('bg-emerald-600', 'text-white');
+
+    // Lọc dữ liệu
+    if (category === 'all') {
+        displayDestinations(destinationsData);
+    } else {
+        const filtered = destinationsData.filter(item => item.category === category);
+        displayDestinations(filtered);
+    }
+}
+
+//  TÍNH NĂNG TÌM KIẾM (Search)
+document.getElementById('search-input').addEventListener('input', (e) => {
+    const keyword = e.target.value.toLowerCase();
+    const filtered = destinationsData.filter(item => 
+        item.name.toLowerCase().includes(keyword) || 
+        item.desc.toLowerCase().includes(keyword)
+    );
+    displayDestinations(filtered);
+});
+
+// 5. KHỞI TẠO KHI TRANG WEB TẢI XONG
+window.onload = () => {
+    displayDestinations(destinationsData);
+};
