@@ -248,7 +248,7 @@ const destinationsData = [
    {
     id: 8,
     name: "Địa danh/Cảnh quan",
-    category: "Văn hóa",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-langlolochai.jpg",
     desc: "Ngôi làng cổ dưới chân cột cờ Lũng Cú, lưu giữ trọn vẹn bản sắc người Lô Lô đen.",
 
@@ -768,5 +768,6 @@ function closeModal() {
 window.onclick = function(e) {
     if (e.target == document.getElementById('modal')) closeModal();
 }
+
 
 
