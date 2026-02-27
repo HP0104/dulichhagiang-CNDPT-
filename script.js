@@ -616,7 +616,7 @@ const destinationsData = [
         }
     },
     {
-        id: ,
+        id: 102,
         isCultureTopic: true,
         category: "Văn hóa",
         name: "Lễ hội truyền thống các dân tộc",
@@ -633,7 +633,6 @@ const destinationsData = [
         }
     }
 ];
-LOGIC HIỂN THỊ (Fix lỗi Defined)
 // ==========================================
 
 function displayDestinations(items) {
@@ -677,9 +676,8 @@ if(searchInput) {
     });
 }
 
-// ==========================================
-// 3. LOGIC MODAL (Xử lý 2 loại giao diện)
-// ==========================================
+// LOGIC MODAL (Xử lý 2 loại giao diện)
+
 
 function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
@@ -753,6 +751,7 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
 
 
 
