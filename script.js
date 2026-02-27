@@ -136,7 +136,7 @@ const destinationsData = [
         image: "images/nen-phocodongvan.jpg", 
         desc: "Những mái ngói âm dương phủ rêu phong, bức tường vàng nhuốm màu thời gian và ánh đèn lồng lung linh khi đêm xuống tạo nên không gian vừa ấm áp vừa hoài niệm giữa thị trấn Đồng Văn..",
         details: "Phố cổ Đồng Văn Phố cổ Đồng Văn nằm ngay trung tâm thị trấn Đồng Văn, thuộc tỉnh Hà Giang. Đây là khu phố cổ có lịch sử hơn 100 năm, gắn liền với quá trình giao thương sầm uất của vùng cao nguyên đá đầu thế kỷ XX.Phố cổ hiện còn khoảng vài chục ngôi nhà mang kiến trúc truyền thống, chủ yếu được xây bằng đất trình tường, gỗ và mái ngói âm dương. Kiến trúc nơi đây là sự giao thoa giữa phong cách của người Mông, người Hoa và ảnh hưởng kiến trúc Pháp, tạo nên vẻ cổ kính, trầm mặc giữa núi đá xám. Khi đêm xuống, những chiếc đèn lồng đỏ được thắp sáng dọc theo dãy phố, khiến không gian trở nên ấm áp và hoài niệm. Đặc biệt, vào mỗi sáng Chủ nhật, chợ phiên Đồng Văn họp ngay gần khu phố cổ, mang đến không khí nhộn nhịp với sắc màu trang phục truyền thống của đồng bào vùng cao.Phố cổ Đồng Văn không chỉ là điểm tham quan nổi bật của cao nguyên đá mà còn là nơi lưu giữ dấu ấn lịch sử, văn hóa và nhịp sống đặc trưng của vùng cực Bắc Việt Nam."
-    }
+    },
 
 ];
 
@@ -240,5 +240,6 @@ window.onclick = function(event) {
         closeModal();
     }
 }
+
 
 
