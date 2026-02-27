@@ -784,6 +784,18 @@ function openModal(id) {
         document.body.style.overflow = 'hidden';
     }
 }
+function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+window.onclick = function(e) {
+    if (e.target == document.getElementById('modal')) closeModal();
+};
+
+window.onload = () => {
+    displayDestinations(destinationsData);
+};
 
 
 
