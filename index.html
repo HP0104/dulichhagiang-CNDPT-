@@ -44,6 +44,25 @@
         </div>
     </section>
 
+    <!-- KHÔNG GIAN VĂN HÓA HÀ GIANG -->
+<section class="container mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-4 uppercase">7 Đặc Trưng Văn Hóa Cốt Lõi</h2>
+        <p class="text-gray-600 italic">Chọn một nét văn hóa để khám phá các địa danh liên quan</p>
+    </div>
+
+    <!-- Grid 7 mục văn hóa -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4" id="culture-pillars">
+        <!-- JS sẽ tự đổ 7 mục vào đây -->
+    </div>
+</section>
+
+<!-- Tiêu đề danh sách địa điểm (Sẽ thay đổi khi lọc) -->
+<div class="container mx-auto px-6 mb-8 flex justify-between items-center border-b pb-4">
+    <h3 id="list-title" class="text-2xl font-bold text-emerald-800 uppercase italic">Tất cả địa danh</h3>
+    <button onclick="filterDestinations('all')" class="text-sm text-emerald-600 hover:underline">Xem tất cả</button>
+</div>
+    
     <!-- Filter Buttons -->
     <div class="container mx-auto px-6 py-10 flex flex-wrap justify-center gap-3">
         <button onclick="filterDestinations('all')" class="filter-btn bg-emerald-600 text-white px-6 py-2 rounded-full shadow-md transition hover:bg-emerald-700">Tất cả</button>
@@ -57,19 +76,6 @@
             <!-- JavaScript tự đổ dữ liệu vào đây -->
         </div>
     </main>
-    
-    <!-- KHÔNG GIAN VĂN HÓA HÀ GIANG -->
-<section class="container mx-auto px-6 py-16">
-    <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-4 uppercase">7 Đặc Trưng Văn Hóa Cốt Lõi</h2>
-        <p class="text-gray-600 italic">Chọn một nét văn hóa để khám phá các địa danh liên quan</p>
-    </div>
-
-    <!-- Grid 7 mục văn hóa -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4" id="culture-pillars">
-        <!-- JS sẽ tự đổ 7 mục vào đây -->
-    </div>
-</section>
 
 <!-- Tiêu đề danh sách địa điểm (Sẽ thay đổi khi lọc) -->
 <div class="container mx-auto px-6 mb-8 flex justify-between items-center border-b pb-4">
@@ -96,5 +102,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
