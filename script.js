@@ -3,7 +3,7 @@ const destinationsData = [
     {
         id: 1,
         name: "Đèo Mã Pí Lèng",
-        category: "Cảnh quan",
+        category: "Địa danh/Cảnh quan",
         image: "images/nen-maphileng.jpg",
         desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
         
@@ -42,7 +42,7 @@ const destinationsData = [
     {
         id: 2,
         name: "Sông Nho Quế",
-        category: "Cảnh quan",
+        category: "Địa danh/Cảnh quan",
         image: "images/nen-songnhoque.webp",
         desc: "Dòng sông xanh biếc uốn lượn dưới chân hẻm vực Tu Sản.",
         visitTime: "9h sáng đến 3h chiều để thấy màu nước đẹp nhất.",
@@ -73,7 +73,7 @@ const destinationsData = [
     {
     id: 3,
     name: "Dinh Thự Họ Vương",
-    category: "Văn hóa",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-dinhthuvuameo.jpg",
     desc: "Còn gọi là dinh Vua Mèo – công trình kiến trúc cổ độc đáo giữa thung lũng Sà Phìn.",
 
@@ -108,7 +108,7 @@ const destinationsData = [
 {
     id: 4,
     name: "Cột Cờ Lũng Cú",
-    category: "Văn hóa",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-cotcolngcu.jpg",
     desc: "Điểm cực Bắc thiêng liêng – biểu tượng chủ quyền quốc gia trên cao nguyên đá Hà Giang.",
 
@@ -143,7 +143,7 @@ const destinationsData = [
    {
     id: 5,
     name: "Thung Lũng Sủng Là",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-thunglungsungla.jpg",
     desc: "“Bông hoa giữa cao nguyên đá” – nổi tiếng với mùa hoa tam giác mạch và Nhà của Pao.",
 
@@ -178,7 +178,7 @@ const destinationsData = [
    {
     id: 6,
     name: "Phố Cáo",
-    category: "Văn hóa",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-phocao.jpg",
     desc: "Ngôi làng vùng cao yên bình với nhà trình tường cổ kính giữa cao nguyên đá Đồng Văn.",
 
@@ -213,7 +213,7 @@ const destinationsData = [
     {
     id: 7,
     name: "Núi Đôi Quản Bạ",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-nuidoiquanba.jpg",
     desc: "Biểu tượng cửa ngõ cao nguyên đá với hai ngọn núi tròn đầy giữa thung lũng Tam Sơn.",
 
@@ -247,7 +247,7 @@ const destinationsData = [
 },
    {
     id: 8,
-    name: "Làng Lô Lô Chải",
+    name: "Địa danh/Cảnh quan",
     category: "Văn hóa",
     image: "images/nen-langlolochai.jpg",
     desc: "Ngôi làng cổ dưới chân cột cờ Lũng Cú, lưu giữ trọn vẹn bản sắc người Lô Lô đen.",
@@ -283,7 +283,7 @@ const destinationsData = [
    {
     id: 9,
     name: "Cao nguyên đá Đồng Văn",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-caonguyendadongvan.jpg",
     desc: "Công viên địa chất toàn cầu UNESCO – miền đá xám kỳ vĩ giữa trời cực Bắc Hà Giang.",
 
@@ -318,7 +318,7 @@ const destinationsData = [
    {
     id: 10,
     name: "Dốc Thẩm Mã",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-docthamma.jpg",
     desc: "Con dốc với những khúc cua tay áo ngoạn mục trên hành trình khám phá cao nguyên đá Đồng Văn.",
 
@@ -353,7 +353,7 @@ const destinationsData = [
    {
     id: 11,
     name: "Phó Bảng",
-    category: "Văn hóa",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-phobang.jpg",
     desc: "Thị trấn cổ yên bình giữa cao nguyên đá với những ngôi nhà tường đất phủ rêu phong.",
 
@@ -388,7 +388,7 @@ const destinationsData = [
    {
     id: 12,
     name: "Rừng thông Yên Minh",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-rungthongyenminh.webp",
     desc: "“Đà Lạt thu nhỏ” giữa Hà Giang với những triền thông xanh mướt dọc Quốc lộ 4C.",
 
@@ -423,7 +423,7 @@ const destinationsData = [
     {
     id: 13,
     name: "Động Lùng Khúy",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-donglungkhuy.jpg",
     desc: "Hang động huyền ảo giữa núi rừng Quản Bạ với hệ thống nhũ đá lấp lánh như cung điện dưới lòng đất.",
 
@@ -457,7 +457,7 @@ const destinationsData = [
 },
  {
     id: 14,
-    name: "Cây Cô Đơn",
+    name: "Địa danh/Cảnh quan",
     category: "Cảnh quan",
     image: "images/nen-caycodon.jpg",
     desc: "Điểm check-in nổi bật giữa cao nguyên đá với hình ảnh cây xanh đơn độc giữa thung lũng rộng lớn.",
@@ -493,7 +493,7 @@ const destinationsData = [
    {
     id: 15,
     name: "Vách Đá Thần",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-vachdatuthan.jpeg",
     desc: "Vách núi đá vôi cao dựng đứng giữa cao nguyên đá Đồng Văn, tạo nên khung cảnh hùng vĩ và đầy ấn tượng.",
 
@@ -528,7 +528,7 @@ const destinationsData = [
    {
     id: 16,
     name: "Hẻm Tu Sản",
-    category: "Cảnh quan",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-hemtusan.jpg", 
     desc: "Hẻm vực sâu và hùng vĩ bậc nhất Đông Nam Á với vách đá dựng đứng soi bóng xuống dòng Nho Quế xanh ngọc.",
 
@@ -563,7 +563,7 @@ const destinationsData = [
    {
     id: 17,
     name: "Phố cổ Đồng Văn",
-    category: "Văn hóa",
+    category: "Địa danh/Cảnh quan",
     image: "images/nen-phocodongvan.jpg", 
     desc: "Khu phố hơn 100 năm tuổi với mái ngói âm dương, tường vàng cổ kính và ánh đèn lồng ấm áp giữa lòng thị trấn Đồng Văn.",
 
@@ -768,4 +768,5 @@ function closeModal() {
 window.onclick = function(e) {
     if (e.target == document.getElementById('modal')) closeModal();
 }
+
 
