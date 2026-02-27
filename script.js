@@ -598,60 +598,102 @@ const destinationsData = [
         estimatedCost: "2.000.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
     }
 },
-    {
+     {
         id: 101,
         isCultureTopic: true,
         category: "Văn hóa",
-        name: "Văn hóa Chợ phiên vùng cao",
-        image: "images/nen-chophien.jpg",
-        desc: "Các chợ phiên không chỉ để mua bán mà còn là nơi giao lưu, gặp gỡ.",
-        cultureContent: {
-            market: "Chợ phiên Đồng Văn, Chợ tình Khâu Vai, Chợ phiên Mèo Vạc.",
-            festival: "Thường đông vui nhất vào những ngày đầu xuân.",
-            architecture: "Chợ họp giữa thung lũng đá tai mèo.",
-            costume: "Trang phục sặc sỡ nhất của đồng bào dân tộc.",
-            music: "Tiếng khèn Mông, tiếng mời rượu.",
-            food: "Thắng cố, mèn mén, nông sản bản địa.",
-            farming: "Ngô, lợn cắp nách, gà đồi."
-        }
+        name: "Văn hóa các dân tộc thiểu số",
+        image: "images/nen-dantoc.jpg",
+        desc: "Sự đa dạng bản sắc của 22 dân tộc anh em tại Hà Giang.",
+        sections: [
+            { title: "Người Mông", content: "Nhà trình tường đất, váy xòe thêu sáp ong, khèn Mông trong lễ hội, canh tác ngô trên đá." },
+            { title: "Người Tày", content: "Nhà sàn gỗ, hát then, đàn tính, lễ hội Lồng Tồng (xuống đồng)." },
+            { title: "Người Dao", content: "Trang phục đỏ nổi bật, lễ cấp sắc (nghi lễ trưởng thành nam giới)." },
+            { title: "Người Lô Lô", content: "Trang phục ghép vải màu thủ công, văn hóa trống đồng độc đáo." }
+        ]
     },
     {
         id: 102,
         isCultureTopic: true,
         category: "Văn hóa",
-        name: "Lễ hội truyền thống các dân tộc",
+        name: "Văn hóa Chợ phiên vùng cao",
+        image: "images/nen-chophien.jpg",
+        desc: "Chợ phiên không chỉ để mua bán mà còn là nơi giao lưu, hò hẹn.",
+        sections: [
+            { title: "Các phiên chợ tiêu biểu", content: "Chợ phiên Đồng Văn, Chợ phiên Mèo Vạc, Chợ tình Khâu Vai." },
+            { title: "Đặc trưng chợ phiên", content: "Thắng cố, rượu ngô, váy áo rực rỡ, tiếng khèn vang khắp các ngõ chợ." }
+        ]
+    },
+    {
+        id: 103,
+        isCultureTopic: true,
+        category: "Văn hóa",
+        name: "Lễ hội truyền thống",
         image: "images/nen-lehoi.jpg",
-        desc: "Hà Giang là nơi hội tụ các lễ hội tâm linh và phồn thực độc đáo.",
-        cultureContent: {
-            festival: "Lễ hội Gầu Tào, Lễ hội Nhảy lửa, Lễ hội Lồng Tồng.",
-            market: "Thường diễn ra đầu xuân cầu may mắn.",
-            costume: "Trang phục lễ hội đẹp nhất.",
-            music: "Tiếng trống, tiếng chiêng huyền bí.",
-            architecture: "Các đàn tế theo tín ngưỡng bản địa.",
-            food: "Xôi ngũ sắc, rượu ngô men lá.",
-            farming: "Cầu mùa màng bội thu, ngô lúa đầy kho."
-        }
+        desc: "Những nghi lễ tâm linh và ngày hội sôi động trên cao nguyên.",
+        sections: [
+            { title: "Lễ hội Gầu Tào", content: "Của người Mông – cầu phúc, cầu con diễn ra vào dịp đầu xuân." },
+            { title: "Lễ hội Nhảy lửa", content: "Nghi lễ huyền bí và dũng cảm của người dân tộc Pà Thẻn." },
+            { title: "Lễ hội Lồng Tồng", content: "Lễ hội xuống đồng của người Tày cầu mùa màng tươi tốt." },
+            { title: "Lễ hội hoa Tam Giác Mạch", content: "Lễ hội tôn vinh vẻ đẹp thiên nhiên và văn hóa hiện đại." }
+        ]
+    },
+    {
+        id: 104,
+        isCultureTopic: true,
+        category: "Văn hóa",
+        name: "Kiến trúc & Làng cổ",
+        image: "images/nen-kientruc.jpg",
+        desc: "Những công trình phản ánh sự thích nghi tuyệt vời với khí hậu.",
+        sections: [
+            { title: "Phố cổ Đồng Văn", content: "Nhà đất, mái ngói âm dương cổ kính hơn 100 năm tuổi." },
+            { title: "Dinh thự họ Vương", content: "Kiến trúc độc đáo của 'Vua Mèo', giao thoa Mông - Hoa - Pháp." },
+            { title: "Làng Lô Lô Chải", content: "Làng văn hóa truyền thống bình yên dưới chân cột cờ Lũng Cú." }
+        ]
+    },
+    {
+        id: 105,
+        isCultureTopic: true,
+        category: "Văn hóa",
+        name: "Văn hóa Lao động & Lịch sử",
+        image: "images/nen-lichsu.jpg",
+        desc: "Tinh thần vượt khó của người dân miền núi phía Bắc.",
+        sections: [
+            { title: "Đường Hạnh Phúc", content: "Biểu tượng ý chí mở đường huyền thoại của thanh niên xung phong." },
+            { title: "Canh tác trên đá", content: "Kỹ thuật thổ canh hốc đá độc đáo trên vùng cao nguyên khô cằn." },
+            { title: "Ruộng bậc thang", content: "Những kỳ quan lao động tại Hoàng Su Phì." }
+        ]
+    },
+    {
+        id: 106,
+        isCultureTopic: true,
+        category: "Văn hóa",
+        name: "Ẩm thực truyền thống",
+        image: "images/nen-amthuc.jpg",
+        desc: "Hương vị mộc mạc nhưng đậm đà bản sắc núi rừng.",
+        sections: [
+            { title: "Món ăn đặc trưng", content: "Thắng cố, Mèn mén, Cháo ấu tẩu, Thịt trâu gác bếp." },
+            { title: "Đồ uống", content: "Rượu ngô men lá nồng nàn thơm nức." }
+        ]
     }
+];
 ];
 // ==========================================
 
-function displayDestinations(items) {
-    const grid = document.getElementById('destination-grid');
-    if (!grid) return;
-    grid.innerHTML = items.map(item => `
-        <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100">
-            <div class="relative overflow-hidden h-60">
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl">XEM CHI TIẾT</div>
-            </div>
-            <div class="p-6">
-                <span class="text-xs font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
-                <h3 class="text-xl font-bold mt-2 mb-3 text-emerald-900">${item.name}</h3>
-                <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">${item.desc}</p>
-            </div>
-        </div>
-    `).join('');
+function filterDestinations(category) {
+    const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
+    displayDestinations(filtered);
 }
+
+const searchInput = document.getElementById('search-input');
+if(searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const kw = e.target.value.toLowerCase();
+        const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
+        displayDestinations(filtered);
+    });
+}
+
 
 function filterDestinations(category) {
     const buttons = document.querySelectorAll('.filter-btn');
@@ -679,6 +721,7 @@ if(searchInput) {
 // LOGIC MODAL (Xử lý 2 loại giao diện)
 
 
+
 function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
@@ -686,42 +729,47 @@ function openModal(id) {
 
     if (item) {
         if (item.isCultureTopic) {
-            // GIAO DIỆN VĂN HÓA (7 MỤC)
-            const c = item.cultureContent || {};
+            // --- GIAO DIỆN CHUYÊN ĐỀ VĂN HÓA (DẠNG KHỐI) ---
             content.innerHTML = `
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase">
-                        <h2 class="text-4xl md:text-6xl font-bold">${item.name}</h2>
+                        <div>
+                             <span class="bg-orange-500 px-3 py-1 rounded text-xs font-bold mb-2 inline-block">Chuyên đề đặc sắc</span>
+                             <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</h2>
+                        </div>
                     </div>
                 </div>
                 <div class="p-8 md:p-16 space-y-12">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-                        <div class="bg-orange-50 p-6 rounded-2xl border-t-4 border-orange-500 shadow-sm"><h4 class="font-bold text-orange-700 mb-2 italic">1. Chợ phiên</h4><p>${c.market || 'Đang cập nhật'}</p></div>
-                        <div class="bg-red-50 p-6 rounded-2xl border-t-4 border-red-500 shadow-sm"><h4 class="font-bold text-red-700 mb-2 italic">2. Lễ hội</h4><p>${c.festival || 'Đang cập nhật'}</p></div>
-                        <div class="bg-amber-50 p-6 rounded-2xl border-t-4 border-amber-600 shadow-sm"><h4 class="font-bold text-amber-800 mb-2 italic">3. Kiến trúc</h4><p>${c.architecture || 'Đang cập nhật'}</p></div>
-                        <div class="bg-pink-50 p-6 rounded-2xl border-t-4 border-pink-500 shadow-sm"><h4 class="font-bold text-pink-700 mb-2 italic">4. Trang phục</h4><p>${c.costume || 'Đang cập nhật'}</p></div>
-                        <div class="bg-blue-50 p-6 rounded-2xl border-t-4 border-blue-500 shadow-sm"><h4 class="font-bold text-blue-700 mb-2 italic">5. Nhạc cụ</h4><p>${c.music || 'Đang cập nhật'}</p></div>
-                        <div class="bg-emerald-50 p-6 rounded-2xl border-t-4 border-emerald-600 shadow-sm"><h4 class="font-bold text-emerald-700 mb-2 italic">6. Ẩm thực</h4><p>${c.food || 'Đang cập nhật'}</p></div>
-                        <div class="bg-green-50 p-6 rounded-2xl border-t-4 border-green-600 shadow-sm md:col-span-2 lg:col-span-1"><h4 class="font-bold text-green-700 mb-2 italic">7. Canh tác</h4><p>${c.farming || 'Đang cập nhật'}</p></div>
+                    <div class="max-w-3xl mx-auto text-center"><p class="text-gray-600 text-xl italic leading-relaxed">"${item.desc}"</p></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        ${item.sections.map(sec => `
+                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md">
+                                <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase tracking-tighter">${sec.title}</h4>
+                                <p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="bg-emerald-900 text-white p-10 rounded-[50px] text-center">
+                        <h3 class="text-xl font-bold mb-4 text-orange-400 uppercase italic">Ghi chú văn hóa</h3>
+                        <p class="opacity-80 leading-relaxed">Văn hóa Hà Giang là tài sản vô giá, khi tham quan quý khách hãy tôn trọng phong tục tập quán và trang phục của đồng bào địa phương.</p>
                     </div>
                 </div>`;
         } else {
-            // GIAO DIỆN ĐỊA DANH
-            const culture = item.culture || {};
+            // --- GIAO DIỆN ĐỊA DANH (DẠNG TOUR DU LỊCH) ---
             const food = item.food || {};
             const logistics = item.logistics || {};
             content.innerHTML = `
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-6 md:p-12 text-white uppercase">
-                        <h2 class="text-4xl md:text-6xl font-bold">${item.name}</h2>
+                        <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</h2>
                     </div>
                 </div>
                 <div class="p-6 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-12 text-sm">
                     <div class="lg:col-span-2 space-y-10">
-                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic">"${item.details || item.desc}"</p></section>
-                        <section class="grid grid-cols-2 gap-4 bg-emerald-50 p-8 rounded-2xl font-bold uppercase text-emerald-800">
+                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic">"${item.experience || item.desc}"</p></section>
+                        <section class="grid grid-cols-2 gap-4 bg-emerald-50 p-8 rounded-2xl font-bold uppercase text-emerald-800 text-xs">
                             <div><p>Giá vé: ${item.ticketPrice || 'Miễn phí'}</p><p>Thời gian: ${item.visitTime || 'Tự do'}</p></div>
                             <div><p>Mùa đẹp: ${item.bestSeason || 'Quanh năm'}</p><p>Di chuyển: ${item.transport || 'Xe máy'}</p></div>
                         </section>
@@ -729,7 +777,7 @@ function openModal(id) {
                     </div>
                     <div class="lg:col-span-1 space-y-8">
                         <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase">Lịch trình</h3><p>${logistics.itinerary2D || 'Đang cập nhật'}</p></div>
-                        <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200"><h3 class="font-bold text-red-600 mb-2 italic italic underline">Lưu ý</h3><p class="text-xs text-gray-500">${logistics.safety || 'Đi chậm, quan sát đèo dốc.'}</p></div>
+                        <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200"><h3 class="font-bold text-red-600 mb-2 italic underline italic">Lưu ý</h3><p class="text-xs text-gray-500">${logistics.safety || 'Đi chậm, quan sát đèo dốc.'}</p></div>
                     </div>
                 </div>`;
         }
@@ -737,22 +785,5 @@ function openModal(id) {
         document.body.style.overflow = 'hidden';
     }
 }
-
-function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
-window.onclick = function(e) {
-    const modal = document.getElementById('modal');
-    if (e.target == modal) closeModal();
-};
-
-window.onload = () => {
-    displayDestinations(destinationsData);
-};
-
-
-
 
 
