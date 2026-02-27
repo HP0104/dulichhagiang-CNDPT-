@@ -694,20 +694,42 @@ if(searchInput) {
 }
 
 
+// LOGIC MODAL (Xử lý 2 loại giao diện)
+
+
+
+function displayDestinations(items) {
+    const grid = document.getElementById('destination-grid');
+    if (!grid) return;
+    grid.innerHTML = items.map(item => `
+        <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100">
+            <div class="relative overflow-hidden h-60">
+                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl tracking-widest">CHI TIẾT</div>
+            </div>
+            <div class="p-6">
+                <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
+                <h3 class="text-xl font-bold mt-2 mb-3 text-emerald-900 uppercase">${item.name}</h3>
+                <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 italic">${item.desc}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
 function filterDestinations(category) {
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(btn => {
         btn.classList.remove('bg-emerald-600', 'text-white');
         btn.classList.add('bg-white', 'text-gray-800');
     });
-    if(event && event.target && event.target.classList.contains('filter-btn')) {
-        event.target.classList.add('bg-emerald-600', 'text-white');
+    if(window.event && window.event.target && window.event.target.classList.contains('filter-btn')) {
+        window.event.target.classList.add('bg-emerald-600', 'text-white');
     }
+
     const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
     displayDestinations(filtered);
 }
 
-// Tìm kiếm
 const searchInput = document.getElementById('search-input');
 if(searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -717,8 +739,7 @@ if(searchInput) {
     });
 }
 
-// LOGIC MODAL (Xử lý 2 loại giao diện)
-
+// . LOGIC MODAL
 
 
 function openModal(id) {
@@ -728,41 +749,37 @@ function openModal(id) {
 
     if (item) {
         if (item.isCultureTopic) {
-            // --- GIAO DIỆN CHUYÊN ĐỀ VĂN HÓA (DẠNG KHỐI) ---
+            // --- Giao diện Văn hóa (ID 101-106) ---
             content.innerHTML = `
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase">
                         <div>
-                             <span class="bg-orange-500 px-3 py-1 rounded text-xs font-bold mb-2 inline-block">Chuyên đề đặc sắc</span>
+                             <span class="bg-orange-500 px-3 py-1 rounded text-xs font-bold mb-2 inline-block italic">Chuyên đề văn hóa</span>
                              <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</h2>
                         </div>
                     </div>
                 </div>
                 <div class="p-8 md:p-16 space-y-12">
-                    <div class="max-w-3xl mx-auto text-center"><p class="text-gray-600 text-xl italic leading-relaxed">"${item.desc}"</p></div>
+                    <div class="max-w-3xl mx-auto text-center"><p class="text-gray-600 text-xl italic">"${item.desc}"</p></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         ${item.sections.map(sec => `
-                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md">
-                                <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase tracking-tighter">${sec.title}</h4>
-                                <p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p>
+                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm">
+                                <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase">${sec.title}</h4>
+                                <p class="text-gray-600 leading-relaxed">${sec.content}</p>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="bg-emerald-900 text-white p-10 rounded-[50px] text-center">
-                        <h3 class="text-xl font-bold mb-4 text-orange-400 uppercase italic">Ghi chú văn hóa</h3>
-                        <p class="opacity-80 leading-relaxed">Văn hóa Hà Giang là tài sản vô giá, khi tham quan quý khách hãy tôn trọng phong tục tập quán và trang phục của đồng bào địa phương.</p>
-                    </div>
                 </div>`;
         } else {
-            // --- GIAO DIỆN ĐỊA DANH (DẠNG TOUR DU LỊCH) ---
+            // --- Giao diện Địa danh (ID 1-17) ---
             const food = item.food || {};
             const logistics = item.logistics || {};
             content.innerHTML = `
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-6 md:p-12 text-white uppercase">
-                        <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</h2>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-6 md:p-12 text-white">
+                        <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter">${item.name}</h2>
                     </div>
                 </div>
                 <div class="p-6 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-12 text-sm">
@@ -775,8 +792,8 @@ function openModal(id) {
                         <section><h3 class="text-2xl font-bold mb-4 text-emerald-900 uppercase">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
                     </div>
                     <div class="lg:col-span-1 space-y-8">
-                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase">Lịch trình</h3><p>${logistics.itinerary2D || 'Đang cập nhật'}</p></div>
-                        <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200"><h3 class="font-bold text-red-600 mb-2 italic underline italic">Lưu ý</h3><p class="text-xs text-gray-500">${logistics.safety || 'Đi chậm, quan sát đèo dốc.'}</p></div>
+                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase font-bold">Lịch trình</h3><p>${logistics.itinerary2D || 'Đang cập nhật'}</p></div>
+                        <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200"><h3 class="font-bold text-red-600 mb-2 italic underline italic">Lưu ý an toàn</h3><p class="text-xs text-gray-500">${logistics.safety || 'Đi chậm, quan sát đèo dốc.'}</p></div>
                     </div>
                 </div>`;
         }
@@ -784,8 +801,10 @@ function openModal(id) {
         document.body.style.overflow = 'hidden';
     }
 }
+
 function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
+    const modal = document.getElementById('modal');
+    if(modal) modal.classList.add('hidden');
     document.body.style.overflow = 'auto';
 }
 
@@ -796,6 +815,3 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
-
-
-
