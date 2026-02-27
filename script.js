@@ -110,7 +110,7 @@ const destinationsData = [
         category: "Cảnh quan",
         image: "images/nen-caycodon.jpg", 
         desc: "Một cây xanh lặng lẽ đứng giữa thung lũng rộng lớn, phía xa là núi đá trùng điệp, tạo nên khung cảnh vừa cô tịch vừa nên thơ – điểm dừng chân khiến ai đi qua cũng muốn chậm lại vài phút.",
-        details:
+        details: "Cây cô đơn Cây cô đơn Hà Giang là một điểm check-in nổi tiếng nằm trên cung đường từ Đồng Văn đi Mèo Vạc, gần khu vực Đèo Mã Pí Lèng, thuộc tỉnh Hà Giang. Giữa khung cảnh núi đá tai mèo trùng điệp và thung lũng rộng lớn, một cây xanh đứng đơn độc bên sườn núi đã tạo nên hình ảnh đặc biệt, vừa mạnh mẽ vừa lãng mạn. Chính sự tách biệt giữa không gian bao la khiến nơi đây được gọi là “Cây cô đơn”. Từ vị trí này, du khách có thể phóng tầm mắt ngắm nhìn những dãy núi nối tiếp nhau và con đường uốn lượn bên dưới. Vào sáng sớm hoặc chiều muộn, khi ánh nắng nhẹ phủ lên sườn núi, khung cảnh trở nên thơ mộng và rất thích hợp để chụp ảnh.Cây cô đơn không phải là một công trình nổi tiếng lâu đời, nhưng nhờ vẻ đẹp tự nhiên và vị trí ấn tượng giữa cao nguyên đá, nơi đây đã trở thành một biểu tượng nhỏ đầy cảm xúc trên hành trình khám phá Hà Giang."
 
     },
     {
@@ -136,7 +136,7 @@ const destinationsData = [
         image: "images/nen-phocodongvan.jpg", 
         desc: "Những mái ngói âm dương phủ rêu phong, bức tường vàng nhuốm màu thời gian và ánh đèn lồng lung linh khi đêm xuống tạo nên không gian vừa ấm áp vừa hoài niệm giữa thị trấn Đồng Văn..",
         details: "Phố cổ Đồng Văn Phố cổ Đồng Văn nằm ngay trung tâm thị trấn Đồng Văn, thuộc tỉnh Hà Giang. Đây là khu phố cổ có lịch sử hơn 100 năm, gắn liền với quá trình giao thương sầm uất của vùng cao nguyên đá đầu thế kỷ XX.Phố cổ hiện còn khoảng vài chục ngôi nhà mang kiến trúc truyền thống, chủ yếu được xây bằng đất trình tường, gỗ và mái ngói âm dương. Kiến trúc nơi đây là sự giao thoa giữa phong cách của người Mông, người Hoa và ảnh hưởng kiến trúc Pháp, tạo nên vẻ cổ kính, trầm mặc giữa núi đá xám. Khi đêm xuống, những chiếc đèn lồng đỏ được thắp sáng dọc theo dãy phố, khiến không gian trở nên ấm áp và hoài niệm. Đặc biệt, vào mỗi sáng Chủ nhật, chợ phiên Đồng Văn họp ngay gần khu phố cổ, mang đến không khí nhộn nhịp với sắc màu trang phục truyền thống của đồng bào vùng cao.Phố cổ Đồng Văn không chỉ là điểm tham quan nổi bật của cao nguyên đá mà còn là nơi lưu giữ dấu ấn lịch sử, văn hóa và nhịp sống đặc trưng của vùng cực Bắc Việt Nam."
-    },
+    }
 
 ];
 
@@ -170,15 +170,17 @@ function displayDestinations(items) {
 
 //  TÍNH NĂNG LỌC THEO DANH MỤC
 function filterDestinations(category) {
-    // Đổi màu nút đang chọn
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(btn => {
         btn.classList.remove('bg-emerald-600', 'text-white');
         btn.classList.add('bg-white', 'text-gray-900');
     });
-    event.target.classList.add('bg-emerald-600', 'text-white');
+    
+    // Tìm button được click thông qua event toàn cục hoặc target
+    if (window.event) {
+        window.event.target.classList.add('bg-emerald-600', 'text-white');
+    }
 
-    // Lọc dữ liệu
     if (category === 'all') {
         displayDestinations(destinationsData);
     } else {
@@ -240,6 +242,7 @@ window.onclick = function(event) {
         closeModal();
     }
 }
+
 
 
 
