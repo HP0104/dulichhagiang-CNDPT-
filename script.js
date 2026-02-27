@@ -677,7 +677,6 @@ const destinationsData = [
         ]
     }
 ];
-];
 // ==========================================
 
 function filterDestinations(category) {
@@ -785,5 +784,6 @@ function openModal(id) {
         document.body.style.overflow = 'hidden';
     }
 }
+
 
 
