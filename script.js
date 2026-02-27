@@ -679,20 +679,6 @@ const destinationsData = [
 ];
 // ==========================================
 
-function filterDestinations(category) {
-    const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
-    displayDestinations(filtered);
-}
-
-const searchInput = document.getElementById('search-input');
-if(searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const kw = e.target.value.toLowerCase();
-        const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
-        displayDestinations(filtered);
-    });
-}
-
 
 // LOGIC MODAL (Xử lý 2 loại giao diện)
 
@@ -815,3 +801,4 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
