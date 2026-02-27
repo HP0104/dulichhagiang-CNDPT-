@@ -1,4 +1,4 @@
-
+  
 //  DỮ LIỆU CỦA KHU DU LỊCH  
 const destinationsData = [
     {
@@ -1010,6 +1010,7 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
 
 
 
