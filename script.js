@@ -1,8 +1,19 @@
+// Mảng 7 mục văn hóa
+const culturePillars = [
+    { name: "Chợ phiên", icon: "fa-store", color: "bg-orange-100 text-orange-600" },
+    { name: "Lễ hội", icon: "fa-fire", color: "bg-red-100 text-red-600" },
+    { name: "Kiến trúc", icon: "fa-home", color: "bg-amber-100 text-amber-600" },
+    { name: "Trang phục", icon: "fa-tshirt", color: "bg-pink-100 text-pink-600" },
+    { name: "Nhạc cụ", icon: "fa-music", color: "bg-blue-100 text-blue-600" },
+    { name: "Ẩm thực", icon: "fa-utensils", color: "bg-emerald-100 text-emerald-600" },
+    { name: "Canh tác", icon: "fa-seedling", color: "bg-green-100 text-green-600" }
+];
 //  DỮ LIỆU CỦA KHU DU LỊCH  
 const destinationsData = [
     {
         id: 1,
         name: "Đèo Mã Pí Lèng",
+        cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
         category: "Địa danh/Cảnh quan",
         image: "images/nen-maphileng.jpg",
         desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
@@ -42,6 +53,7 @@ const destinationsData = [
     {
         id: 2,
         name: "Sông Nho Quế",
+        cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
         category: "Địa danh/Cảnh quan",
         image: "images/nen-songnhoque.webp",
         desc: "Dòng sông xanh biếc uốn lượn dưới chân hẻm vực Tu Sản.",
@@ -73,6 +85,7 @@ const destinationsData = [
     {
     id: 3,
     name: "Dinh Thự Họ Vương",
+    cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-dinhthuvuameo.jpg",
     desc: "Còn gọi là dinh Vua Mèo – công trình kiến trúc cổ độc đáo giữa thung lũng Sà Phìn.",
@@ -108,6 +121,7 @@ const destinationsData = [
 {
     id: 4,
     name: "Cột Cờ Lũng Cú",
+    cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-cotcolngcu.jpg",
     desc: "Điểm cực Bắc thiêng liêng – biểu tượng chủ quyền quốc gia trên cao nguyên đá Hà Giang.",
@@ -143,6 +157,7 @@ const destinationsData = [
    {
     id: 5,
     name: "Thung Lũng Sủng Là",
+    cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-thunglungsungla.jpg",
     desc: "“Bông hoa giữa cao nguyên đá” – nổi tiếng với mùa hoa tam giác mạch và Nhà của Pao.",
@@ -178,6 +193,7 @@ const destinationsData = [
    {
     id: 6,
     name: "Phố Cáo",
+     cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-phocao.jpg",
     desc: "Ngôi làng vùng cao yên bình với nhà trình tường cổ kính giữa cao nguyên đá Đồng Văn.",
@@ -213,6 +229,7 @@ const destinationsData = [
     {
     id: 7,
     name: "Núi Đôi Quản Bạ",
+     cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-nuidoiquanba.jpg",
     desc: "Biểu tượng cửa ngõ cao nguyên đá với hai ngọn núi tròn đầy giữa thung lũng Tam Sơn.",
@@ -248,6 +265,7 @@ const destinationsData = [
    {
     id: 8,
     name: "Làng Lô Lô Chải",
+        cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-langlolochai.jpg",
     desc: "Ngôi làng cổ dưới chân cột cờ Lũng Cú, lưu giữ trọn vẹn bản sắc người Lô Lô đen.",
@@ -283,6 +301,7 @@ const destinationsData = [
    {
     id: 9,
     name: "Cao nguyên đá Đồng Văn",
+        cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-caonguyendadongvan.jpg",
     desc: "Công viên địa chất toàn cầu UNESCO – miền đá xám kỳ vĩ giữa trời cực Bắc Hà Giang.",
@@ -318,6 +337,7 @@ const destinationsData = [
    {
     id: 10,
     name: "Dốc Thẩm Mã",
+        cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-docthamma.jpg",
     desc: "Con dốc với những khúc cua tay áo ngoạn mục trên hành trình khám phá cao nguyên đá Đồng Văn.",
@@ -353,6 +373,7 @@ const destinationsData = [
    {
     id: 11,
     name: "Phó Bảng",
+        cultureTags: ["Canh tác", "Ẩm thực", "Nhạc cụ"],
     category: "Địa danh/Cảnh quan",
     image: "images/nen-phobang.jpg",
     desc: "Thị trấn cổ yên bình giữa cao nguyên đá với những ngôi nhà tường đất phủ rêu phong.",
@@ -601,6 +622,25 @@ const destinationsData = [
 // 2. LOGIC HIỂN THỊ VÀ TÌM KIẾM
 // ==========================================
 
+function displayCulturePillars() {
+    const container = document.getElementById('culture-pillars');
+    if(!container) return;
+    container.innerHTML = culturePillars.map(p => `
+        <div onclick="filterByCulture('${p.name}')" class="group cursor-pointer flex flex-col items-center p-4 rounded-2xl border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-xl transition-all">
+            <div class="w-16 h-16 ${p.color} rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
+                <i class="fas ${p.icon}"></i>
+            </div>
+            <span class="font-bold text-sm text-gray-700">${p.name}</span>
+        </div>
+    `).join('');
+}
+
+function filterByCulture(tagName) {
+    const filtered = destinationsData.filter(d => d.cultureTags && d.cultureTags.includes(tagName));
+    document.getElementById('list-title').innerHTML = `Văn hóa: <span class="text-orange-500">${tagName}</span>`;
+    displayDestinations(filtered);
+    document.getElementById('destinations').scrollIntoView({ behavior: 'smooth' });
+}
 
 function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
@@ -645,8 +685,10 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     displayDestinations(filtered);
 });
 
-window.onload = () => displayDestinations(destinationsData);
-
+window.onload = () => {
+    displayCulturePillars(); 
+    displayDestinations(destinationsData);
+};
 // ==========================================
 // 3. LOGIC MODAL CHI TIẾT (ĐÃ FIX LỖI THIẾU DỮ LIỆU)
 // ==========================================
@@ -768,6 +810,7 @@ function closeModal() {
 window.onclick = function(e) {
     if (e.target == document.getElementById('modal')) closeModal();
 }
+
 
 
 
