@@ -1,4 +1,4 @@
-//  DỮ LIỆU CỦA KHU DU LỊCH 
+//  DỮ LIỆU CỦA KHU DU LỊCH  
 const destinationsData = [
     {
         id: 1,
@@ -240,6 +240,7 @@ window.onclick = function(event) {
         closeModal();
     }
 }
+
 
 
 
