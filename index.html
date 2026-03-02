@@ -36,21 +36,22 @@
         </div>
     </nav>
 
-   <!-- Hero Section (Phần đầu trang) -->
-<section class="relative h-[60vh] flex items-center justify-center text-white text-center px-4 bg-cover bg-center" 
-         style="background-image: url('images/anh-nenchinh.jpg');">
-    
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative z-10">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 uppercase tracking-widest drop-shadow-2xl">Kỳ vĩ Hà Giang</h1>
-        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto italic font-light drop-shadow-md">"Chạm vào mây, say giữa đại ngàn"</p>
-    </div>
-</section></section>
+    <!-- Hero Section (Phần đầu trang) -->
+    <section class="relative h-[60vh] flex items-center justify-center text-white text-center px-4 bg-cover bg-center" 
+             style="background-image: url('images/anh-nenchinh.jpg');">
+        
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 uppercase tracking-widest drop-shadow-2xl">Kỳ vĩ Hà Giang</h1>
+            <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto italic font-light drop-shadow-md">"Chạm vào mây, say giữa đại ngàn"</p>
+        </div>
+    </section>
     
     <!-- Filter Buttons -->
     <div class="container mx-auto px-6 py-10 flex flex-wrap justify-center gap-3">
         <button onclick="filterDestinations('all')" class="filter-btn bg-emerald-600 text-white px-6 py-2 rounded-full shadow-md transition hover:bg-emerald-700">Tất cả</button>
-        <button onclick="filterDestinations('Cảnh quan')" class="filter-btn bg-white border border-gray-200 px-6 py-2 rounded-full hover:bg-emerald-50 transition">Địa danh/Cảnh quan</button>
+        <!-- Chỉnh sửa tham số lọc để khớp với category trong script.js -->
+        <button onclick="filterDestinations('Địa danh')" class="filter-btn bg-white border border-gray-200 px-6 py-2 rounded-full hover:bg-emerald-50 transition">Địa danh/Cảnh quan</button>
         <button onclick="filterDestinations('Văn hóa')" class="filter-btn bg-white border border-gray-200 px-6 py-2 rounded-full hover:bg-emerald-50 transition">Văn hóa</button>
     </div>
 
@@ -80,7 +81,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
