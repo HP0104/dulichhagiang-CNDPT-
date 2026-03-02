@@ -701,7 +701,7 @@ const destinationsData = [
         isCultureTopic: true,
         category: "Văn hóa",
         name: "Văn hóa Chợ phiên vùng cao",
-        image: "images/nen-chophien.jpg",
+        image: "images/nen-phiencho.jpg",
         desc: "Chợ phiên không chỉ là nơi mua bán mà còn là một 'bảo tàng sống' lưu giữ trọn vẹn đời sống tâm linh và văn hóa cộng đồng của các dân tộc Hà Giang.",
         sections: [
             { 
@@ -739,7 +739,7 @@ const destinationsData = [
         isCultureTopic: true,
         category: "Văn hóa",
         name: "Lễ hội truyền thống",
-        image: "images/nen-lehoi.jpg",
+        image: "images/nen-lehoitruynthong.jpg",
         desc: "Hà Giang là vùng đất của những lễ hội đậm chất nhân văn, nơi giao thoa giữa tín ngưỡng tâm linh và khát vọng về một cuộc sống ấm no, hạnh phúc.",
         sections: [
             { 
@@ -815,7 +815,7 @@ const destinationsData = [
         isCultureTopic: true,
         category: "Văn hóa",
         name: "Văn hóa Lao động & Lịch sử",
-        image: "images/nen-lichsu.jpg",
+        image: "images/nen-vanhoalichsu.jpg",
         desc: "Văn hóa lao động và lịch sử Hà Giang là vẻ đẹp của ý chí, của bàn tay bền bỉ và của những lớp trầm tích thời gian còn in dấu sâu đậm giữa đại ngàn đá núi.",
         sections: [
             { 
