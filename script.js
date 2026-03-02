@@ -1002,7 +1002,7 @@ function openModal(id) {
                                 <p class="text-gray-600">${culture.customs || 'Đang cập nhật'}</p>
                             </div>
                             <div>
-                                <p class="text-emerald-800 font-bold mb-1 uppercase text-xs">Nghệ thuật:</p>
+                                <p class="text-emerald-800 font-bold mb-1 uppercase text-xs">Phong cảnh:</p>
                                 <p class="text-gray-600">${culture.art || 'Đang cập nhật'}</p>
                             </div>
                         </div>
@@ -1073,6 +1073,7 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
 
 
 
