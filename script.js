@@ -1081,12 +1081,11 @@ function openModal(id) {
                 <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase"><h2 class="text-4xl md:text-6xl font-bold tracking-tighter drop-shadow-2xl">${item.name}</h2></div></div>
 
                 <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    <div class="lg:col-span-2 space-y-12">
-                        <!-- 1. TỔNG QUAN -->
+                    <div class="lg:col-span-2 space-y-10">
+                        <!-- TỔNG QUAN -->
                         <section>
-                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3>
+                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Tổng quan</h3>
                             <p class="text-gray-700 leading-relaxed text-lg italic mb-10">"${item.experience || item.desc}"</p>
-                            
                             <div class="grid grid-cols-2 gap-4 bg-emerald-900/10 p-8 rounded-3xl text-[11px] font-bold uppercase text-emerald-900 shadow-inner">
                                 <div><p class="opacity-50">Giá vé:</p> <p>${item.ticketPrice || 'Miễn phí'}</p></div>
                                 <div><p class="opacity-50">Thời gian:</p> <p>${item.visitTime || 'Tự do'}</p></div>
@@ -1095,67 +1094,67 @@ function openModal(id) {
                             </div>
                         </section>
 
-                        <!-- 2. BẢN SẮC VĂN HÓA (ĐÃ FIX LỖI HIỂN THỊ) -->
-                        <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl border border-white/5">
-                            <h3 class="text-2xl font-bold text-orange-400 mb-8 uppercase italic tracking-widest border-b border-white/10 pb-4">Bản sắc văn hóa</h3>
+                        <!-- BẢN SẮC VĂN HÓA (CẤU TRÚC MỚI KHÔNG LO LẤN CHỮ) -->
+                        <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl border border-white/10">
+                            <h3 class="text-2xl font-bold text-orange-400 mb-8 uppercase italic tracking-widest border-b border-white/10 pb-4">
+                                Bản sắc văn hóa
+                            </h3>
                             
-                            <!-- Dùng Grid chia 2 cột rõ ràng, mỗi cột 1 div riêng -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 mb-12">
-                                <div class="flex flex-col">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-2 tracking-widest">Lễ hội:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base font-light">${culture.festival || 'Đang cập nhật'}</p>
+                            <div class="space-y-8 mb-10 text-sm">
+                                <div class="border-l-2 border-emerald-500/30 pl-4">
+                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Lễ hội:</p>
+                                    <p class="text-gray-300 leading-relaxed text-base">${culture.festival || 'Đang cập nhật'}</p>
                                 </div>
-                                <div class="flex flex-col">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-2 tracking-widest">Trang phục:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base font-light">${culture.costume || 'Đang cập nhật'}</p>
+                                <div class="border-l-2 border-emerald-500/30 pl-4">
+                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Trang phục:</p>
+                                    <p class="text-gray-300 leading-relaxed text-base">${culture.costume || 'Đang cập nhật'}</p>
                                 </div>
-                                <div class="flex flex-col">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-2 tracking-widest">Phong tục:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base font-light">${culture.customs || 'Đang cập nhật'}</p>
+                                <div class="border-l-2 border-emerald-500/30 pl-4">
+                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Phong tục:</p>
+                                    <p class="text-gray-300 leading-relaxed text-base">${culture.customs || 'Đang cập nhật'}</p>
                                 </div>
-                                <div class="flex flex-col">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-2 tracking-widest">Nghệ thuật:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base font-light">${culture.art || 'Đang cập nhật'}</p>
+                                <div class="border-l-2 border-emerald-500/30 pl-4">
+                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Nghệ thuật:</p>
+                                    <p class="text-gray-300 leading-relaxed text-base">${culture.art || 'Đang cập nhật'}</p>
                                 </div>
                             </div>
 
-                            <!-- KHU VỰC NÚT LIÊN KẾT -->
-                            <div class="mt-8 pt-8 border-t border-white/10 text-center">
-                                <p class="text-[10px] font-bold text-gray-500 uppercase mb-5 tracking-[0.2em]">Khám phá chi tiết chuyên đề:</p>
+                            <!-- NÚT BẤM LIÊN KẾT (TÁCH RIÊNG XUỐNG DƯỚI) -->
+                            <div class="mt-12 pt-8 border-t border-white/5 text-center bg-white/5 -mx-10 -mb-10 p-10 rounded-b-[40px]">
+                                <p class="text-[10px] font-bold text-gray-500 uppercase mb-5 tracking-widest">Tìm hiểu chi tiết qua chuyên đề:</p>
                                 <div class="flex flex-wrap justify-center gap-4">
                                     ${linkedCultures.map(c => `
-                                        <button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 shadow-lg flex items-center transform hover:-translate-y-1">
-                                            <i class="fas fa-arrow-right mr-3 text-[10px] opacity-70"></i> ${c.name}
+                                        <button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-6 py-3 rounded-full font-bold text-sm transition-all shadow-lg flex items-center">
+                                            <i class="fas fa-arrow-right mr-2 text-[10px]"></i> ${c.name}
                                         </button>
                                     `).join('')}
                                 </div>
                             </div>
                         </section>
 
-                        <!-- 3. ẨM THỰC -->
+                        <!-- ẨM THỰC -->
                         <section>
-                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Ẩm thực vùng cao</h3>
+                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Ẩm thực vùng cao</h3>
                             <div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
                                 <img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md" onerror="this.src='https://placehold.co/400x300?text=Food'">
                                 <div class="flex-1 flex flex-col justify-center text-sm">
-                                    <h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản'}</h4>
+                                    <h4 class="text-2xl font-bold text-emerald-900 mb-2 font-bold">${food.name || 'Đặc sản địa phương'}</h4>
                                     <p class="text-orange-600 font-bold text-lg mb-4 underline italic">${food.price || ''}</p>
-                                    <p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2"></i><b>Nơi ăn:</b> ${food.location || 'Các chợ phiên'}</p>
+                                    <p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2 font-bold"></i><b>Gợi ý địa điểm:</b> ${food.location || 'Các chợ phiên'}</p>
                                 </div>
                             </div>
                         </section>
 
-                        <!-- 4. BẢN ĐỒ -->
+                        <!-- BẢN ĐỒ -->
                         <section>
-                            <h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase">Vị trí địa lý</h3>
+                            <h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase font-bold">Vị trí địa lý</h3>
                             <iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe>
                         </section>
                     </div>
 
-                    <!-- CỘT PHẢI (SIDEBAR) -->
                     <div class="lg:col-span-1 space-y-8">
                         <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl">
-                            <h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm">Lịch trình</h3>
+                            <h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3>
                             <div class="space-y-6 text-sm opacity-90 leading-loose italic">
                                 <div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D}</p></div>
                                 <div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D}</p></div>
@@ -1163,17 +1162,16 @@ function openModal(id) {
                         </div>
                         <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center">
                             <p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p>
-                            <p class="text-xl font-bold text-orange-700 italic">${logistics.estimatedCost}</p>
+                            <p class="text-xl font-bold text-orange-700 italic font-bold">${logistics.estimatedCost}</p>
                         </div>
                     </div>
                 </div>`;
         }
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-        document.getElementById('modal').scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById('modal').scrollTo(0,0);
     }
 }
-
 function closeModal() {
     const modal = document.getElementById('modal');
     if(modal) modal.classList.add('hidden');
@@ -1188,6 +1186,7 @@ window.onload = () => {
     displayCulturePillars();
     displayDestinations(destinationsData);
 };
+
 
 
 
