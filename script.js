@@ -6,6 +6,11 @@ const destinationsData = [
         name: "Đèo Mã Pí Lèng",
         category: "Địa danh/Cảnh quan",
           relatedCultureIds: [101, 105],
+       cultureKeywords: [
+        { label: "Chợ phiên", linkId: 102 },
+        { label: "Văn hóa Lao động", linkId: 105 },
+        { label: "Ẩm thực", linkId: 106 }
+    ],
         image: "images/nen-maphileng.jpg",
         desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
 
@@ -46,6 +51,9 @@ const destinationsData = [
         name: "Sông Nho Quế",
         category: "Địa danh/Cảnh quan",
           relatedCultureIds: [101, 105],
+       cultureKeywords: [
+        { label: "Văn hóa Lao động", linkId: 105 }
+    ],
         image: "images/nen-songnhoque.webp",
         desc: "Dòng sông xanh biếc uốn lượn dưới chân hẻm vực Tu Sản.",
         visitTime: "9h sáng đến 3h chiều để thấy màu nước đẹp nhất.",
@@ -78,6 +86,10 @@ const destinationsData = [
     name: "Dinh Thự Họ Vương",
     category: "Địa danh/Cảnh quan",
         relatedCultureIds: [104, 105],
+       cultureKeywords: [
+        { label: "Kiến trúc & Làng cổ", linkId: 104 },
+        { label: "Văn hóa Lao động", linkId: 105 }
+    ],
     image: "images/nen-dinhthuvuameo.jpg",
     desc: "Còn gọi là dinh Vua Mèo – công trình kiến trúc cổ độc đáo giữa thung lũng Sà Phìn.",
 
@@ -114,6 +126,10 @@ const destinationsData = [
     name: "Cột Cờ Lũng Cú",
     category: "Địa danh/Cảnh quan",
     relatedCultureIds: [101, 105],
+    cultureKeywords: [
+        { label: "Văn hóa dân tộc", linkId: 101 },
+        { label: "Lịch sử biên cương", linkId: 105 }
+    ],
     image: "images/nen-cotcolngcu.jpg",
     desc: "Điểm cực Bắc thiêng liêng – biểu tượng chủ quyền quốc gia trên cao nguyên đá Hà Giang.",
 
@@ -150,6 +166,11 @@ const destinationsData = [
     name: "Thung Lũng Sủng Là",
     category: "Địa danh/Cảnh quan",
       relatedCultureIds: [101, 103, 104],
+      cultureKeywords: [
+        { label: "Văn hóa dân tộc", linkId: 101 },
+        { label: "Lễ hội", linkId: 103 },
+        { label: "Kiến trúc", linkId: 104 }
+    ],
     image: "images/nen-thunglungsungla.jpg",
     desc: "“Bông hoa giữa cao nguyên đá” – nổi tiếng với mùa hoa tam giác mạch và Nhà của Pao.",
 relatedCultureIds: [101, 103, 104], 
@@ -186,6 +207,10 @@ relatedCultureIds: [101, 103, 104],
     name: "Phố Cáo",
     category: "Địa danh/Cảnh quan",
       relatedCultureIds: [101, 104],
+      cultureKeywords: [
+        { label: "Văn hóa dân tộc", linkId: 101 },
+        { label: "Kiến trúc", linkId: 104 }
+    ],
     image: "images/nen-phocao.jpg",
     desc: "Ngôi làng vùng cao yên bình với nhà trình tường cổ kính giữa cao nguyên đá Đồng Văn.",
 
@@ -222,6 +247,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Núi Đôi Quản Bạ",
     category: "Địa danh/Cảnh quan",
          relatedCultureIds: [101],
+      cultureKeywords: [
+        { label: "Truyền thuyết dân gian", linkId: 101 }
+    ],
     image: "images/nen-nuidoiquanba.jpg",
     desc: "Biểu tượng cửa ngõ cao nguyên đá với hai ngọn núi tròn đầy giữa thung lũng Tam Sơn.",
 
@@ -258,6 +286,10 @@ relatedCultureIds: [101, 103, 104],
     name: "Làng Lô Lô Chải",
     category: "Địa danh/Cảnh quan",
       relatedCultureIds: [101, 104], 
+     cultureKeywords: [
+        { label: "Văn hóa dân tộc", linkId: 101 },
+        { label: "Làng cổ", linkId: 104 }
+    ],
     image: "images/nen-langlolochai.jpg",
     desc: "Ngôi làng cổ dưới chân cột cờ Lũng Cú, lưu giữ trọn vẹn bản sắc người Lô Lô đen.",
 
@@ -294,6 +326,10 @@ relatedCultureIds: [101, 103, 104],
     name: "Cao nguyên đá Đồng Văn",
     category: "Địa danh/Cảnh quan",
          relatedCultureIds: [101, 105],
+     cultureKeywords: [
+        { label: "Văn hóa dân tộc", linkId: 101 },
+        { label: "Lịch sử", linkId: 105 }
+    ],
     image: "images/nen-caonguyendadongvan.jpg",
     desc: "Công viên địa chất toàn cầu UNESCO – miền đá xám kỳ vĩ giữa trời cực Bắc Hà Giang.",
 
@@ -330,6 +366,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Dốc Thẩm Mã",
     category: "Địa danh/Cảnh quan",
        relatedCultureIds: [105],
+       cultureKeywords: [
+        { label: "Lịch sử giao thương", linkId: 105 }
+    ],
     image: "images/nen-docthamma.jpg",
     desc: "Con dốc với những khúc cua tay áo ngoạn mục trên hành trình khám phá cao nguyên đá Đồng Văn.",
 
@@ -366,6 +405,10 @@ relatedCultureIds: [101, 103, 104],
     name: "Phó Bảng",
     category: "Địa danh/Cảnh quan",
        relatedCultureIds: [101, 104],
+     cultureKeywords: [
+        { label: "Văn hóa dân tộc", linkId: 101 },
+        { label: "Kiến trúc cổ", linkId: 104 }
+    ],
     image: "images/nen-phobang.jpg",
     desc: "Thị trấn cổ yên bình giữa cao nguyên đá với những ngôi nhà tường đất phủ rêu phong.",
 
@@ -402,6 +445,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Rừng thông Yên Minh",
     category: "Địa danh/Cảnh quan",
        relatedCultureIds: [105],
+     cultureKeywords: [
+        { label: "Sinh thái", linkId: 105 }
+    ],
     image: "images/nen-rungthongyenminh.webp",
     desc: "“Đà Lạt thu nhỏ” giữa Hà Giang với những triền thông xanh mướt dọc Quốc lộ 4C.",
 
@@ -438,6 +484,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Động Lùng Khúy",
     category: "Địa danh/Cảnh quan",
           relatedCultureIds: [105],
+        cultureKeywords: [
+        { label: "Du lịch sinh thái", linkId: 105 }
+    ],
     image: "images/nen-donglungkhuy.jpg",
     desc: "Hang động huyền ảo giữa núi rừng Quản Bạ với hệ thống nhũ đá lấp lánh như cung điện dưới lòng đất.",
 
@@ -474,6 +523,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Địa danh/Cảnh quan",
     category: "Cảnh quan",
     relatedCultureIds: [105],
+   cultureKeywords: [
+        { label: "Check-in", linkId: 105 }
+    ],
     image: "images/nen-caycodon.jpg",
     desc: "Điểm check-in nổi bật giữa cao nguyên đá với hình ảnh cây xanh đơn độc giữa thung lũng rộng lớn.",
 
@@ -510,6 +562,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Vách Đá Thần",
     category: "Địa danh/Cảnh quan",
        relatedCultureIds: [105],
+     cultureKeywords: [
+        { label: "Cảnh quan đá vôi", linkId: 105 }
+    ],
     image: "images/nen-vachdatuthan.jpeg",
     desc: "Vách núi đá vôi cao dựng đứng giữa cao nguyên đá Đồng Văn, tạo nên khung cảnh hùng vĩ và đầy ấn tượng.",
 
@@ -546,6 +601,9 @@ relatedCultureIds: [101, 103, 104],
     name: "Hẻm Tu Sản",
     category: "Địa danh/Cảnh quan",
       relatedCultureIds: [105],
+       cultureKeywords: [
+        { label: "Công viên địa chất", linkId: 105 }
+    ],
     image: "images/nen-hemtusan.jpg", 
     desc: "Hẻm vực sâu và hùng vĩ bậc nhất Đông Nam Á với vách đá dựng đứng soi bóng xuống dòng Nho Quế xanh ngọc.",
 
@@ -582,6 +640,11 @@ relatedCultureIds: [101, 103, 104],
     name: "Phố cổ Đồng Văn",
     category: "Địa danh/Cảnh quan",
       relatedCultureIds: [101, 102, 104],
+      cultureKeywords: [
+        { label: "Chợ phiên", linkId: 102 },
+        { label: "Kiến trúc cổ", linkId: 104 },
+        { label: "Văn hóa dân tộc", linkId: 101 }
+    ],
     image: "images/nen-phocodongvan.jpg", 
     desc: "Khu phố hơn 100 năm tuổi với mái ngói âm dương, tường vàng cổ kính và ánh đèn lồng ấm áp giữa lòng thị trấn Đồng Văn.",
 
@@ -931,6 +994,15 @@ function filterByCulture(tagName) {
   
     displayDestinations(filtered);
 }
+const culturePillars = [
+    { name: "Chợ phiên", icon: "fa-store", color: "bg-orange-100 text-orange-600" },
+    { name: "Lễ hội", icon: "fa-fire", color: "bg-red-100 text-red-600" },
+    { name: "Kiến trúc", icon: "fa-home", color: "bg-amber-100 text-amber-600" },
+    { name: "Trang phục", icon: "fa-tshirt", color: "bg-pink-100 text-pink-600" },
+    { name: "Nhạc cụ", icon: "fa-music", color: "bg-blue-100 text-blue-600" },
+    { name: "Ẩm thực", icon: "fa-utensils", color: "bg-emerald-100 text-emerald-600" },
+    { name: "Canh tác", icon: "fa-seedling", color: "bg-green-100 text-green-600" }
+];
 
 function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
