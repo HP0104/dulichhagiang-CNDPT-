@@ -149,7 +149,7 @@ const destinationsData = [
     category: "Địa danh/Cảnh quan",
     image: "images/nen-thunglungsungla.jpg",
     desc: "“Bông hoa giữa cao nguyên đá” – nổi tiếng với mùa hoa tam giác mạch và Nhà của Pao.",
-
+relatedCultureIds: [101, 103, 104], 
     visitTime: "6h30 - 17h30 (đẹp nhất vào buổi sáng).",
     ticketPrice: "20.000đ - 30.000đ (tham quan vườn hoa, Nhà của Pao).",
     transport: "Nằm trên Quốc lộ 4C, cách Đồng Văn khoảng 20km, di chuyển bằng xe máy hoặc ô tô.",
@@ -266,7 +266,8 @@ const destinationsData = [
         festival: "Lễ hội truyền thống và nghi lễ cầu mùa của người Lô Lô.",
         costume: "Trang phục Lô Lô đen với họa tiết thêu tay nhiều màu sắc.",
         customs: "Nhà trình tường, hàng rào đá và đời sống sinh hoạt cộng đồng đặc trưng.",
-        art: "Kiến trúc nhà cổ và nghệ thuật thêu thổ cẩm tinh xảo."
+        art: "Kiến trúc nhà cổ và nghệ thuật thêu thổ cẩm tinh xảo.",
+        relatedCultureIds: [101, 104]
     },
 
     food: {
@@ -598,6 +599,7 @@ const destinationsData = [
         estimatedCost: "2.000.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
     }
 },
+  
     {
     id: 101,
     isCultureTopic: true,
@@ -887,10 +889,16 @@ const destinationsData = [
         ]
     }
 ]; 
+[
+{ id: 102, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Chợ phiên vùng cao", image: "images/nen-chophien.jpg", desc: "Giao lưu, hò hẹn đặc trưng.", sections: [] },
+    { id: 103, isCultureTopic: true, category: "Văn hóa", name: "Lễ hội truyền thống", image: "images/nen-lehoi.jpg", desc: "Nghi lễ tâm linh.", sections: [] },
+    { id: 104, isCultureTopic: true, category: "Văn hóa", name: "Kiến trúc & Làng cổ", image: "images/nen-kientruc.jpg", desc: "Nhà trình tường, mái ngói âm dương.", sections: [] },
+    { id: 105, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Lao động", image: "images/nen-lichsu.jpg", desc: "Canh tác trên đá.", sections: [] },
+    { id: 106, isCultureTopic: true, category: "Văn hóa", name: "Ẩm thực truyền thống", image: "images/nen-amthuc.jpg", desc: "Thắng cố, mèn mén.", sections: [] }
+];
 
 
 // LOGIC MODAL (Xử lý 2 loại giao diện)
-
 
 
 function displayDestinations(items) {
@@ -901,17 +909,17 @@ function displayDestinations(items) {
             <div class="relative overflow-hidden h-60">
                 <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 
-                <!-- PHẦN KEYWORD HIỂN THỊ TRÊN ẢNH -->
-                <div class="absolute bottom-3 left-3 flex flex-wrap gap-2">
+                <!-- PHẦN KEYWORD HIỂN THỊ TRÊN ẢNH (Theo đúng ý bạn) -->
+                <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
                     ${(item.cultureKeywords || []).map(kw => `
                         <span onclick="event.stopPropagation(); openModal(${kw.linkId})" 
-                              class="bg-emerald-600/80 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300">
+                              class="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300 shadow-lg">
                             # ${kw.label}
                         </span>
                     `).join('')}
                 </div>
 
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl tracking-widest">XEM CHI TIẾT</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest shadow-xl">XEM CHI TIẾT</div>
             </div>
             <div class="p-6">
                 <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
@@ -945,6 +953,7 @@ if(searchInput) {
     });
 }
 
+
 // . LOGIC MODAL
 
 
@@ -957,7 +966,6 @@ function openModal(id) {
         // --- TRƯỜNG HỢP 1: GIAO DIỆN CHUYÊN ĐỀ VĂN HÓA (Dành cho ID 101 - 106) ---
         if (item.isCultureTopic) {
             content.innerHTML = `
-                <!-- Banner Chuyên Đề -->
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase">
@@ -968,24 +976,22 @@ function openModal(id) {
                     </div>
                 </div>
 
-                <!-- Nội dung Chuyên Đề dạng Khối (Sections) -->
                 <div class="p-8 md:p-16 space-y-12">
-                    <div class="max-w-3xl mx-auto text-center">
+                    <div class="max-w-3xl mx-auto text-center border-b border-emerald-100 pb-8">
                         <p class="text-gray-600 text-xl italic leading-relaxed">"${item.desc}"</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        ${item.sections.map(sec => `
-                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md hover:bg-white">
-                                <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase tracking-tighter">${sec.title}</h4>
+                        ${(item.sections || []).map(sec => `
+                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md hover:bg-white group">
+                                <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase tracking-tighter group-hover:text-orange-600 transition">${sec.title}</h4>
                                 <p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p>
                             </div>
                         `).join('')}
                     </div>
 
-                    <div class="bg-emerald-900 text-white p-10 rounded-[50px] text-center shadow-2xl">
-                        <h3 class="text-xl font-bold mb-4 text-orange-400 uppercase italic tracking-widest">Di sản quý báu</h3>
-                        <p class="opacity-80 leading-relaxed max-w-2xl mx-auto">Văn hóa Hà Giang là tài sản vô giá của quốc gia. Khi tham quan, quý khách hãy cùng chung tay bảo tồn, tôn trọng bản sắc và phong tục của đồng bào địa phương.</p>
+                    <div class="text-center pt-8">
+                        <button onclick="closeModal()" class="bg-emerald-900 text-white px-10 py-3 rounded-full font-bold uppercase tracking-widest hover:bg-orange-600 transition">Quay lại trang chủ</button>
                     </div>
                 </div>
             `;
@@ -997,10 +1003,15 @@ function openModal(id) {
             const food = item.food || {};
             const logistics = item.logistics || {};
 
+            // Xử lý logic tìm các bài văn hóa liên quan
+            const linkedCultures = (item.relatedCultureIds || []).map(cId => {
+                return destinationsData.find(d => d.id === cId);
+            }).filter(Boolean);
+
             content.innerHTML = `
                 <div class="relative h-72 md:h-96">
                     <img src="${item.image}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 flex items-end p-8 text-white uppercase">
                         <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</h2>
                     </div>
                 </div>
@@ -1011,7 +1022,7 @@ function openModal(id) {
                         <section>
                             <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3>
                             <p class="text-gray-700 leading-relaxed text-lg italic mb-6">"${item.experience || item.desc}"</p>
-                            <div class="grid grid-cols-2 gap-4 bg-emerald-900/10 p-8 rounded-3xl text-[11px] font-bold uppercase text-emerald-900">
+                            <div class="grid grid-cols-2 gap-4 bg-emerald-900/10 p-8 rounded-3xl text-[11px] font-bold uppercase text-emerald-900 shadow-inner">
                                 <div><p class="opacity-50">Giá vé:</p> <p>${item.ticketPrice || 'Miễn phí'}</p></div>
                                 <div><p class="opacity-50">Thời gian:</p> <p>${item.visitTime || 'Tự do'}</p></div>
                                 <div><p class="opacity-50">Mùa đẹp:</p> <p>${item.bestSeason || 'Quanh năm'}</p></div>
@@ -1019,14 +1030,27 @@ function openModal(id) {
                             </div>
                         </section>
 
-                        <!-- BẢN SẮC VĂN HÓA -->
-                        <section class="bg-stone-100 p-8 rounded-[40px]">
-                            <h3 class="text-xl font-bold text-orange-700 mb-6 uppercase italic tracking-widest border-b border-orange-200 pb-2">Bản sắc văn hóa</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                        <!-- LIÊN KẾT CHUYÊN ĐỀ VĂN HÓA (TÍNH NĂNG BẠN MUỐN) -->
+                        <section class="bg-stone-100 p-8 rounded-[40px] border border-stone-200">
+                            <h3 class="text-xl font-bold text-orange-700 mb-6 uppercase italic tracking-widest border-b border-orange-200 pb-2">Tìm hiểu bản sắc</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm mb-8">
                                 <div><p class="text-emerald-800 font-bold mb-1 uppercase text-[10px]">Lễ hội:</p><p class="text-gray-600">${culture.festival || 'Đang cập nhật'}</p></div>
                                 <div><p class="text-emerald-800 font-bold mb-1 uppercase text-[10px]">Trang phục:</p><p class="text-gray-600">${culture.costume || 'Đang cập nhật'}</p></div>
                                 <div><p class="text-emerald-800 font-bold mb-1 uppercase text-[10px]">Phong tục:</p><p class="text-gray-600">${culture.customs || 'Đang cập nhật'}</p></div>
                                 <div><p class="text-emerald-800 font-bold mb-1 uppercase text-[10px]">Nghệ thuật:</p><p class="text-gray-600">${culture.art || 'Đang cập nhật'}</p></div>
+                            </div>
+
+                            <!-- CÁC NÚT BẤM LIÊN KẾT SANG CHUYÊN ĐỀ -->
+                            <div class="mt-6 pt-6 border-t border-stone-200">
+                                <p class="text-[10px] font-bold text-stone-400 uppercase mb-4 tracking-widest text-center">Khám phá chi tiết chuyên đề:</p>
+                                <div class="flex flex-wrap justify-center gap-3">
+                                    ${linkedCultures.map(c => `
+                                        <button onclick="openModal(${c.id})" class="bg-emerald-700 text-white px-5 py-2 rounded-full font-bold text-xs hover:bg-orange-600 transition shadow-lg flex items-center">
+                                            <i class="fas fa-arrow-right mr-2 text-[10px]"></i> ${c.name}
+                                        </button>
+                                    `).join('')}
+                                </div>
                             </div>
                         </section>
 
@@ -1037,33 +1061,33 @@ function openModal(id) {
                                 <img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md" onerror="this.src='https://placehold.co/400x300?text=Food'">
                                 <div class="flex-1 flex flex-col justify-center text-sm">
                                     <h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản địa phương'}</h4>
-                                    <p class="text-orange-600 font-bold mb-4">${food.price || 'Giá bình dân'}</p>
-                                    <p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2"></i><b>Nơi ăn:</b> ${food.location || 'Các chợ phiên'}</p>
+                                    <p class="text-orange-600 font-bold text-lg mb-4 underline italic">${food.price || ''}</p>
+                                    <p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2"></i><b>Gợi ý địa điểm:</b> ${food.location || 'Các chợ phiên'}</p>
                                 </div>
                             </div>
                         </section>
 
                         <!-- BẢN ĐỒ -->
                         <section>
-                            <h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase font-bold">Vị trí địa lý</h3>
-                            <iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe>
+                            <h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase font-bold text-center">Vị trí địa lý</h3>
+                            <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                                <iframe src="${item.locationMap}" class="w-full h-80 border-0" loading="lazy"></iframe>
+                            </div>
                         </section>
                     </div>
 
                     <div class="lg:col-span-1 space-y-8">
-                        <!-- LỊCH TRÌNH -->
                         <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl">
-                            <h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm">Lịch trình</h3>
-                            <div class="space-y-6 text-sm opacity-90">
-                                <div><p class="font-bold text-emerald-300">TOUR 2 NGÀY:</p><p>${logistics.itinerary2D || 'Liên hệ cập nhật'}</p></div>
-                                <div><p class="font-bold text-emerald-300">TOUR 3 NGÀY:</p><p>${logistics.itinerary3D || 'Liên hệ cập nhật'}</p></div>
+                            <h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm">Lịch trình gợi ý</h3>
+                            <div class="space-y-6 text-sm opacity-90 leading-relaxed">
+                                <div><p class="font-bold text-emerald-300">TOUR 2 NGÀY:</p><p>${logistics.itinerary2D || 'Liên hệ'}</p></div>
+                                <div><p class="font-bold text-emerald-300">TOUR 3 NGÀY:</p><p>${logistics.itinerary3D || 'Liên hệ'}</p></div>
                             </div>
                         </div>
 
-                        <!-- LƯU Ý -->
                         <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md">
-                            <h3 class="text-xs font-bold text-red-600 mb-4 uppercase underline">Lưu ý an toàn</h3>
-                            <p class="text-[11px] text-gray-500 leading-relaxed mb-6 italic">${logistics.safety || 'Đi chậm, quan sát đèo dốc.'}</p>
+                            <h3 class="text-xs font-bold text-red-600 mb-4 uppercase underline tracking-widest italic">Lưu ý an toàn</h3>
+                            <p class="text-[11px] text-gray-500 leading-relaxed mb-6 italic">${logistics.safety || 'Cẩn thận khi đi đèo dốc.'}</p>
                             <div class="bg-orange-50 p-4 rounded-2xl text-center">
                                 <p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p>
                                 <p class="text-xl font-bold text-orange-700">${logistics.estimatedCost || 'Tùy nhu cầu'}</p>
@@ -1075,9 +1099,10 @@ function openModal(id) {
         }
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-        document.getElementById('modal').scrollTo(0,0);
+        document.getElementById('modal').scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
+
 function closeModal() {
     const modal = document.getElementById('modal');
     if(modal) modal.classList.add('hidden');
@@ -1085,7 +1110,8 @@ function closeModal() {
 }
 
 window.onclick = function(e) {
-    if (e.target == document.getElementById('modal')) closeModal();
+    const modal = document.getElementById('modal');
+    if (e.target == modal) closeModal();
 };
 
 window.onload = () => {
