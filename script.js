@@ -5,10 +5,6 @@ const destinationsData = [
         id: 1,
         name: "Đèo Mã Pí Lèng",
         category: "Địa danh/Cảnh quan",
-      cultureKeywords: [
-            { label: "Ẩm thực", linkId: 106 }, 
-            { label: "Lao động", linkId: 105 }
-        ],
         image: "images/nen-maphileng.jpg",
         desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
         
@@ -958,60 +954,112 @@ function openModal(id) {
     const content = document.getElementById('modal-content');
 
     if (item) {
-        if (item.isCultureTopic) {
-            // --- Giao diện Văn hóa (ID 101-106) ---
-            content.innerHTML = `
-                <div class="relative h-72 md:h-[450px]">
-                    <img src="${item.image}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase">
-                        <div>
-                             <span class="bg-orange-500 px-3 py-1 rounded text-xs font-bold mb-2 inline-block italic">Chuyên đề văn hóa</span>
-                             <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</h2>
+        // Lấy dữ liệu an toàn để tránh lỗi nếu thiếu mục nào đó
+        const culture = item.culture || {};
+        const food = item.food || {};
+        const logistics = item.logistics || {};
+
+        content.innerHTML = `
+            <!-- Ảnh bìa lớn trên cùng -->
+            <div class="relative h-72 md:h-96">
+                <img src="${item.image}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 flex items-end p-8 text-white uppercase">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tighter">${item.name}</h2>
+                </div>
+            </div>
+
+            <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
+                <!-- CỘT TRÁI (Thông tin chi tiết) -->
+                <div class="lg:col-span-2 space-y-10">
+                    
+                    <!-- 1. TỔNG QUAN -->
+                    <section>
+                        <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg italic mb-6">"${item.experience || item.desc}"</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 bg-emerald-900/10 p-8 rounded-3xl text-sm font-bold uppercase text-emerald-900">
+                            <div><p class="opacity-50 text-[10px]">Giá vé:</p> <p>${item.ticketPrice || 'Miễn phí'}</p></div>
+                            <div><p class="opacity-50 text-[10px]">Thời gian:</p> <p>${item.visitTime || 'Tự do'}</p></div>
+                            <div><p class="opacity-50 text-[10px]">Mùa đẹp:</p> <p>${item.bestSeason}</p></div>
+                            <div><p class="opacity-50 text-[10px]">Di chuyển:</p> <p>${item.transport}</p></div>
+                        </div>
+                    </section>
+
+                    <!-- 2. VĂN HÓA ĐẶC TRƯNG (MỚI THÊM) -->
+                    <section class="bg-stone-100 p-8 rounded-[40px]">
+                        <h3 class="text-xl font-bold text-orange-700 mb-6 uppercase italic tracking-widest border-b border-orange-200 pb-2">Bản sắc văn hóa</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10 text-sm leading-relaxed">
+                            <div>
+                                <p class="text-emerald-800 font-bold mb-1 uppercase text-xs">Lễ hội:</p>
+                                <p class="text-gray-600">${culture.festival || 'Đang cập nhật'}</p>
+                            </div>
+                            <div>
+                                <p class="text-emerald-800 font-bold mb-1 uppercase text-xs">Trang phục:</p>
+                                <p class="text-gray-600">${culture.costume || 'Đang cập nhật'}</p>
+                            </div>
+                            <div>
+                                <p class="text-emerald-800 font-bold mb-1 uppercase text-xs">Phong tục:</p>
+                                <p class="text-gray-600">${culture.customs || 'Đang cập nhật'}</p>
+                            </div>
+                            <div>
+                                <p class="text-emerald-800 font-bold mb-1 uppercase text-xs">Nghệ thuật:</p>
+                                <p class="text-gray-600">${culture.art || 'Đang cập nhật'}</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 3. ẨM THỰC ĐẶC SẢN (MỚI THÊM) -->
+                    <section>
+                        <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Ẩm thực vùng cao</h3>
+                        <div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                            <img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md" onerror="this.src='https://placehold.co/400x300?text=Food'">
+                            <div class="flex-1 flex flex-col justify-center">
+                                <h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản địa phương'}</h4>
+                                <p class="text-orange-600 font-bold text-lg mb-4 underline italic">${food.price || ''}</p>
+                                <div class="text-sm text-gray-500 bg-slate-50 p-3 rounded-xl border-l-4 border-emerald-500">
+                                    <i class="fas fa-map-marker-alt mr-2"></i><b>Gợi ý địa điểm:</b> ${food.location || 'Các quán ăn tại địa phương'}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 4. VỊ TRÍ ĐỊA LÝ -->
+                    <section>
+                        <h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase">Vị trí địa lý</h3>
+                        <div class="rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+                            <iframe src="${item.locationMap}" class="w-full h-80 border-0" loading="lazy"></iframe>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- CỘT PHẢI (Sidebar) -->
+                <div class="lg:col-span-1 space-y-8">
+                    <!-- Lịch trình -->
+                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl">
+                        <h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase tracking-tighter">Lịch trình</h3>
+                        <div class="space-y-6 text-sm leading-loose">
+                            <div><p class="font-bold text-emerald-300">TOUR 2 NGÀY:</p><p class="opacity-80">${logistics.itinerary2D}</p></div>
+                            <div><p class="font-bold text-emerald-300">TOUR 3 NGÀY:</p><p class="opacity-80">${logistics.itinerary3D}</p></div>
+                        </div>
+                    </div>
+
+                    <!-- Lưu ý an toàn -->
+                    <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md">
+                        <h3 class="text-sm font-bold text-red-600 mb-4 italic uppercase underline">Lưu ý an toàn</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed mb-6">${logistics.safety}</p>
+                        <div class="bg-orange-50 p-4 rounded-2xl text-center">
+                            <p class="text-[10px] text-orange-600 font-bold uppercase">Chi phí dự kiến</p>
+                            <p class="text-xl font-bold text-orange-700">${logistics.estimatedCost}</p>
                         </div>
                     </div>
                 </div>
-                <div class="p-8 md:p-16 space-y-12">
-                    <div class="max-w-3xl mx-auto text-center"><p class="text-gray-600 text-xl italic">"${item.desc}"</p></div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        ${item.sections.map(sec => `
-                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm">
-                                <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase">${sec.title}</h4>
-                                <p class="text-gray-600 leading-relaxed">${sec.content}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>`;
-        } else {
-            // --- Giao diện Địa danh (ID 1-17) ---
-            const food = item.food || {};
-            const logistics = item.logistics || {};
-            content.innerHTML = `
-                <div class="relative h-72 md:h-[450px]">
-                    <img src="${item.image}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-6 md:p-12 text-white">
-                        <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter">${item.name}</h2>
-                    </div>
-                </div>
-                <div class="p-6 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-12 text-sm">
-                    <div class="lg:col-span-2 space-y-10">
-                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic">"${item.experience || item.desc}"</p></section>
-                        <section class="grid grid-cols-2 gap-4 bg-emerald-50 p-8 rounded-2xl font-bold uppercase text-emerald-800 text-xs">
-                            <div><p>Giá vé: ${item.ticketPrice || 'Miễn phí'}</p><p>Thời gian: ${item.visitTime || 'Tự do'}</p></div>
-                            <div><p>Mùa đẹp: ${item.bestSeason || 'Quanh năm'}</p><p>Di chuyển: ${item.transport || 'Xe máy'}</p></div>
-                        </section>
-                        <section><h3 class="text-2xl font-bold mb-4 text-emerald-900 uppercase">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
-                    </div>
-                    <div class="lg:col-span-1 space-y-8">
-                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase font-bold">Lịch trình</h3><p>${logistics.itinerary2D || 'Đang cập nhật'}</p></div>
-                        <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200"><h3 class="font-bold text-red-600 mb-2 italic underline italic">Lưu ý an toàn</h3><p class="text-xs text-gray-500">${logistics.safety || 'Đi chậm, quan sát đèo dốc.'}</p></div>
-                    </div>
-                </div>`;
-        }
+            </div>
+        `;
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+        document.getElementById('modal').scrollTo(0,0);
     }
 }
-
 function closeModal() {
     const modal = document.getElementById('modal');
     if(modal) modal.classList.add('hidden');
@@ -1025,6 +1073,7 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
 
 
 
