@@ -5,6 +5,10 @@ const destinationsData = [
         id: 1,
         name: "Đèo Mã Pí Lèng",
         category: "Địa danh/Cảnh quan",
+      cultureKeywords: [
+            { label: "Ẩm thực", linkId: 106 }, 
+            { label: "Lao động", linkId: 105 }
+        ],
         image: "images/nen-maphileng.jpg",
         desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
         
@@ -900,7 +904,18 @@ function displayDestinations(items) {
         <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100">
             <div class="relative overflow-hidden h-60">
                 <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl tracking-widest">CHI TIẾT</div>
+                
+                <!-- PHẦN KEYWORD HIỂN THỊ TRÊN ẢNH -->
+                <div class="absolute bottom-3 left-3 flex flex-wrap gap-2">
+                    ${(item.cultureKeywords || []).map(kw => `
+                        <span onclick="event.stopPropagation(); openModal(${kw.linkId})" 
+                              class="bg-emerald-600/80 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300">
+                            # ${kw.label}
+                        </span>
+                    `).join('')}
+                </div>
+
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl tracking-widest">XEM CHI TIẾT</div>
             </div>
             <div class="p-6">
                 <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
@@ -1010,6 +1025,7 @@ window.onclick = function(e) {
 window.onload = () => {
     displayDestinations(destinationsData);
 };
+
 
 
 
