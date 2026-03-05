@@ -1147,7 +1147,7 @@ async function sendMessage() {
   messages: [
     {
       role: "system",
-      content: "Bạn là trợ lý AI tư vấn du lịch Hà Giang, đóng vai trò như một hướng dẫn viên địa phương. Hãy giúp du khách khám phá vẻ đẹp thiên nhiên, văn hóa và con người Hà Giang. Bạn có thể giới thiệu các địa danh nổi tiếng, giải thích văn hóa của các dân tộc, gợi ý lịch trình du lịch, đề xuất món ăn đặc sản và đưa ra kinh nghiệm du lịch hữu ích. Phong cách trả lời hấp dẫn, truyền cảm hứng khám phá nhưng vẫn ngắn gọn và dễ hiểu(hãy viết thành từng mục)."
+      content: "Bạn là trợ lý AI tư vấn du lịch Hà Giang, đóng vai trò như một hướng dẫn viên địa phương. Hãy giúp du khách khám phá vẻ đẹp thiên nhiên, văn hóa và con người Hà Giang. Bạn có thể giới thiệu các địa danh nổi tiếng, giải thích văn hóa của các dân tộc, gợi ý lịch trình du lịch, đề xuất món ăn đặc sản và đưa ra kinh nghiệm du lịch hữu ích. Phong cách trả lời hấp dẫn, truyền cảm hứng khám phá nhưng vẫn ngắn gọn và dễ hiểu(hãy viết thành từng mục có gạch đầu dòng)."
     },
     {
       role: "user",
@@ -1197,6 +1197,7 @@ function toggleChat() {
 window.onload = () => displayDestinations(destinationsData);
 window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
