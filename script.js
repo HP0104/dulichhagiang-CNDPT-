@@ -1191,8 +1191,8 @@ window.onload = () => {
  // TÍNH NĂNG CHAT AI 
 
 
-const part1 = "AIzaSyA_Us8e7l_TR-v";
-const part2 = "OgoPcoVS2EHviVsoPc1M";
+const part1 = "AIzaSyC3ElL-siqPqIiHc";
+const part2 = "smIsP0TxceCTtPpiRY";
 const API_KEY = part1 + part2;
 
 function toggleChat() {
@@ -1200,77 +1200,53 @@ function toggleChat() {
     chatWindow.classList.toggle('hidden');
 }
 
+
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    if (!userMsg) return;
+    if (!userMsg || !API_KEY) return;
 
-    // 1. Hiển thị tin nhắn của người dùng
-    content.innerHTML += `
-        <div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2">
-            ${userMsg}
-        </div>
-    `;
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
-    // 2. Hiển thị trạng thái AI đang xử lý
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `
-        <div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner">
-            Hà Giang AI đang trả lời...
-        </div>
-    `;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner">AI đang trả lời...</div>`;
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // 3. Gửi yêu cầu tới Google Gemini API (Dùng bản v1beta ổn định nhất)
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // Đổi sang v1/models/gemini-1.5-flash để đảm bảo không bị 404
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: "Bạn là chuyên gia du lịch Hà Giang chuyên nghiệp. Hãy trả lời câu hỏi sau bằng tiếng Việt một cách tự nhiên, ngắn gọn và hữu ích: " + userMsg }]
+                    parts: [{ text: "Bạn là chuyên gia du lịch Hà Giang. Trả lời ngắn gọn câu này: " + userMsg }]
                 }]
             })
         });
 
         const data = await response.json();
 
-        // 4. Kiểm tra và hiển thị kết quả
         if (data.error) {
             throw new Error(data.error.message);
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
-        
-        // Xóa dòng chờ và thay bằng câu trả lời thật
-        const loadingEl = document.getElementById(loadingId);
-        if(loadingEl) loadingEl.remove();
-        
-        content.innerHTML += `
-            <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md mb-2">
-                <span class="block text-[8px] font-bold text-emerald-600 uppercase mb-1">Trợ lý ảo Hà Giang</span>
-                ${aiReply}
-            </div>
-        `;
+        document.getElementById(loadingId).remove();
+        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md mb-2">${aiReply}</div>`;
 
     } catch (error) {
-        console.error("Lỗi kết nối AI:", error);
-        const loadingEl = document.getElementById(loadingId);
-        if(loadingEl) {
-            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> Không thể kết nối với AI. Có thể Key đã bị Google khóa do bảo mật. Hãy thử tạo lại Key mới!`;
-            loadingEl.classList.replace('text-gray-600', 'text-red-500');
-        }
+        console.error("Lỗi AI:", error);
+        document.getElementById(loadingId).innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
     }
     content.scrollTo(0, content.scrollHeight);
 }
 
-// Lắng nghe sự kiện nhấn phím Enter để gửi tin nhắn
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
