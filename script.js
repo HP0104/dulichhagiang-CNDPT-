@@ -1142,7 +1142,7 @@ async function sendMessage() {
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Bạn là trợ lý Hà Giang. Trả lời cực ngắn gọn." }, { role: "user", content: userMsg }] })
+            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Bạn là trợ lý tư vấn du lịch Hà Giang. Trả lời ngắn gọn và súc tich." }, { role: "user", content: userMsg }] })
         });
         const data = await response.json();
         const aiReply = data.choices[0].message.content;
@@ -1158,4 +1158,5 @@ async function sendMessage() {
 window.onload = () => displayDestinations(destinationsData);
 window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
