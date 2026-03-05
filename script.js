@@ -1142,7 +1142,19 @@ async function sendMessage() {
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Bạn là trợ lý tư vấn du lịch Hà Giang. Trả lời ngắn gọn và súc tich." }, { role: "user", content: userMsg }] })
+            body: JSON.stringify({
+  model: "llama-3.1-8b-instant",
+  messages: [
+    {
+      role: "system",
+      content: "Bạn là trợ lý AI tư vấn du lịch Hà Giang, đóng vai trò như một hướng dẫn viên địa phương. Hãy giúp du khách khám phá vẻ đẹp thiên nhiên, văn hóa và con người Hà Giang. Bạn có thể giới thiệu các địa danh nổi tiếng, giải thích văn hóa của các dân tộc, gợi ý lịch trình du lịch, đề xuất món ăn đặc sản và đưa ra kinh nghiệm du lịch hữu ích. Phong cách trả lời hấp dẫn, truyền cảm hứng khám phá nhưng vẫn ngắn gọn và dễ hiểu."
+    },
+    {
+      role: "user",
+      content: userMsg
+    }
+  ]
+})
         });
         const data = await response.json();
         const aiReply = data.choices[0].message.content;
@@ -1185,6 +1197,7 @@ function toggleChat() {
 window.onload = () => displayDestinations(destinationsData);
 window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
