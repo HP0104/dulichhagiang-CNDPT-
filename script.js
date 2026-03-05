@@ -1203,80 +1203,52 @@ async function sendMessage() {
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-   if (!userMsg || !API_KEY) {
-    alert("Vui lòng nhập tin nhắn!");
-    return;
-}
-    
+    // 1. Kiểm tra tin nhắn và Key (Xóa bỏ đoạn .includes cũ nếu còn)
+    if (!userMsg || !API_KEY) return;
 
     // Hiển thị tin nhắn người dùng
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
+    // Hiệu ứng chờ
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 shadow-sm text-xs">AI Hà Giang đang trả lời...</div>`;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 text-xs">AI Hà Giang đang xử lý...</div>`;
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // --- THAY ĐỔI QUAN TRỌNG TẠI ĐÂY ---
-        // Đổi từ v1beta sang v1 và dùng mô hình gemini-1.5-flash bản ổn định
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // Sử dụng v1beta và model gemini-1.5-flash (Bản này tương thích tốt nhất với Key Free)
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: `Bạn là trợ lý du lịch Hà Giang. Hãy trả lời ngắn gọn, nhiệt tình câu hỏi sau bằng tiếng Việt: ${userMsg}` }]
+                    parts: [{ text: "Bạn là trợ lý du lịch Hà Giang chuyên nghiệp. Hãy trả lời ngắn gọn câu hỏi này bằng tiếng Việt: " + userMsg }]
                 }]
             })
         });
 
         const data = await response.json();
 
-        if (!response.ok) {
-            // Nếu vẫn báo lỗi, thử dùng mô hình gemini-pro (bản cũ nhưng ổn định nhất)
-            if (data.error && data.error.message.includes("not found")) {
-                return await fallbackToGeminiPro(userMsg, loadingId);
-            }
-            throw new Error(data.error ? data.error.message : "Lỗi hệ thống");
+        // Kiểm tra xem Google có trả về lỗi không
+        if (data.error) {
+            throw new Error(data.error.message);
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
+        
+        // Xóa dòng chờ và hiện câu trả lời
         document.getElementById(loadingId).remove();
         content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md">${aiReply}</div>`;
-        
+
     } catch (error) {
-        console.error("Lỗi AI:", error);
+        console.error("Lỗi chi tiết:", error);
         document.getElementById(loadingId).innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
     }
     content.scrollTo(0, content.scrollHeight);
 }
-
-// Hàm dự phòng nếu mô hình 1.5-flash gặp vấn đề
-async function fallbackToGeminiPro(userMsg, loadingId) {
-    const content = document.getElementById('chat-content');
-    try {
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: `Bạn là trợ lý du lịch Hà Giang. Trả lời: ${userMsg}` }] }]
-            })
-        });
-        const data = await response.json();
-        const aiReply = data.candidates[0].content.parts[0].text;
-        document.getElementById(loadingId).remove();
-        content.innerHTML += `<div class="bg-emerald-100 p-3 rounded-2xl max-w-[85%] border border-emerald-200">${aiReply}</div>`;
-    } catch (e) {
-        document.getElementById(loadingId).innerHTML = "Lỗi kết nối AI sâu. Vui lòng kiểm tra lại cài đặt API tại Google AI Studio.";
-    }
-}
-
-
-
 
 
 
