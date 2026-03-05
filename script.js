@@ -1203,7 +1203,7 @@ async function sendMessage() {
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    if (!userMsg || !API_KEY || API_KEY.includes("DÁN_MÃ")) {
+    if (!userMsg || !API_KEY || API_KEY.includes("AIzaSyBGz1lZ_ir9pcAUmU8Wuc92PkeNR8zWvn4")) {
         alert("Vui lòng cấu hình API Key chính xác trong file script.js");
         return;
     }
@@ -1273,6 +1273,7 @@ async function fallbackToGeminiPro(userMsg, loadingId) {
         document.getElementById(loadingId).innerHTML = "Lỗi kết nối AI sâu. Vui lòng kiểm tra lại cài đặt API tại Google AI Studio.";
     }
 }
+
 
 
 
