@@ -1212,70 +1212,51 @@ async function sendMessage() {
 
     // Hiệu ứng chờ
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 text-xs">AI Hà Giang đang xử lý...</div>`;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 text-xs">Gemini 3 đang trả lời...</div>`;
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // --- SỬA LỖI 404: DÙNG URL VÀ MODEL CHUẨN NHẤT ---
-        // Chúng ta dùng phiên bản v1 (ổn định) và model gemini-1.5-flash
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // --- SỬ DỤNG MODEL GEMINI 3 FLASH (Bản Nhanh trong ảnh) ---
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: "Bạn là trợ lý du lịch Hà Giang chuyên nghiệp. Hãy trả lời ngắn gọn câu hỏi này bằng tiếng Việt: " + userMsg }]
+                    parts: [{ text: "Bạn là trợ lý du lịch Hà Giang được vận hành bởi Gemini 3. Hãy trả lời cực kỳ thông minh, ngắn gọn và nhiệt tình câu hỏi sau: " + userMsg }]
                 }]
             })
         });
 
         const data = await response.json();
 
-        // Kiểm tra lỗi từ Google
+        // Kiểm tra nếu có lỗi từ Google
         if (data.error) {
-            // Nếu model flash không tìm thấy, thử dùng model pro (dự phòng)
-            if (data.error.status === "NOT_FOUND") {
-                return await fallbackToPro(userMsg, loadingId);
-            }
             throw new Error(data.error.message);
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
         
-        // Xóa dòng chờ và hiện câu trả lời
+        // Xóa dòng chờ và hiện câu trả lời của Gemini 3
         const loadingEl = document.getElementById(loadingId);
         if(loadingEl) loadingEl.remove();
         
-        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md">${aiReply}</div>`;
+        content.innerHTML += `
+            <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md">
+                <span class="block text-[9px] font-bold text-emerald-600 uppercase mb-1">Gemini 3 Smart Response</span>
+                ${aiReply}
+            </div>
+        `;
 
     } catch (error) {
-        console.error("Lỗi chi tiết:", error);
+        console.error("Lỗi Gemini 3:", error);
         const loadingEl = document.getElementById(loadingId);
         if(loadingEl) {
-            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
+            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi Gemini 3:</span> ${error.message}. Hãy kiểm tra xem API Key đã được cấp quyền cho bản 3 chưa!`;
         }
     }
     content.scrollTo(0, content.scrollHeight);
-}
-
-// Hàm dự phòng (Nếu model flash bị 404, nó sẽ tự gọi cái này)
-async function fallbackToPro(userMsg, loadingId) {
-    const content = document.getElementById('chat-content');
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ parts: [{ text: userMsg }] }] })
-        });
-        const data = await response.json();
-        const aiReply = data.candidates[0].content.parts[0].text;
-        document.getElementById(loadingId).remove();
-        content.innerHTML += `<div class="bg-emerald-100 p-3 rounded-2xl max-w-[85%] border border-emerald-200">${aiReply}</div>`;
-    } catch (e) {
-        document.getElementById(loadingId).innerHTML = "Không tìm thấy Model AI phù hợp. Vui lòng kiểm tra lại API Key trên Google AI Studio.";
-    }
 }
 
 
