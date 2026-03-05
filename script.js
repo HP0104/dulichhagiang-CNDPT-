@@ -1206,55 +1206,54 @@ async function sendMessage() {
 
     if (!userMsg || !API_KEY) return;
 
-    // Hiển thị tin nhắn người dùng
+    // Hiện tin nhắn người dùng
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
-    // Hiệu ứng chờ
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 text-xs">Gemini 3 đang trả lời...</div>`;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 text-xs">AI Hà Giang đang trả lời...</div>`;
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // --- SỬ DỤNG MODEL GEMINI 3 FLASH (Bản Nhanh trong ảnh) ---
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${API_KEY}`;
+        // --- SỬA LỖI 404 TẠI ĐÂY ---
+        // Dùng gemini-1.5-flash là bản tương thích nhất với API hiện tại
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: "Bạn là trợ lý du lịch Hà Giang được vận hành bởi Gemini 3. Hãy trả lời cực kỳ thông minh, ngắn gọn và nhiệt tình câu hỏi sau: " + userMsg }]
+                    parts: [{ text: `Bạn là trợ lý du lịch Hà Giang. Hãy trả lời cực kỳ ngắn gọn (dưới 50 từ) bằng tiếng Việt: ${userMsg}` }]
                 }]
             })
         });
 
         const data = await response.json();
 
-        // Kiểm tra nếu có lỗi từ Google
-        if (data.error) {
-            throw new Error(data.error.message);
+        if (!response.ok) {
+            throw new Error(data.error ? data.error.message : "Lỗi hệ thống");
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
         
-        // Xóa dòng chờ và hiện câu trả lời của Gemini 3
+        // Xóa dòng loading và hiện câu trả lời
         const loadingEl = document.getElementById(loadingId);
         if(loadingEl) loadingEl.remove();
         
         content.innerHTML += `
             <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md">
-                <span class="block text-[9px] font-bold text-emerald-600 uppercase mb-1">Gemini 3 Smart Response</span>
+                <span class="block text-[8px] font-bold text-emerald-600 uppercase mb-1">Hà Giang AI Assistant</span>
                 ${aiReply}
             </div>
         `;
 
     } catch (error) {
-        console.error("Lỗi Gemini 3:", error);
+        console.error("Lỗi:", error);
         const loadingEl = document.getElementById(loadingId);
         if(loadingEl) {
-            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi Gemini 3:</span> ${error.message}. Hãy kiểm tra xem API Key đã được cấp quyền cho bản 3 chưa!`;
+            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> Không tìm thấy mô hình hoặc Key sai. Bạn hãy dùng Model gemini-1.5-flash!`;
         }
     }
     content.scrollTo(0, content.scrollHeight);
