@@ -1,5 +1,5 @@
   
-//  DỮ LIỆU CỦA KHU DU LỊCH  
+//  DỮ LIỆU KHU DU LỊCH  
 const destinationsData = [
     {
         id: 1,
@@ -1045,7 +1045,7 @@ function openModal(id) {
 
     if (item) {
         if (item.isCultureTopic) {
-            // --- GIAO DIỆN CHUYÊN ĐỀ VĂN HÓA (ID 101 - 106) ---
+            // --- GIAO DIỆN VĂN HÓA ---
             content.innerHTML = `
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
@@ -1187,11 +1187,11 @@ window.onload = () => {
     displayDestinations(destinationsData);
 };
 
-// ==========================================
-// 5. TÍNH NĂNG CHAT AI (GEMINI API)
-// ==========================================
 
-const API_KEY = "AIzaSyBpRzjGQDQ3jEiMQTbW-fyCqLlYjN7cTWs"; 
+ // TÍNH NĂNG CHAT AI 
+
+
+const API_KEY = "AIzaSyCODnpmUQhMOAVVh8vTENsHGPBL2UIvQKw"; 
 
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
@@ -1203,7 +1203,6 @@ async function sendMessage() {
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    // 1. Kiểm tra tin nhắn và Key (Xóa bỏ đoạn .includes cũ nếu còn)
     if (!userMsg || !API_KEY) return;
 
     // Hiển thị tin nhắn người dùng
@@ -1217,8 +1216,9 @@ async function sendMessage() {
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // Sử dụng v1beta và model gemini-1.5-flash (Bản này tương thích tốt nhất với Key Free)
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // --- SỬA LỖI 404: DÙNG URL VÀ MODEL CHUẨN NHẤT ---
+        // Chúng ta dùng phiên bản v1 (ổn định) và model gemini-1.5-flash
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: "POST",
@@ -1232,24 +1232,51 @@ async function sendMessage() {
 
         const data = await response.json();
 
-        // Kiểm tra xem Google có trả về lỗi không
+        // Kiểm tra lỗi từ Google
         if (data.error) {
+            // Nếu model flash không tìm thấy, thử dùng model pro (dự phòng)
+            if (data.error.status === "NOT_FOUND") {
+                return await fallbackToPro(userMsg, loadingId);
+            }
             throw new Error(data.error.message);
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
         
         // Xóa dòng chờ và hiện câu trả lời
-        document.getElementById(loadingId).remove();
+        const loadingEl = document.getElementById(loadingId);
+        if(loadingEl) loadingEl.remove();
+        
         content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md">${aiReply}</div>`;
 
     } catch (error) {
         console.error("Lỗi chi tiết:", error);
-        document.getElementById(loadingId).innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
+        const loadingEl = document.getElementById(loadingId);
+        if(loadingEl) {
+            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
+        }
     }
     content.scrollTo(0, content.scrollHeight);
 }
 
+// Hàm dự phòng (Nếu model flash bị 404, nó sẽ tự gọi cái này)
+async function fallbackToPro(userMsg, loadingId) {
+    const content = document.getElementById('chat-content');
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents: [{ parts: [{ text: userMsg }] }] })
+        });
+        const data = await response.json();
+        const aiReply = data.candidates[0].content.parts[0].text;
+        document.getElementById(loadingId).remove();
+        content.innerHTML += `<div class="bg-emerald-100 p-3 rounded-2xl max-w-[85%] border border-emerald-200">${aiReply}</div>`;
+    } catch (e) {
+        document.getElementById(loadingId).innerHTML = "Không tìm thấy Model AI phù hợp. Vui lòng kiểm tra lại API Key trên Google AI Studio.";
+    }
+}
 
 
 
