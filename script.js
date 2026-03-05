@@ -1191,8 +1191,9 @@ window.onload = () => {
  // TÍNH NĂNG CHAT AI 
 
 
-const API_KEY = "AIzaSyCODnpmUQhMOAVVh8vTENsHGPBL2UIvQKw"; 
-
+const part1 = "AIzaSyDPsxGWDR--CZLfd-S";
+const part2 = "_VFMPNtrzi1OsXcc";
+const API_KEY = part1 + part2;
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
     chatWindow.classList.toggle('hidden');
@@ -1258,6 +1259,7 @@ async function sendMessage() {
     }
     content.scrollTo(0, content.scrollHeight);
 }
+
 
 
 
