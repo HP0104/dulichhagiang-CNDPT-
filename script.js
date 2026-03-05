@@ -1001,18 +1001,10 @@ function displayDestinations(items) {
         <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100">
             <div class="relative h-60 overflow-hidden">
                 <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                
-                <!-- KEYWORD TRÊN ẢNH -->
                 <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
-                    ${(item.cultureKeywords || []).map(kw => `
-                        <span onclick="event.stopPropagation(); openModal(${kw.linkId})" 
-                              class="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300 shadow-lg">
-                            # ${kw.label}
-                        </span>
-                    `).join('')}
+                    ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300"># ${kw.label}</span>`).join('')}
                 </div>
-
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl">XEM CHI TIẾT</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl">CHI TIẾT</div>
             </div>
             <div class="p-6">
                 <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
@@ -1045,125 +1037,57 @@ function openModal(id) {
 
     if (item) {
         if (item.isCultureTopic) {
-            // --- GIAO DIỆN VĂN HÓA ---
             content.innerHTML = `
                 <div class="relative h-72 md:h-[450px]">
                     <img src="${item.image}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase">
-                        <div>
-                             <span class="bg-orange-500 px-3 py-1 rounded text-xs font-bold mb-2 inline-block italic tracking-widest shadow-lg">Chuyên đề văn hóa</span>
-                             <h2 class="text-4xl md:text-6xl font-bold tracking-tighter drop-shadow-2xl">${item.name}</h2>
-                        </div>
-                    </div>
+                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase font-bold text-4xl md:text-6xl">${item.name}</div>
                 </div>
                 <div class="p-8 md:p-16 space-y-12">
-                    <div class="max-w-3xl mx-auto text-center"><p class="text-gray-600 text-xl italic leading-relaxed">"${item.desc}"</p></div>
+                    <div class="max-w-3xl mx-auto text-center italic text-gray-600 text-xl">"${item.desc}"</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         ${(item.sections || []).map(sec => `
-                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md hover:bg-white">
+                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:bg-white hover:shadow-md">
                                 <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase tracking-tighter">${sec.title}</h4>
                                 <p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="text-center pt-10 border-t border-gray-100">
-                        <button onclick="closeModal()" class="bg-emerald-900 text-white px-12 py-3 rounded-full font-bold uppercase tracking-widest hover:bg-black transition shadow-xl">Đóng lại</button>
-                    </div>
                 </div>`;
         } else {
-            // --- GIAO DIỆN ĐỊA DANH (1 - 17) ---
             const culture = item.culture || {};
             const food = item.food || {};
             const logistics = item.logistics || {};
             const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
 
             content.innerHTML = `
-                <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase"><h2 class="text-4xl md:text-6xl font-bold tracking-tighter drop-shadow-2xl">${item.name}</h2></div></div>
-
+                <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
                 <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    <div class="lg:col-span-2 space-y-10">
-                        <!-- TỔNG QUAN -->
-                        <section>
-                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Tổng quan</h3>
-                            <p class="text-gray-700 leading-relaxed text-lg italic mb-10">"${item.experience || item.desc}"</p>
-                            <div class="grid grid-cols-2 gap-4 bg-emerald-900/10 p-8 rounded-3xl text-[11px] font-bold uppercase text-emerald-900 shadow-inner">
-                                <div><p class="opacity-50">Giá vé:</p> <p>${item.ticketPrice || 'Miễn phí'}</p></div>
-                                <div><p class="opacity-50">Thời gian:</p> <p>${item.visitTime || 'Tự do'}</p></div>
-                                <div><p class="opacity-50">Mùa đẹp:</p> <p>${item.bestSeason || 'Quanh năm'}</p></div>
-                                <div><p class="opacity-50">Di chuyển:</p> <p>${item.transport || 'Xe máy'}</p></div>
+                    <div class="lg:col-span-2 space-y-12">
+                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic mb-10">"${item.experience || item.desc}"</p></section>
+                        
+                        <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl mb-10 border border-white/5">
+                            <h3 class="text-xl font-bold text-orange-400 mb-8 uppercase italic tracking-widest border-b border-white/10 pb-4">Bản sắc văn hóa</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 text-sm mb-12">
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Lễ hội:</p><p class="text-gray-300 leading-relaxed">${culture.festival || 'Đang cập nhật'}</p></div>
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Trang phục:</p><p class="text-gray-300 leading-relaxed">${culture.costume || 'Đang cập nhật'}</p></div>
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Phong tục:</p><p class="text-gray-300 leading-relaxed">${culture.customs || 'Đang cập nhật'}</p></div>
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Nghệ thuật:</p><p class="text-gray-300 leading-relaxed">${culture.art || 'Đang cập nhật'}</p></div>
                             </div>
-                        </section>
-
-                        <!-- BẢN SẮC VĂN HÓA (CẤU TRÚC MỚI KHÔNG LO LẤN CHỮ) -->
-                        <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl border border-white/10">
-                            <h3 class="text-2xl font-bold text-orange-400 mb-8 uppercase italic tracking-widest border-b border-white/10 pb-4">
-                                Bản sắc văn hóa
-                            </h3>
-                            
-                            <div class="space-y-8 mb-10 text-sm">
-                                <div class="border-l-2 border-emerald-500/30 pl-4">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Lễ hội:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base">${culture.festival || 'Đang cập nhật'}</p>
-                                </div>
-                                <div class="border-l-2 border-emerald-500/30 pl-4">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Trang phục:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base">${culture.costume || 'Đang cập nhật'}</p>
-                                </div>
-                                <div class="border-l-2 border-emerald-500/30 pl-4">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Phong tục:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base">${culture.customs || 'Đang cập nhật'}</p>
-                                </div>
-                                <div class="border-l-2 border-emerald-500/30 pl-4">
-                                    <p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Nghệ thuật:</p>
-                                    <p class="text-gray-300 leading-relaxed text-base">${culture.art || 'Đang cập nhật'}</p>
-                                </div>
-                            </div>
-
-                            <!-- NÚT BẤM LIÊN KẾT (TÁCH RIÊNG XUỐNG DƯỚI) -->
-                            <div class="mt-12 pt-8 border-t border-white/5 text-center bg-white/5 -mx-10 -mb-10 p-10 rounded-b-[40px]">
-                                <p class="text-[10px] font-bold text-gray-500 uppercase mb-5 tracking-widest">Tìm hiểu chi tiết qua chuyên đề:</p>
-                                <div class="flex flex-wrap justify-center gap-4">
-                                    ${linkedCultures.map(c => `
-                                        <button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-6 py-3 rounded-full font-bold text-sm transition-all shadow-lg flex items-center">
-                                            <i class="fas fa-arrow-right mr-2 text-[10px]"></i> ${c.name}
-                                        </button>
-                                    `).join('')}
+                            <div class="mt-8 pt-8 border-t border-white/5 text-center">
+                                <p class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Khám phá chi tiết chuyên đề:</p>
+                                <div class="flex flex-wrap justify-center gap-3">
+                                    ${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-orange-500 transition shadow-lg flex items-center transform hover:scale-105"># ${c.name}</button>`).join('')}
                                 </div>
                             </div>
                         </section>
 
-                        <!-- ẨM THỰC -->
-                        <section>
-                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Ẩm thực vùng cao</h3>
-                            <div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                <img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md" onerror="this.src='https://placehold.co/400x300?text=Food'">
-                                <div class="flex-1 flex flex-col justify-center text-sm">
-                                    <h4 class="text-2xl font-bold text-emerald-900 mb-2 font-bold">${food.name || 'Đặc sản địa phương'}</h4>
-                                    <p class="text-orange-600 font-bold text-lg mb-4 underline italic">${food.price || ''}</p>
-                                    <p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2 font-bold"></i><b>Gợi ý địa điểm:</b> ${food.location || 'Các chợ phiên'}</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- BẢN ĐỒ -->
-                        <section>
-                            <h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase font-bold">Vị trí địa lý</h3>
-                            <iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe>
-                        </section>
+                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Ẩm thực vùng cao</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100"><img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md"><div class="flex-1 flex flex-col justify-center text-sm"><h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản'}</h4><p class="text-orange-600 font-bold mb-4">${food.price || ''}</p><p class="text-gray-500 italic">Nơi ăn: ${food.location || 'Chợ phiên'}</p></div></div></section>
+                        <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase font-bold text-center">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
                     </div>
 
                     <div class="lg:col-span-1 space-y-8">
-                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl">
-                            <h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3>
-                            <div class="space-y-6 text-sm opacity-90 leading-loose italic">
-                                <div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D}</p></div>
-                                <div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D}</p></div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center">
-                            <p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p>
-                            <p class="text-xl font-bold text-orange-700 italic font-bold">${logistics.estimatedCost}</p>
-                        </div>
+                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3><div class="space-y-6 text-sm italic"><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D}</p></div><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D}</p></div></div></div>
+                        <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic">${logistics.estimatedCost}</p></div>
                     </div>
                 </div>`;
         }
@@ -1172,6 +1096,7 @@ function openModal(id) {
         document.getElementById('modal').scrollTo(0,0);
     }
 }
+
 function closeModal() {
     const modal = document.getElementById('modal');
     if(modal) modal.classList.add('hidden');
@@ -1194,67 +1119,43 @@ const part1 = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy";
 const part2 = "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
 const API_KEY = part1 + part2;
 
+
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    if(chatWindow) chatWindow.classList.toggle('hidden');
+}
+
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
+    if (!userMsg) return;
 
- if (!userMsg || !API_KEY) return; 
-
-    // Hiển thị tin nhắn người dùng
-    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2">${userMsg}</div>`;
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs mb-2 shadow-sm">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
-    // Hiệu ứng chờ
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner text-left">Hà Giang AI đang trả lời...</div>`;
-    content.scrollTo(0, content.scrollHeight);
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2">Đang suy nghĩ...</div>`;
 
     try {
-        // Gửi yêu cầu tới Groq Cloud API
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "llama-3.1-8b-instant", // Model cực nhanh và thông minh
-                messages: [
-                    { role: "system", content: "Bạn là trợ lý du lịch Hà Giang chuyên nghiệp. Hãy trả lời ngắn gọn, thân thiện bằng tiếng Việt." },
-                    { role: "user", content: userMsg }
-                ],
-                max_tokens: 300
-            })
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Bạn là trợ lý Hà Giang. Trả lời cực ngắn gọn." }, { role: "user", content: userMsg }] })
         });
-
         const data = await response.json();
-
-        if (data.error) {
-            throw new Error(data.error.message);
-        }
-
         const aiReply = data.choices[0].message.content;
-        
-        // Xóa dòng chờ và hiện câu trả lời
-        const loadingEl = document.getElementById(loadingId);
-        if(loadingEl) loadingEl.remove();
-        
-        content.innerHTML += `
-            <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md mb-2 text-left">
-                <span class="block text-[8px] font-bold text-emerald-600 uppercase mb-1">AI Hà Giang (Llama 3)</span>
-                ${aiReply}
-            </div>
-        `;
-
-    } catch (error) {
-        console.error("Lỗi AI:", error);
-        const loadingEl = document.getElementById(loadingId);
-        if(loadingEl) {
-            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> Không thể kết nối. Hãy kiểm tra API Key Groq của bạn!`;
-        }
+        document.getElementById(loadingId).remove();
+        content.innerHTML += `<div class="bg-emerald-100 p-3 rounded-2xl max-w-[85%] border border-emerald-200 text-sm mb-2 text-slate-800">${aiReply}</div>`;
+    } catch (e) {
+        document.getElementById(loadingId).innerHTML = "Lỗi kết nối!";
     }
     content.scrollTo(0, content.scrollHeight);
 }
+
+// Khởi chạy
+window.onload = () => displayDestinations(destinationsData);
+window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
+document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
 
