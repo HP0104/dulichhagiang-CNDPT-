@@ -1199,7 +1199,7 @@ async function sendMessage() {
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    if (!userMsg || !API_KEY || API_KEY.includes("DÁN_PHẦN")) return;
+ if (!userMsg || !API_KEY) return; 
 
     // Hiển thị tin nhắn người dùng
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2">${userMsg}</div>`;
@@ -1257,3 +1257,4 @@ async function sendMessage() {
     }
     content.scrollTo(0, content.scrollHeight);
 }
+
