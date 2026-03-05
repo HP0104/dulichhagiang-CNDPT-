@@ -1203,44 +1203,76 @@ async function sendMessage() {
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    if (!userMsg) return;
+    if (!userMsg || !API_KEY || API_KEY.includes("DÁN_MÃ")) {
+        alert("Vui lòng cấu hình API Key chính xác trong file script.js");
+        return;
+    }
 
-    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%]">${userMsg}</div>`;
+    // Hiển thị tin nhắn người dùng
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic">AI đang trả lời...</div>`;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 p-3 rounded-2xl max-w-[85%] italic text-gray-500 shadow-sm text-xs">AI Hà Giang đang trả lời...</div>`;
+    content.scrollTo(0, content.scrollHeight);
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        // --- THAY ĐỔI QUAN TRỌNG TẠI ĐÂY ---
+        // Đổi từ v1beta sang v1 và dùng mô hình gemini-1.5-flash bản ổn định
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+        const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: `Bạn là trợ lý du lịch Hà Giang. Trả lời ngắn gọn: ${userMsg}` }] }]
+                contents: [{
+                    parts: [{ text: `Bạn là trợ lý du lịch Hà Giang. Hãy trả lời ngắn gọn, nhiệt tình câu hỏi sau bằng tiếng Việt: ${userMsg}` }]
+                }]
             })
         });
 
         const data = await response.json();
-        
-        // Nếu Google trả về lỗi
-        if (data.error) {
-            throw new Error(`${data.error.status}: ${data.error.message}`);
+
+        if (!response.ok) {
+            // Nếu vẫn báo lỗi, thử dùng mô hình gemini-pro (bản cũ nhưng ổn định nhất)
+            if (data.error && data.error.message.includes("not found")) {
+                return await fallbackToGeminiPro(userMsg, loadingId);
+            }
+            throw new Error(data.error ? data.error.message : "Lỗi hệ thống");
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
         document.getElementById(loadingId).remove();
-        content.innerHTML += `<div class="bg-emerald-100 p-3 rounded-2xl max-w-[85%] border border-emerald-200">${aiReply}</div>`;
+        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md">${aiReply}</div>`;
         
     } catch (error) {
         console.error("Lỗi AI:", error);
-        document.getElementById(loadingId).innerHTML = `Lỗi: ${error.message}. Hãy kiểm tra lại API Key trong code!`;
-        document.getElementById(loadingId).classList.add('text-red-500');
+        document.getElementById(loadingId).innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
     }
     content.scrollTo(0, content.scrollHeight);
 }
 
-
+// Hàm dự phòng nếu mô hình 1.5-flash gặp vấn đề
+async function fallbackToGeminiPro(userMsg, loadingId) {
+    const content = document.getElementById('chat-content');
+    try {
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: `Bạn là trợ lý du lịch Hà Giang. Trả lời: ${userMsg}` }] }]
+            })
+        });
+        const data = await response.json();
+        const aiReply = data.candidates[0].content.parts[0].text;
+        document.getElementById(loadingId).remove();
+        content.innerHTML += `<div class="bg-emerald-100 p-3 rounded-2xl max-w-[85%] border border-emerald-200">${aiReply}</div>`;
+    } catch (e) {
+        document.getElementById(loadingId).innerHTML = "Lỗi kết nối AI sâu. Vui lòng kiểm tra lại cài đặt API tại Google AI Studio.";
+    }
+}
 
 
 
