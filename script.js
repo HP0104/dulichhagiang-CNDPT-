@@ -1191,7 +1191,7 @@ window.onload = () => {
 // 5. TÍNH NĂNG CHAT AI (GEMINI API)
 // ==========================================
 
-const API_KEY = "AIzaSyBGz1lZ_ir9pcAUmU8Wuc92PkeNR8zWvn4"; 
+const API_KEY = "AIzaSyBpRzjGQDQ3jEiMQTbW-fyCqLlYjN7cTWs"; 
 
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
@@ -1203,10 +1203,11 @@ async function sendMessage() {
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    if (!userMsg || !API_KEY || API_KEY.includes("AIzaSyBGz1lZ_ir9pcAUmU8Wuc92PkeNR8zWvn4")) {
-        alert("Vui lòng cấu hình API Key chính xác trong file script.js");
-        return;
-    }
+   if (!userMsg || !API_KEY) {
+    alert("Vui lòng nhập tin nhắn!");
+    return;
+}
+    
 
     // Hiển thị tin nhắn người dùng
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm">${userMsg}</div>`;
@@ -1273,6 +1274,7 @@ async function fallbackToGeminiPro(userMsg, loadingId) {
         document.getElementById(loadingId).innerHTML = "Lỗi kết nối AI sâu. Vui lòng kiểm tra lại cài đặt API tại Google AI Studio.";
     }
 }
+
 
 
 
