@@ -1154,9 +1154,37 @@ async function sendMessage() {
     content.scrollTo(0, content.scrollHeight);
 }
 
+// --- HIỆU ỨNG TỰ ĐỘNG HIỆN LỜI CHÀO ---
+window.addEventListener('DOMContentLoaded', () => {
+    // Sau 3 giây thì hiện bong bóng lời chào
+    setTimeout(() => {
+        const tooltip = document.getElementById('chat-tooltip');
+        const chatWindow = document.getElementById('chat-window');
+        // Chỉ hiện nếu cửa sổ chat chưa mở
+        if (tooltip && chatWindow && chatWindow.classList.contains('hidden')) {
+            tooltip.classList.remove('hidden');
+            tooltip.classList.add('flex');
+        }
+    }, 3000);
+});
+
+// --- CẬP NHẬT HÀM toggleChat ĐỂ ẨN TOOLTIP ---
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    const tooltip = document.getElementById('chat-tooltip');
+    
+    if (chatWindow) {
+        chatWindow.classList.toggle('hidden');
+        // Khi mở chat thì ẩn bong bóng lời chào vĩnh viễn
+        if (tooltip) {
+            tooltip.style.display = 'none';
+        }
+    }
+}
 // Khởi chạy
 window.onload = () => displayDestinations(destinationsData);
 window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
