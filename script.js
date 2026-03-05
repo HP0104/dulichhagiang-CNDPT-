@@ -1187,6 +1187,74 @@ window.onload = () => {
     displayDestinations(destinationsData);
 };
 
+// ==========================================
+// 5. TÍNH NĂNG CHAT AI (GEMINI API)
+// ==========================================
+
+const API_KEY = "AIzaSyBQD4tkb1XJ0tE-WvfJ_6I0mkuEJJD_zEM"; // <-- QUAN TRỌNG: Thay mã của bạn vào đây
+
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.classList.toggle('hidden');
+}
+
+async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const content = document.getElementById('chat-content');
+    const userMsg = input.value.trim();
+
+    if (!userMsg) return;
+
+    // 1. Hiển thị tin nhắn người dùng
+    content.innerHTML += `
+        <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] ml-auto">
+            ${userMsg}
+        </div>
+    `;
+    input.value = "";
+    content.scrollTo(0, content.scrollHeight);
+
+    // 2. Hiển thị trạng thái "đang trả lời"
+    const loadingId = "loading-" + Date.now();
+    content.innerHTML += `
+        <div id="${loadingId}" class="bg-gray-200 text-gray-500 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
+            AI đang suy nghĩ...
+        </div>
+    `;
+    content.scrollTo(0, content.scrollHeight);
+
+    try {
+        // 3. Gửi yêu cầu tới Gemini API
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: `Bạn là một chuyên gia du lịch Hà Giang. Hãy trả lời ngắn gọn, thân thiện bằng tiếng Việt. Câu hỏi: ${userMsg}` }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+        const aiReply = data.candidates[0].content.parts[0].text;
+
+        // 4. Xóa dòng loading và hiện câu trả lời của AI
+        document.getElementById(loadingId).remove();
+        content.innerHTML += `
+            <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl rounded-tl-none max-w-[85%] border border-emerald-200 shadow-sm">
+                ${aiReply}
+            </div>
+        `;
+    } catch (error) {
+        document.getElementById(loadingId).innerHTML = "Lỗi kết nối AI. Bạn vui lòng kiểm tra API Key!";
+    }
+    content.scrollTo(0, content.scrollHeight);
+}
+
+// Cho phép nhấn Enter để gửi tin nhắn
+document.getElementById('chat-input')?.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendMessage();
+});
 
 
 
