@@ -1208,45 +1208,56 @@ async function sendMessage() {
 
     if (!userMsg || !API_KEY) return;
 
+    // Hiển thị tin nhắn người dùng
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner">AI đang trả lời...</div>`;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner text-left">AI Hà Giang đang trả lời...</div>`;
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // Đổi sang v1/models/gemini-1.5-flash để đảm bảo không bị 404
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // --- SỬA LỖI TẠI ĐÂY: Chuyển v1 thành v1beta để hỗ trợ gemini-1.5-flash ---
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: "Bạn là chuyên gia du lịch Hà Giang. Trả lời ngắn gọn câu này: " + userMsg }]
+                    parts: [{ text: "Bạn là trợ lý du lịch Hà Giang. Hãy trả lời ngắn gọn câu này: " + userMsg }]
                 }]
             })
         });
 
         const data = await response.json();
 
+        // Kiểm tra lỗi từ phía Google
         if (data.error) {
             throw new Error(data.error.message);
         }
 
         const aiReply = data.candidates[0].content.parts[0].text;
-        document.getElementById(loadingId).remove();
-        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md mb-2">${aiReply}</div>`;
+        
+        // Xóa dòng chờ và hiện câu trả lời
+        const loadingEl = document.getElementById(loadingId);
+        if(loadingEl) loadingEl.remove();
+        
+        content.innerHTML += `
+            <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md mb-2 text-left">
+                <span class="block text-[8px] font-bold text-emerald-600 uppercase mb-1">Hà Giang AI</span>
+                ${aiReply}
+            </div>
+        `;
 
     } catch (error) {
         console.error("Lỗi AI:", error);
-        document.getElementById(loadingId).innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> ${error.message}`;
+        const loadingEl = document.getElementById(loadingId);
+        if(loadingEl) {
+            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi kết nối:</span> ${error.message}`;
+            loadingEl.classList.replace('text-gray-600', 'text-red-500');
+        }
     }
     content.scrollTo(0, content.scrollHeight);
 }
-
-document.getElementById('chat-input')?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage();
-});
