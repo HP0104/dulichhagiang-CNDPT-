@@ -1191,7 +1191,7 @@ window.onload = () => {
 // 5. TÍNH NĂNG CHAT AI (GEMINI API)
 // ==========================================
 
-const API_KEY = "AIzaSyBQD4tkb1XJ0tE-WvfJ_6I0mkuEJJD_zEM"; // <-- QUAN TRỌNG: Thay mã của bạn vào đây
+const API_KEY = "AIzaSyADGUxmuluKZtiFb8TSnJRnOzaJwhqZ_6Q"; // <-- QUAN TRỌNG: Thay mã của bạn vào đây
 
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
@@ -1255,6 +1255,7 @@ async function sendMessage() {
 document.getElementById('chat-input')?.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') sendMessage();
 });
+
 
 
 
