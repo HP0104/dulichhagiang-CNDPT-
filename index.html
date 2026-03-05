@@ -77,35 +77,62 @@
         </div>
     </div>
 
-    <!-- 6. CHAT AI TRỢ LÝ ẢO -->
+    <!--  CHAT AI TRỢ LÝ ẢO -->
     <!-- Nút mở (ID: toggleChat) -->
-    <button onclick="toggleChat()" class="fixed bottom-8 right-8 bg-emerald-500 text-white w-16 h-16 rounded-full shadow-2xl z-[80] hover:bg-orange-500 hover:rotate-12 transition-all duration-300 flex items-center justify-center text-3xl">
-        <i class="fas fa-robot"></i>
-    </button>
+  <div class="fixed bottom-8 right-8 z-[100] flex flex-col items-end">
+    
+    <!-- Bong bóng lời chào (Greeting Tooltip) -->
+    <div id="chat-tooltip" class="hidden mb-4 bg-orange-500 text-white px-4 py-2 rounded-2xl rounded-br-none shadow-2xl text-xs font-bold animate-bounce whitespace-nowrap relative border-2 border-white">
+        Hỏi mình về Hà Giang nhé! 👋
+        <!-- Cái đuôi của bong bóng -->
+        <div class="absolute -bottom-2 right-4 w-4 h-4 bg-orange-500 rotate-45 border-r-2 border-b-2 border-white"></div>
+    </div>
 
-    <!-- Cửa sổ Chat (ID: chat-window) -->
-    <div id="chat-window" class="fixed bottom-28 right-8 w-[320px] md:w-[400px] bg-white rounded-3xl shadow-2xl z-[80] hidden flex flex-col border border-white/20 overflow-hidden text-slate-800 animate-in slide-in-from-bottom-5">
-        <div class="bg-emerald-800 p-4 flex justify-between items-center text-white">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-emerald-800 font-bold text-xs">HG</div>
-                <span class="font-bold text-sm">Trợ lý ảo Hà Giang</span>
-            </div>
-            <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+    <!-- Nút bấm với hiệu ứng lan tỏa (Pulse Effect) -->
+    <button onclick="toggleChat()" class="relative group outline-none">
+        <!-- Các vòng tròn lan tỏa (Ripples) -->
+        <div class="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-40 group-hover:hidden"></div>
+        <div class="absolute inset-0 rounded-full bg-emerald-400 animate-pulse opacity-20"></div>
+        
+        <!-- Nút chính -->
+        <div class="relative w-16 h-16 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-3xl transition-all duration-500 group-hover:bg-orange-500 group-hover:scale-110 group-hover:rotate-12 border-2 border-white/20">
+            <i class="fas fa-robot animate-pulse"></i>
         </div>
-        <div id="chat-content" class="h-96 overflow-y-auto p-4 space-y-4 bg-slate-50 flex flex-col">
-            <div class="bg-emerald-100 p-3 rounded-2xl rounded-tl-none self-start max-w-[85%] text-sm">
-                Chào bạn! Tôi là AI chuyên gia Hà Giang. Bạn muốn tìm hiểu gì nào?
+    </button>
+</div>
+
+<!-- Cửa sổ Chat (Glassmorphism UI) -->
+<div id="chat-window" class="fixed bottom-28 right-8 w-[320px] md:w-[400px] bg-white/90 backdrop-blur-xl rounded-[32px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-[100] hidden flex flex-col border border-white/40 overflow-hidden text-slate-800 animate-in slide-in-from-bottom-10 duration-500">
+    <!-- Header -->
+    <div class="bg-emerald-800/90 p-4 flex justify-between items-center text-white backdrop-blur-md">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white font-bold border border-white/30">
+                <i class="fas fa-bolt text-yellow-400"></i>
+            </div>
+            <div>
+                <p class="font-bold text-sm tracking-wide">Chatbot tư vấn du lịch Hà Giang</p>
+                <p class="text-[9px] text-emerald-300 uppercase font-bold tracking-widest">Online • Groq AI Powered</p>
             </div>
         </div>
-        <div class="p-4 bg-white border-t flex gap-2">
-            <input type="text" id="chat-input" placeholder="Hỏi tôi về món ăn, lễ hội..." 
-                class="flex-1 bg-slate-100 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500">
-            <button onclick="sendMessage()" class="bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                <i class="fas fa-paper-plane text-sm"></i>
-            </button>
+        <button onclick="toggleChat()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-black/20 transition"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Nội dung chat -->
+    <div id="chat-content" class="h-96 overflow-y-auto p-5 space-y-4 bg-white/50 flex flex-col scroll-smooth">
+        <div class="bg-emerald-100/80 p-4 rounded-3xl rounded-tl-none self-start max-w-[90%] text-sm shadow-sm border border-emerald-200/50">
+            Chào **Phúc**! Mình là AI chuyên gia về Hà Giang. Bạn cần mình tư vấn về lịch trình, món ăn hay các lễ hội đặc sắc không? 😊
         </div>
     </div>
 
+    <!-- Nhập liệu -->
+    <div class="p-4 bg-white/80 border-t border-emerald-100 flex gap-2 items-center">
+        <input type="text" id="chat-input" placeholder="Gõ câu hỏi tại đây..." 
+            class="flex-1 bg-slate-100/50 rounded-full px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-500 transition-all border border-slate-200">
+        <button onclick="sendMessage()" class="bg-emerald-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg transition-all active:scale-90">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
     <!-- 7. FOOTER -->
     <footer class="bg-black py-16 text-center text-white/30">
         <div class="container mx-auto px-6">
@@ -118,3 +145,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
