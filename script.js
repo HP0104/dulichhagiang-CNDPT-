@@ -1188,57 +1188,54 @@ window.onload = () => {
 };
 
 
- // TÍNH NĂNG CHAT AI 
+// .TÍNH NĂNG CHAT AI (SỬ DỤNG GROQ - LLAMA 3)
 
-
-const part1 = "AIzaSyC3ElL-siqPqIiHc";
-const part2 = "smIsP0TxceCTtPpiRY";
+const part1 = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy"; 
+const part2 = "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
 const API_KEY = part1 + part2;
-
-function toggleChat() {
-    const chatWindow = document.getElementById('chat-window');
-    chatWindow.classList.toggle('hidden');
-}
-
 
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
     const userMsg = input.value.trim();
 
-    if (!userMsg || !API_KEY) return;
+    if (!userMsg || !API_KEY || API_KEY.includes("DÁN_PHẦN")) return;
 
     // Hiển thị tin nhắn người dùng
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
+    // Hiệu ứng chờ
     const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner text-left">AI Hà Giang đang trả lời...</div>`;
+    content.innerHTML += `<div id="${loadingId}" class="bg-gray-200 text-gray-600 p-3 rounded-2xl max-w-[85%] italic text-xs mb-2 shadow-inner text-left">Hà Giang AI đang trả lời...</div>`;
     content.scrollTo(0, content.scrollHeight);
 
     try {
-        // --- SỬA LỖI TẠI ĐÂY: Chuyển v1 thành v1beta để hỗ trợ gemini-1.5-flash ---
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-
-        const response = await fetch(url, {
+        // Gửi yêu cầu tới Groq Cloud API
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${API_KEY}`
+            },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: "Bạn là trợ lý du lịch Hà Giang. Hãy trả lời ngắn gọn câu này: " + userMsg }]
-                }]
+                model: "llama-3.1-8b-instant", // Model cực nhanh và thông minh
+                messages: [
+                    { role: "system", content: "Bạn là trợ lý du lịch Hà Giang chuyên nghiệp. Hãy trả lời ngắn gọn, thân thiện bằng tiếng Việt." },
+                    { role: "user", content: userMsg }
+                ],
+                max_tokens: 300
             })
         });
 
         const data = await response.json();
 
-        // Kiểm tra lỗi từ phía Google
         if (data.error) {
             throw new Error(data.error.message);
         }
 
-        const aiReply = data.candidates[0].content.parts[0].text;
+        const aiReply = data.choices[0].message.content;
         
         // Xóa dòng chờ và hiện câu trả lời
         const loadingEl = document.getElementById(loadingId);
@@ -1246,7 +1243,7 @@ async function sendMessage() {
         
         content.innerHTML += `
             <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl max-w-[85%] border border-emerald-200 shadow-md mb-2 text-left">
-                <span class="block text-[8px] font-bold text-emerald-600 uppercase mb-1">Hà Giang AI</span>
+                <span class="block text-[8px] font-bold text-emerald-600 uppercase mb-1">AI Hà Giang (Llama 3)</span>
                 ${aiReply}
             </div>
         `;
@@ -1255,8 +1252,7 @@ async function sendMessage() {
         console.error("Lỗi AI:", error);
         const loadingEl = document.getElementById(loadingId);
         if(loadingEl) {
-            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi kết nối:</span> ${error.message}`;
-            loadingEl.classList.replace('text-gray-600', 'text-red-500');
+            loadingEl.innerHTML = `<span class="text-red-500 font-bold">Lỗi:</span> Không thể kết nối. Hãy kiểm tra API Key Groq của bạn!`;
         }
     }
     content.scrollTo(0, content.scrollHeight);
