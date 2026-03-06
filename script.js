@@ -5,6 +5,7 @@ const destinationsData = [
         id: 1,
         name: "Đèo Mã Pí Lèng",
         category: "Địa danh/Cảnh quan",
+      lat: 23.2329, lng: 105.2787,
           relatedCultureIds: [101, 105],
        cultureKeywords: [
         { label: "Chợ phiên", linkId: 102 },
@@ -50,6 +51,7 @@ const destinationsData = [
         id: 2,
         name: "Sông Nho Quế",
         category: "Địa danh/Cảnh quan",
+      lat: 23.2305, lng: 105.2874,
           relatedCultureIds: [101, 105],
        cultureKeywords: [
         { label: "Văn hóa Lao động", linkId: 105 }
@@ -85,6 +87,7 @@ const destinationsData = [
     id: 3,
     name: "Dinh Thự Họ Vương",
     category: "Địa danh/Cảnh quan",
+      lat: 23.1526, lng: 105.2343,
         relatedCultureIds: [104, 105],
        cultureKeywords: [
         { label: "Kiến trúc & Làng cổ", linkId: 104 },
@@ -125,6 +128,7 @@ const destinationsData = [
     id: 4,
     name: "Cột Cờ Lũng Cú",
     category: "Địa danh/Cảnh quan",
+  lat: 23.3784, lng: 105.3139,
     relatedCultureIds: [101, 105],
     cultureKeywords: [
         { label: "Văn hóa dân tộc", linkId: 101 },
@@ -165,6 +169,7 @@ const destinationsData = [
     id: 5,
     name: "Thung Lũng Sủng Là",
     category: "Địa danh/Cảnh quan",
+     lat: 23.1567, lng: 105.2148,
       relatedCultureIds: [101, 103, 104],
       cultureKeywords: [
         { label: "Văn hóa dân tộc", linkId: 101 },
@@ -206,6 +211,7 @@ relatedCultureIds: [101, 103, 104],
     id: 6,
     name: "Phố Cáo",
     category: "Địa danh/Cảnh quan",
+     lat: 23.1495, lng: 105.2002,
       relatedCultureIds: [101, 104],
       cultureKeywords: [
         { label: "Văn hóa dân tộc", linkId: 101 },
@@ -246,6 +252,7 @@ relatedCultureIds: [101, 103, 104],
     id: 7,
     name: "Núi Đôi Quản Bạ",
     category: "Địa danh/Cảnh quan",
+      lat: 23.0547, lng: 104.9892,
          relatedCultureIds: [101],
       cultureKeywords: [
         { label: "Truyền thuyết dân gian", linkId: 101 }
@@ -285,6 +292,7 @@ relatedCultureIds: [101, 103, 104],
     id: 8,
     name: "Làng Lô Lô Chải",
     category: "Địa danh/Cảnh quan",
+     lat: 23.3731, lng: 105.3131,
       relatedCultureIds: [101, 104], 
      cultureKeywords: [
         { label: "Văn hóa dân tộc", linkId: 101 },
@@ -325,6 +333,7 @@ relatedCultureIds: [101, 103, 104],
     id: 9,
     name: "Cao nguyên đá Đồng Văn",
     category: "Địa danh/Cảnh quan",
+     lat: 23.2710, lng: 105.2800,
          relatedCultureIds: [101, 105],
      cultureKeywords: [
         { label: "Văn hóa dân tộc", linkId: 101 },
@@ -365,6 +374,7 @@ relatedCultureIds: [101, 103, 104],
     id: 10,
     name: "Dốc Thẩm Mã",
     category: "Địa danh/Cảnh quan",
+     lat: 23.1522, lng: 105.1906,
        relatedCultureIds: [105],
        cultureKeywords: [
         { label: "Lịch sử giao thương", linkId: 105 }
@@ -404,6 +414,7 @@ relatedCultureIds: [101, 103, 104],
     id: 11,
     name: "Phó Bảng",
     category: "Địa danh/Cảnh quan",
+     lat: 23.1375, lng: 105.1704,
        relatedCultureIds: [101, 104],
      cultureKeywords: [
         { label: "Văn hóa dân tộc", linkId: 101 },
@@ -444,6 +455,7 @@ relatedCultureIds: [101, 103, 104],
     id: 12,
     name: "Rừng thông Yên Minh",
     category: "Địa danh/Cảnh quan",
+     lat: 23.0359, lng: 105.0586,
        relatedCultureIds: [105],
      cultureKeywords: [
         { label: "Sinh thái", linkId: 105 }
@@ -483,6 +495,7 @@ relatedCultureIds: [101, 103, 104],
     id: 13,
     name: "Động Lùng Khúy",
     category: "Địa danh/Cảnh quan",
+      lat: 23.0333, lng: 104.9915,
           relatedCultureIds: [105],
         cultureKeywords: [
         { label: "Du lịch sinh thái", linkId: 105 }
@@ -522,6 +535,7 @@ relatedCultureIds: [101, 103, 104],
     id: 14,
     name: "Địa danh/Cảnh quan",
     category: "Cảnh quan",
+   lat: 23.2338, lng: 105.2685,
     relatedCultureIds: [105],
    cultureKeywords: [
         { label: "Check-in", linkId: 105 }
@@ -561,6 +575,7 @@ relatedCultureIds: [101, 103, 104],
     id: 15,
     name: "Vách Đá Thần",
     category: "Địa danh/Cảnh quan",
+     lat: 23.2367, lng: 105.2729,
        relatedCultureIds: [105],
      cultureKeywords: [
         { label: "Cảnh quan đá vôi", linkId: 105 }
@@ -600,6 +615,7 @@ relatedCultureIds: [101, 103, 104],
     id: 16,
     name: "Hẻm Tu Sản",
     category: "Địa danh/Cảnh quan",
+     lat: 23.2276, lng: 105.2871,
       relatedCultureIds: [105],
        cultureKeywords: [
         { label: "Công viên địa chất", linkId: 105 }
@@ -639,6 +655,7 @@ relatedCultureIds: [101, 103, 104],
     id: 17,
     name: "Phố cổ Đồng Văn",
     category: "Địa danh/Cảnh quan",
+     lat: 23.2766, lng: 105.3625,
       relatedCultureIds: [101, 102, 104],
       cultureKeywords: [
         { label: "Chợ phiên", linkId: 102 },
@@ -973,25 +990,7 @@ relatedCultureIds: [101, 103, 104],
     { id: 105, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Lao động", image: "images/nen-lichsu.jpg", desc: "Canh tác trên đá.", sections: [] },
     { id: 106, isCultureTopic: true, category: "Văn hóa", name: "Ẩm thực truyền thống", image: "images/nen-amthuc.jpg", desc: "Thắng cố, mèn mén.", sections: [] }
 ];
-const destinationsData = [
-    { id: 1, name: "Đèo Mã Pí Lèng", lat: 23.2329, lng: 105.2787 },
-    { id: 2, name: "Sông Nho Quế", lat: 23.2305, lng: 105.2874 },
-    { id: 3, name: "Dinh thự họ Vương", lat: 23.1526, lng: 105.2343 },
-    { id: 4, name: "Cột Cờ Lũng Cú", lat: 23.3784, lng: 105.3139 },
-    { id: 5, name: "Thung lũng Sủng Là", lat: 23.1567, lng: 105.2148 },
-    { id: 6, name: "Phố Cáo", lat: 23.1495, lng: 105.2002 },
-    { id: 7, name: "Núi Đôi Quản Bạ", lat: 23.0547, lng: 104.9892 },
-    { id: 8, name: "Làng Lô Lô Chải", lat: 23.3731, lng: 105.3131 },
-    { id: 9, name: "Cao nguyên đá Đồng Văn", lat: 23.2710, lng: 105.2800 },
-    { id: 10, name: "Dốc Thẩm Mã", lat: 23.1522, lng: 105.1906 },
-    { id: 11, name: "Phó Bảng", lat: 23.1375, lng: 105.1704 },
-    { id: 12, name: "Rừng thông Yên Minh", lat: 23.0359, lng: 105.0586 },
-    { id: 13, name: "Động Lùng Khúy", lat: 23.0333, lng: 104.9915 },
-    { id: 14, name: "Cây Cô Đơn Hà Giang", lat: 23.2338, lng: 105.2685 },
-    { id: 15, name: "Vách đá Thần", lat: 23.2367, lng: 105.2729 },
-    { id: 16, name: "Hẻm Tu Sản", lat: 23.2276, lng: 105.2871 },
-    { id: 17, name: "Phố cổ Đồng Văn", lat: 23.2766, lng: 105.3625 }
-];
+
 
 
 function displayCulturePillars() {
@@ -1218,6 +1217,7 @@ window.onclick = function(e) {
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
+
 
 
 
