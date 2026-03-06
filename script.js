@@ -973,7 +973,25 @@ relatedCultureIds: [101, 103, 104],
     { id: 105, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Lao động", image: "images/nen-lichsu.jpg", desc: "Canh tác trên đá.", sections: [] },
     { id: 106, isCultureTopic: true, category: "Văn hóa", name: "Ẩm thực truyền thống", image: "images/nen-amthuc.jpg", desc: "Thắng cố, mèn mén.", sections: [] }
 ];
-
+const destinationsData = [
+    { id: 1, name: "Đèo Mã Pí Lèng", lat: 23.2329, lng: 105.2787 },
+    { id: 2, name: "Sông Nho Quế", lat: 23.2305, lng: 105.2874 },
+    { id: 3, name: "Dinh thự họ Vương", lat: 23.1526, lng: 105.2343 },
+    { id: 4, name: "Cột Cờ Lũng Cú", lat: 23.3784, lng: 105.3139 },
+    { id: 5, name: "Thung lũng Sủng Là", lat: 23.1567, lng: 105.2148 },
+    { id: 6, name: "Phố Cáo", lat: 23.1495, lng: 105.2002 },
+    { id: 7, name: "Núi Đôi Quản Bạ", lat: 23.0547, lng: 104.9892 },
+    { id: 8, name: "Làng Lô Lô Chải", lat: 23.3731, lng: 105.3131 },
+    { id: 9, name: "Cao nguyên đá Đồng Văn", lat: 23.2710, lng: 105.2800 },
+    { id: 10, name: "Dốc Thẩm Mã", lat: 23.1522, lng: 105.1906 },
+    { id: 11, name: "Phó Bảng", lat: 23.1375, lng: 105.1704 },
+    { id: 12, name: "Rừng thông Yên Minh", lat: 23.0359, lng: 105.0586 },
+    { id: 13, name: "Động Lùng Khúy", lat: 23.0333, lng: 104.9915 },
+    { id: 14, name: "Cây Cô Đơn Hà Giang", lat: 23.2338, lng: 105.2685 },
+    { id: 15, name: "Vách đá Thần", lat: 23.2367, lng: 105.2729 },
+    { id: 16, name: "Hẻm Tu Sản", lat: 23.2276, lng: 105.2871 },
+    { id: 17, name: "Phố cổ Đồng Văn", lat: 23.2766, lng: 105.3625 }
+];
 
 
 function displayCulturePillars() {
@@ -1035,7 +1053,8 @@ if(searchInput) {
 }
 // . LOGIC MODAL
 
-function openModal(id) {
+// THÊM CHỮ async Ở ĐẦU DÒNG NÀY
+async function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
@@ -1051,7 +1070,7 @@ function openModal(id) {
                     <div class="max-w-3xl mx-auto text-center italic text-gray-600 text-xl">"${item.desc}"</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         ${(item.sections || []).map(sec => `
-                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:bg-white hover:shadow-md">
+                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md hover:bg-white">
                                 <h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase tracking-tighter">${sec.title}</h4>
                                 <p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p>
                             </div>
@@ -1064,35 +1083,81 @@ function openModal(id) {
             const logistics = item.logistics || {};
             const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
 
+            // --- LOGIC LẤY THỜI TIẾT (MỚI THÊM) ---
+            let weatherSection = '';
+            try {
+                const lat = item.lat || 23.2; // Mặc định tọa độ Hà Giang nếu thiếu
+                const lng = item.lng || 105.2;
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%20Bangkok`);
+                const wData = await response.json();
+                const current = interpretWeather(wData.current_weather.weathercode);
+                
+                weatherSection = `
+                    <div class="bg-slate-800 text-white p-6 rounded-[35px] shadow-xl flex flex-col md:flex-row items-center gap-6 border border-white/5 mb-10">
+                        <div class="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-6">
+                            <i class="fas ${current.icon} text-4xl animate-pulse"></i>
+                            <div>
+                                <p class="text-3xl font-bold">${wData.current_weather.temperature}°C</p>
+                                <p class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold">${current.txt}</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 grid grid-cols-3 gap-2 w-full">
+                            ${wData.daily.time.slice(1, 4).map((time, i) => {
+                                const day = interpretWeather(wData.daily.weathercode[i+1]);
+                                return `
+                                    <div class="text-center bg-white/5 p-2 rounded-2xl">
+                                        <p class="text-[9px] text-gray-400 uppercase mb-1">${new Date(time).toLocaleDateString('vi-VN', {weekday: 'short'})}</p>
+                                        <i class="fas ${day.icon} text-sm mb-1"></i>
+                                        <p class="text-xs font-bold">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            } catch (e) { weatherSection = '<p class="text-gray-400 italic text-xs mb-10">Đang cập nhật thời tiết vệ tinh...</p>'; }
+
             content.innerHTML = `
                 <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
                 <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
                     <div class="lg:col-span-2 space-y-12">
-                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic mb-10">"${item.experience || item.desc}"</p></section>
-                        
-                        <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl mb-10 border border-white/5">
-                            <h3 class="text-xl font-bold text-orange-400 mb-8 uppercase italic tracking-widest border-b border-white/10 pb-4">Bản sắc văn hóa</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 text-sm mb-12">
-                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Lễ hội:</p><p class="text-gray-300 leading-relaxed">${culture.festival || 'Đang cập nhật'}</p></div>
-                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Trang phục:</p><p class="text-gray-300 leading-relaxed">${culture.costume || 'Đang cập nhật'}</p></div>
-                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Phong tục:</p><p class="text-gray-300 leading-relaxed">${culture.customs || 'Đang cập nhật'}</p></div>
-                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px]">Nghệ thuật:</p><p class="text-gray-300 leading-relaxed">${culture.art || 'Đang cập nhật'}</p></div>
+                        <section>
+                            <h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3>
+                            <p class="text-gray-700 leading-relaxed text-lg italic mb-10">"${item.experience || item.desc}"</p>
+                            
+                            <!-- HIỂN THỊ KHỐI THỜI TIẾT TẠI ĐÂY -->
+                            ${weatherSection}
+
+                            <div class="grid grid-cols-2 gap-4 bg-emerald-900/10 p-8 rounded-3xl text-[11px] font-bold uppercase text-emerald-800 mb-10 shadow-inner">
+                                <div><p class="opacity-50">Giá vé:</p> <p>${item.ticketPrice || 'Miễn phí'}</p></div>
+                                <div><p class="opacity-50">Thời gian:</p> <p>${item.visitTime || 'Tự do'}</p></div>
+                                <div><p class="opacity-50">Mùa đẹp:</p> <p>${item.bestSeason || 'Quanh năm'}</p></div>
+                                <div><p class="opacity-50">Di chuyển:</p> <p>${item.transport || 'Xe máy'}</p></div>
                             </div>
-                            <div class="mt-8 pt-8 border-t border-white/5 text-center">
+                        </section>
+
+                        <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl border border-white/5">
+                            <h3 class="text-2xl font-bold text-orange-400 mb-8 uppercase italic tracking-widest border-b border-white/10 pb-4 text-orange-400">Bản sắc văn hóa</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 text-sm mb-12">
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px] tracking-wider">Lễ hội:</p><p class="text-gray-300 leading-relaxed text-base">${culture.festival || 'Đang cập nhật'}</p></div>
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px] tracking-wider">Trang phục:</p><p class="text-gray-300 leading-relaxed text-base">${culture.costume || 'Đang cập nhật'}</p></div>
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px] tracking-wider">Phong tục:</p><p class="text-gray-300 leading-relaxed text-base">${culture.customs || 'Đang cập nhật'}</p></div>
+                                <div class="space-y-2"><p class="text-emerald-400 font-bold uppercase text-[11px] tracking-wider">Nghệ thuật:</p><p class="text-gray-300 leading-relaxed text-base">${culture.art || 'Đang cập nhật'}</p></div>
+                            </div>
+                            <div class="mt-8 pt-8 border-t border-white/5 text-center bg-white/5 -mx-10 -mb-10 p-10 rounded-b-[40px]">
                                 <p class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Khám phá chi tiết chuyên đề:</p>
-                                <div class="flex flex-wrap justify-center gap-3">
-                                    ${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-orange-500 transition shadow-lg flex items-center transform hover:scale-105"># ${c.name}</button>`).join('')}
+                                <div class="flex flex-wrap justify-center gap-4">
+                                    ${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-2xl font-bold text-xs hover:bg-orange-500 transition shadow-lg transform hover:scale-105"><i class="fas fa-arrow-right mr-2 text-[10px]"></i> ${c.name}</button>`).join('')}
                                 </div>
                             </div>
                         </section>
 
-                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Ẩm thực vùng cao</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100"><img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md"><div class="flex-1 flex flex-col justify-center text-sm"><h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản'}</h4><p class="text-orange-600 font-bold mb-4">${food.price || ''}</p><p class="text-gray-500 italic">Nơi ăn: ${food.location || 'Chợ phiên'}</p></div></div></section>
-                        <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase font-bold text-center">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
+                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Ẩm thực vùng cao</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100"><img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md"><div class="flex-1 flex flex-col justify-center text-sm"><h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản'}</h4><p class="text-orange-600 font-bold text-lg mb-4 underline italic">${food.price || ''}</p><p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2"></i><b>Nơi ăn:</b> ${food.location || 'Các chợ phiên'}</p></div></div></section>
+                        <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase text-center">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
                     </div>
-
                     <div class="lg:col-span-1 space-y-8">
-                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3><div class="space-y-6 text-sm italic"><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D}</p></div><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D}</p></div></div></div>
-                        <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic">${logistics.estimatedCost}</p></div>
+                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm">Lịch trình</h3><div class="space-y-6 text-sm italic"><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D}</p></div><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D}</p></div></div></div>
+                        <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic font-bold">${logistics.estimatedCost}</p></div>
                     </div>
                 </div>`;
         }
@@ -1102,6 +1167,31 @@ function openModal(id) {
     }
 }
 
+// --- HÀM LẤY THỜI TIẾT TỪ OPEN-METEO ---
+async function fetchWeather(lat, lng) {
+    try {
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Asia%20Bangkok`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Lỗi lấy thời tiết:", error);
+        return null;
+    }
+}
+
+// Chuyển đổi mã thời tiết sang Icon và Chữ
+function interpretWeather(code) {
+    const weatherMap = {
+        0: { icon: "fa-sun text-yellow-400", txt: "Nắng rực rỡ" },
+        1: { icon: "fa-cloud-sun text-yellow-200", txt: "Ít mây" },
+        2: { icon: "fa-cloud text-gray-300", txt: "Nhiều mây" },
+        3: { icon: "fa-cloud text-gray-400", txt: "U ám" },
+        45: { icon: "fa-smog text-gray-200", txt: "Sương mù" },
+        61: { icon: "fa-cloud-showers-heavy text-blue-400", txt: "Mưa nhỏ" },
+        95: { icon: "fa-bolt text-purple-500", txt: "Dông bão" }
+    };
+    return weatherMap[code] || { icon: "fa-cloud", txt: "Ổn định" };
+}
 function closeModal() {
     const modal = document.getElementById('modal');
     if(modal) modal.classList.add('hidden');
@@ -1286,6 +1376,7 @@ async function generateAITrip() {
 window.onload = () => displayDestinations(destinationsData);
 window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
