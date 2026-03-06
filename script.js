@@ -1191,7 +1191,45 @@ window.onclick = (e) => { if (e.target == document.getElementById('modal')) clos
 
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
+  // Thêm đoạn này vào bên trong window.onload trong file script.js của bạn
+window.onload = () => {
+    displayDestinations(destinationsData);
+    
+    // --- BẮT ĐẦU ĐOẠN SỬA CHO CÁCH 3 ---
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // 1. Lấy loại category từ thuộc tính data-category
+            const category = this.getAttribute('data-category');
+
+            // 2. Cập nhật màu sắc cho nút đang được chọn (Active)
+            filterButtons.forEach(b => {
+                b.classList.remove('bg-emerald-600', 'text-white');
+                b.classList.add('bg-white', 'text-gray-800');
+            });
+            this.classList.add('bg-emerald-600', 'text-white');
+            this.classList.remove('bg-white', 'text-gray-800');
+
+            // 3. Gọi hàm lọc dữ liệu
+            filterDestinations(category);
+        });
+    });
+    // --- KẾT THÚC ĐOẠN SỬA ---
+
+    setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
+};
+
+// Hàm filterDestinations giờ chỉ cần tập trung vào việc lọc dữ liệu
+function filterDestinations(category) {
+    const filtered = category === 'all' 
+        ? destinationsData 
+        : destinationsData.filter(d => d.category.includes(category));
+    
+    displayDestinations(filtered);
+}
 });
+
 
 
 
