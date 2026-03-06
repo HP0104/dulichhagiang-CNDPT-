@@ -990,26 +990,16 @@ relatedCultureIds: [101, 103, 104],
     { id: 105, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Lao động", image: "images/nen-lichsu.jpg", desc: "Canh tác trên đá.", sections: [] },
     { id: 106, isCultureTopic: true, category: "Văn hóa", name: "Ẩm thực truyền thống", image: "images/nen-amthuc.jpg", desc: "Thắng cố, mèn mén.", sections: [] }
 ];
+const culturePillars = [
+    { name: "Chợ phiên", icon: "fa-store", color: "bg-orange-100 text-orange-600" },
+    { name: "Lễ hội", icon: "fa-fire", color: "bg-red-100 text-red-600" },
+    { name: "Kiến trúc", icon: "fa-home", color: "bg-amber-100 text-amber-600" },
+    { name: "Trang phục", icon: "fa-tshirt", color: "bg-pink-100 text-pink-600" },
+    { name: "Nhạc cụ", icon: "fa-music", color: "bg-blue-100 text-blue-600" },
+    { name: "Ẩm thực", icon: "fa-utensils", color: "bg-emerald-100 text-emerald-600" },
+    { name: "Canh tác", icon: "fa-seedling", color: "bg-green-100 text-green-600" }
+];
 
-
-
-function displayCulturePillars() {
-    const container = document.getElementById('culture-pillars');
-    if(!container) return;
-    container.innerHTML = culturePillars.map(p => `
-        <div onclick="filterByCulture('${p.name}')" class="group cursor-pointer flex flex-col items-center p-4 rounded-2xl border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-xl transition-all">
-            <div class="w-16 h-16 ${p.color} rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
-                <i class="fas ${p.icon}"></i>
-            </div>
-            <span class="font-bold text-sm text-gray-700">${p.name}</span>
-        </div>
-    `).join('');
-}
-
-function filterByCulture(tagName) {
-    const filtered = destinationsData.filter(d => !d.isCultureTopic && d.name.includes(tagName)); 
-    displayDestinations(filtered);
-}
 
 function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
@@ -1023,7 +1013,7 @@ function displayDestinations(items) {
                     <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
                         ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300 shadow-lg uppercase"># ${kw.label}</span>`).join('')}
                     </div>
-                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase">Chi tiết</div>
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs shadow-xl">Chi tiết</div>
                 </div>
                 <div class="p-6">
                     <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
@@ -1036,11 +1026,15 @@ function displayDestinations(items) {
 }
 
 function filterDestinations(category) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-800');
+    });
     const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
     displayDestinations(filtered);
 }
 
-// Tìm kiếm
 document.getElementById('search-input')?.addEventListener('input', (e) => {
     const kw = e.target.value.toLowerCase();
     const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
@@ -1048,7 +1042,7 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
 });
 
 // ==========================================
-// 3. THỜI TIẾT & MODAL CHI TIẾT
+// 4. THỜI TIẾT & MODAL
 // ==========================================
 
 async function fetchWeather(lat, lng) {
@@ -1067,14 +1061,11 @@ async function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
-    if (!item) return;
+    if (!item || !content) return;
 
     if (item.isCultureTopic) {
         content.innerHTML = `
-            <div class="relative h-72 md:h-[450px]">
-                <img src="${item.image}" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-center p-6 text-white uppercase font-bold text-4xl md:text-6xl">${item.name}</div>
-            </div>
+            <div class="relative h-72 md:h-[400px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</div></div>
             <div class="p-8 md:p-16 space-y-12 bg-white text-slate-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:bg-white hover:shadow-md"><h4 class="font-bold text-2xl text-emerald-900 mb-4 uppercase">${sec.title}</h4><p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p></div>`).join('')}
@@ -1090,45 +1081,41 @@ async function openModal(id) {
         const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
 
         content.innerHTML = `
-            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
-            <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900">
+            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold tracking-tighter">${item.name}</div></div>
+            <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900 text-sm">
                 <div class="lg:col-span-2 space-y-12">
-                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic italic">"${item.experience || item.desc}"</p>
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic italic">"${item.experience || item.desc}"</p></section>
                     
-                    <div class="bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 my-10">
+                    <section class="bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center gap-6 border border-white/5">
                         <div class="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10">
-                            <i class="fas ${curr.icon} text-5xl"></i>
-                            <div><p class="text-4xl font-bold">${w ? w.current_weather.temperature : '--'}°C</p><p class="text-xs uppercase text-emerald-400 font-bold">${curr.txt}</p></div>
+                            <i class="fas ${curr.icon} text-4xl"></i>
+                            <div><p class="text-3xl font-bold">${w ? w.current_weather.temperature : '--'}°C</p><p class="text-xs uppercase text-emerald-400 font-bold">${curr.txt}</p></div>
                         </div>
                         <div class="flex-1 grid grid-cols-3 gap-3 w-full">
-                            ${w ? w.daily.time.slice(1,4).map((t, i) => `<div class="bg-white/5 p-2 rounded-2xl text-center"><p class="text-[10px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${interpretWeather(w.daily.weathercode[i+1]).icon} text-sm my-1"></i><p class="font-bold text-xs">${Math.round(w.daily.temperature_2m_max[i+1])}°</p></div>`).join('') : ''}
+                            ${w ? w.daily.time.slice(1,4).map((t, i) => `<div class="bg-white/5 p-2 rounded-xl text-center"><p class="text-[10px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${interpretWeather(w.daily.weathercode[i+1]).icon} text-sm my-1"></i><p class="font-bold text-xs">${Math.round(w.daily.temperature_2m_max[i+1])}°</p></div>`).join('') : ''}
                         </div>
-                    </div>
                     </section>
 
-                    <!-- PHẦN VĂN HÓA DỌC (ĐÃ FIX LỖI ĐÈ CHỮ) -->
                     <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl border border-white/10">
-                        <h3 class="text-2xl font-bold text-orange-400 mb-8 uppercase italic border-b border-white/10 pb-4">Bản sắc văn hóa</h3>
+                        <h3 class="text-xl font-bold text-orange-400 mb-8 uppercase italic border-b border-white/10 pb-4">Bản sắc văn hóa</h3>
                         <div class="space-y-8 mb-12">
-                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Lễ hội:</p><p class="text-gray-300 leading-relaxed text-base">${culture.festival || 'Đang cập nhật'}</p></div>
-                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Trang phục:</p><p class="text-gray-300 leading-relaxed text-base">${culture.costume || 'Đang cập nhật'}</p></div>
-                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Phong tục:</p><p class="text-gray-300 leading-relaxed text-base">${culture.customs || 'Đang cập nhật'}</p></div>
-                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Nghệ thuật:</p><p class="text-gray-300 leading-relaxed text-base">${culture.art || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Lễ hội:</p><p class="text-gray-300 leading-relaxed text-base">${culture.festival || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1 tracking-widest">Trang phục:</p><p class="text-gray-300 leading-relaxed text-base">${culture.costume || 'Đang cập nhật'}</p></div>
                         </div>
-                        <div class="mt-10 pt-8 border-t border-white/5 text-center bg-white/5 -mx-10 -mb-10 p-10 rounded-b-[40px]">
-                            <p class="text-[10px] font-bold text-gray-500 uppercase mb-5 tracking-widest uppercase">Khám phá chi tiết chuyên đề:</p>
+                        <div class="mt-10 pt-8 border-t border-white/5 text-center">
+                            <p class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Khám phá chi tiết chuyên đề:</p>
                             <div class="flex flex-wrap justify-center gap-4">
-                                ${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-6 py-2 rounded-full font-bold text-xs transition-all shadow-lg transform hover:scale-105"><i class="fas fa-arrow-right mr-2"></i> ${c.name}</button>`).join('')}
+                                ${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-5 py-2 rounded-xl font-bold text-xs transition-all shadow-lg transform hover:scale-105 italic"># ${c.name}</button>`).join('')}
                             </div>
                         </div>
                     </section>
 
-                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Ẩm thực</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100"><img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md"><div class="flex-1 flex flex-col justify-center text-sm"><h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản'}</h4><p class="text-orange-600 font-bold text-lg mb-4 underline italic">${food.price || ''}</p><p class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-2"></i><b>Nơi ăn:</b> ${food.location || 'Chợ phiên'}</p></div></div></section>
-                    <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase text-center">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Ẩm thực</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100"><img src="${food.image}" class="w-full md:w-56 h-40 object-cover rounded-2xl shadow-md"><div class="flex-1 flex flex-col justify-center text-sm text-slate-800"><h4 class="text-2xl font-bold text-emerald-900 mb-2">${food.name || 'Đặc sản'}</h4><p class="text-orange-600 font-bold text-lg mb-4 underline italic font-bold">${food.price || ''}</p><p class="text-gray-500 italic">Nơi ăn: ${food.location || 'Chợ phiên'}</p></div></div></section>
+                    <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase text-center font-bold">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
                 </div>
                 <div class="lg:col-span-1 space-y-8">
-                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3><div class="space-y-6 text-sm opacity-90 leading-loose italic"><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D || 'Liên hệ'}</p></div><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D || 'Liên hệ'}</p></div></div></div>
-                    <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1 underline">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic">${logistics.estimatedCost || 'Tùy nhu cầu'}</p></div>
+                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3><div class="space-y-6 text-sm opacity-90 leading-loose italic"><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${logistics.itinerary2D || 'Cập nhật sau'}</p></div><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${logistics.itinerary3D || 'Cập nhật sau'}</p></div></div></div>
+                    <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center text-slate-800"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1 underline">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic">${logistics.estimatedCost || 'Tùy nhu cầu'}</p></div>
                 </div>
             </div>`;
     }
@@ -1137,32 +1124,25 @@ async function openModal(id) {
     document.getElementById('modal').scrollTo(0,0);
 }
 
-function closeModal() {
-    const modal = document.getElementById('modal');
-    if(modal) modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
+function closeModal() { document.getElementById('modal')?.classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
 // ==========================================
-// 4. CHAT AI (GROQ) & TRIP PLANNER
+// 5. CHAT AI & TRIP PLANNER
 // ==========================================
-
-const part1 = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy"; 
-const part2 = "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
-const API_KEY = part1 + part2;
 
 function toggleChat() { 
-    document.getElementById('chat-window').classList.toggle('hidden'); 
-    document.getElementById('chat-tooltip').style.display = 'none';
+    document.getElementById('chat-window')?.classList.toggle('hidden'); 
+    const tooltip = document.getElementById('chat-tooltip');
+    if(tooltip) tooltip.style.display = 'none';
 }
 
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
-    if (!input.value.trim()) return;
+    if (!input || !input.value.trim()) return;
 
     const userMsg = input.value.trim();
-    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs shadow-sm mb-2">${userMsg}</div>`;
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs shadow-sm mb-2 text-right">${userMsg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
 
@@ -1179,45 +1159,39 @@ async function sendMessage() {
 }
 
 let selectedTripIds = [];
-function addToTrip(id) { 
-    if (!selectedTripIds.includes(id)) { selectedTripIds.push(id); updateTripUI(); } 
-}
+function addToTrip(id) { if (!selectedTripIds.includes(id)) { selectedTripIds.push(id); updateTripUI(); } }
 function clearTrip() { selectedTripIds = []; updateTripUI(); }
 function updateTripUI() {
     const planner = document.getElementById('trip-planner');
-    const count = document.getElementById('trip-count');
     const list = document.getElementById('selected-list');
+    document.getElementById('trip-count').innerText = selectedTripIds.length;
     if (selectedTripIds.length > 0) {
         planner.classList.remove('hidden');
-        count.innerText = selectedTripIds.length;
-        list.innerHTML = selectedTripIds.map(id => `<div>• ${destinationsData.find(d => d.id === id).name}</div>`).join('');
+        list.innerHTML = selectedTripIds.map(id => `• ${destinationsData.find(d => d.id === id).name}`).join('<br>');
     } else { planner.classList.add('hidden'); }
 }
 
 async function generateAITrip() {
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(", ");
     document.getElementById('chat-window').classList.remove('hidden');
-    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic">AI đang lập tour đi: ${names}...</div>`;
+    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic text-slate-800">AI đang lập tour đi: ${names}...</div>`;
 }
 
 // ==========================================
-// 5. KHỞI CHẠY TOÀN BỘ
+// 6. KHỞI CHẠY 
 // ==========================================
+function displayCulturePillars() {} 
+
 window.onload = () => {
-    displayCulturePillars();
     displayDestinations(destinationsData);
     setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
 };
 
-window.onclick = function(e) {
-    const modal = document.getElementById('modal');
-    if (e.target == modal) closeModal();
-};
+window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
-
 
 
 
