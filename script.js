@@ -998,18 +998,23 @@ function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
     if (!grid) return;
     grid.innerHTML = items.map(item => `
-        <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100">
-            <div class="relative h-60 overflow-hidden">
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
-                    ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-lg font-bold hover:bg-orange-500 transition duration-300"># ${kw.label}</span>`).join('')}
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 relative">
+            <!-- Nút Thêm vào Tour -->
+            ${!item.isCultureTopic ? `
+            <button onclick="addToTrip(${item.id})" class="absolute top-4 right-4 z-30 bg-white/90 backdrop-blur text-emerald-700 w-10 h-10 rounded-full shadow-lg hover:bg-orange-500 hover:text-white transition-all active:scale-90">
+                <i class="fas fa-plus"></i>
+            </button>` : ''}
+
+            <div onclick="openModal(${item.id})" class="cursor-pointer">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase">Chi tiết</div>
                 </div>
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold shadow-xl">CHI TIẾT</div>
-            </div>
-            <div class="p-6">
-                <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
-                <h3 class="text-xl font-bold mt-2 mb-3 text-emerald-900 uppercase">${item.name}</h3>
-                <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 italic">${item.desc}</p>
+                <div class="p-6">
+                    <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
+                    <h3 class="text-xl font-bold mt-2 mb-3 text-emerald-900 uppercase">${item.name}</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 italic">${item.desc}</p>
+                </div>
             </div>
         </div>
     `).join('');
@@ -1193,10 +1198,95 @@ function toggleChat() {
         }
     }
 }
+let selectedTripIds = [];
+
+function addToTrip(id) {
+    if (selectedTripIds.includes(id)) {
+        alert("Địa điểm này đã có trong lịch trình!");
+        return;
+    }
+    selectedTripIds.push(id);
+    updateTripUI();
+}
+
+function clearTrip() {
+    selectedTripIds = [];
+    updateTripUI();
+}
+
+function updateTripUI() {
+    const planner = document.getElementById('trip-planner');
+    const list = document.getElementById('selected-list');
+    const count = document.getElementById('trip-count');
+
+    if (selectedTripIds.length > 0) {
+        planner.classList.remove('hidden');
+        count.innerText = `${selectedTripIds.length} điểm`;
+        const selectedNames = selectedTripIds.map(id => {
+            const item = destinationsData.find(d => d.id === id);
+            return `<div class="bg-emerald-50 p-2 rounded-lg border border-emerald-100 flex justify-between items-center animate-in slide-in-from-left-2">
+                <span>📍 ${item.name}</span>
+            </div>`;
+        });
+        list.innerHTML = selectedNames.join('');
+    } else {
+        planner.classList.add('hidden');
+    }
+}
+
+async function generateAITrip() {
+    if (selectedTripIds.length < 2) {
+        alert("Vui lòng chọn ít nhất 2 địa điểm để lập lịch trình!");
+        return;
+    }
+
+    const selectedPlaces = selectedTripIds.map(id => {
+        const item = destinationsData.find(d => d.id === id);
+        return item.name;
+    }).join(", ");
+
+    // Mở khung chat và thông báo đang xử lý
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.classList.remove('hidden');
+    
+    const content = document.getElementById('chat-content');
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs mb-2">Lập lịch trình cho: ${selectedPlaces}</div>`;
+    
+    const loadingId = "loading-trip";
+    content.innerHTML += `<div id="${loadingId}" class="bg-orange-100 text-orange-800 p-3 rounded-2xl self-start max-w-[85%] italic text-xs mb-2">AI đang tính toán cung đường và chi phí tối ưu...</div>`;
+    content.scrollTo(0, content.scrollHeight);
+
+    try {
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            body: JSON.stringify({
+                model: "llama-3.1-8b-instant",
+                messages: [
+                    { 
+                        role: "system", 
+                        content: "Bạn là chuyên gia tour guide Hà Giang. Khách muốn đi các điểm sau. Hãy: 1. Sắp xếp thứ tự đi hợp lý nhất. 2. Tính tổng chi phí dự kiến cho 1 người (bao gồm: Xăng xe máy, Ăn 3 bữa/ngày 150k, Homestay 150k/đêm, và vé vào cổng các điểm đó). Trình bày cực kỳ chuyên nghiệp, dùng các icon cho đẹp." 
+                    },
+                    { role: "user", content: `Lập tour đi qua: ${selectedPlaces}` }
+                ]
+            })
+        });
+
+        const data = await response.json();
+        const aiReply = data.choices[0].message.content;
+        
+        document.getElementById(loadingId).remove();
+        content.innerHTML += `<div class="bg-emerald-100 p-4 rounded-2xl max-w-[95%] border border-emerald-200 text-sm mb-2 shadow-md">${aiReply.replace(/\n/g, '<br>')}</div>`;
+    } catch (e) {
+        document.getElementById(loadingId).innerText = "Lỗi lập lịch trình. Hãy kiểm tra kết nối!";
+    }
+    content.scrollTo(0, content.scrollHeight);
+}
 // Khởi chạy
 window.onload = () => displayDestinations(destinationsData);
 window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
