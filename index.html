@@ -3,147 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ha Giang Explore - Kỳ Vĩ Hà Giang</title>
-    <!-- Tailwind CSS -->
+    <title>Ha Giang Travel Guide - CNDPT</title>
+    
+    <!-- CSS & Font & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Montserrat', sans-serif; }
-        .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1581634519961-71328919163e?auto=format&fit=crop&q=80&w=2000');
-            background-size: cover;
-            background-position: center;
-        }
-        /* Tùy chỉnh thanh cuộn cho modal */
-        #modal::-webkit-scrollbar { width: 6px; }
-        #modal::-webkit-scrollbar-thumb { background: #059669; border-radius: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
+        body { font-family: 'Lexend', sans-serif; scroll-behavior: smooth; }
+        .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+        
+        /* Hiệu ứng scrollbar cho chat */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-900 text-slate-100">
 
-    <!-- HEADER / NAV -->
-    <header class="fixed top-0 w-full z-40 bg-black/20 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-mountain-sun text-emerald-400 text-2xl"></i>
-                <h1 class="text-white font-black text-xl tracking-tighter uppercase">Ha Giang Explore</h1>
+    <!-- 1. THANH ĐIỀU HƯỚNG (NAVBAR) -->
+    <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-[60] border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-mountain text-emerald-500 text-2xl"></i>
+                <span class="text-xl font-bold tracking-tighter">HA GIANG EXPLORE</span>
             </div>
             
+            <!-- Ô TÌM KIẾM (ID: search-input) -->
             <div class="relative w-full md:w-96">
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-white/50"></i>
-                <input id="search-input" type="text" placeholder="Tìm địa danh, văn hóa..." 
-                    class="w-full bg-white/10 border border-white/20 rounded-full py-2 pl-12 pr-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all">
+                <input type="text" id="search-input" placeholder="Tìm địa danh, văn hóa, món ăn..." 
+                    class="w-full bg-white/10 pl-10 pr-4 py-2 rounded-full border border-white/20 focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white">
+                <i class="fas fa-search absolute left-4 top-3 text-white/40"></i>
             </div>
 
-            <nav class="flex gap-6 text-xs font-bold uppercase tracking-widest text-white">
-                <a href="#" class="hover:text-emerald-400 transition">Trang chủ</a>
-                <a href="#" class="hover:text-emerald-400 transition">Địa danh</a>
-                <a href="#" class="hover:text-emerald-400 transition">Cẩm nang</a>
-            </nav>
+            <div class="flex space-x-6 font-semibold text-xs uppercase tracking-widest">
+                <a href="#" class="text-emerald-400">Trang chủ</a>
+                <a href="#destinations" class="hover:text-emerald-400 transition">Địa danh</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero-bg h-[70vh] flex flex-col items-center justify-center text-center px-4">
-        <h2 class="text-white text-5xl md:text-8xl font-black mb-4 tracking-tighter uppercase animate-pulse">Kỳ Vĩ Hà Giang</h2>
-        <p class="text-white/90 text-lg md:text-2xl italic font-light tracking-wide">"Chạm vào mây, say giữa đại ngàn"</p>
+    <!-- 2. BANNER CHÍNH (HERO SECTION) -->
+    <section class="relative h-[60vh] flex items-center justify-center text-center px-4 bg-cover bg-center" 
+             style="background-image: url('images/anh-nenchinh.jpg');">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-7xl font-bold mb-4 uppercase tracking-[0.2em] drop-shadow-2xl">Kỳ vĩ Hà Giang</h1>
+            <p class="text-lg md:text-xl opacity-80 max-w-2xl mx-auto italic font-light drop-shadow-md">"Chạm vào mây, say giữa đại ngàn"</p>
+        </div>
     </section>
 
- <!-- FILTER BUTTONS (Thay thế đoạn này) -->
-    <div class="max-w-7xl mx-auto px-6 -translate-y-1/2">
-        <div class="bg-white p-4 rounded-3xl shadow-2xl flex flex-wrap justify-center gap-4 border border-slate-100">
-            <!-- Nút "Tất cả" có thêm class active để hiện màu xanh lúc đầu -->
-            <button class="filter-btn active bg-emerald-600 text-white px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all shadow-lg hover:scale-105" 
-                    data-category="all">Tất cả</button>
-            
-            <button class="filter-btn bg-white text-slate-800 px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all border border-slate-100 hover:bg-slate-50" 
-                    data-category="Địa danh">Địa danh</button>
-            
-            <button class="filter-btn bg-white text-slate-800 px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all border border-slate-100 hover:bg-slate-50" 
-                    data-category="Văn hóa">Văn hóa</button>
+    <!-- 3. KHÔNG GIAN 7 ĐẶC TRƯNG VĂN HÓA (ID: culture-pillars) -->
+    <section class="container mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 uppercase tracking-widest">7 Đặc Trưng Văn Hóa Cốt Lõi</h2>
+            <p class="text-emerald-400 italic text-sm">Chọn một nét văn hóa để khám phá các địa danh liên quan</p>
         </div>
+        <!-- JavaScript sẽ đổ 7 Icon vào đây -->
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6" id="culture-pillars"></div>
+    </section>
+    
+    <!-- 4. BỘ LỌC (FILTER BUTTONS) -->
+    <div class="container mx-auto px-6 py-8 flex flex-wrap justify-center gap-4 border-t border-white/5">
+        <button onclick="filterDestinations('all')" class="filter-btn bg-emerald-600 text-white px-8 py-2 rounded-full font-bold shadow-lg transition hover:scale-105">Tất cả</button>
+        <button onclick="filterDestinations('Địa danh')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold tracking-widest">Địa danh / Cảnh quan</button>
+        <button onclick="filterDestinations('Văn hóa')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold tracking-widest">Chuyên đề Văn hóa</button>
     </div>
 
-    <!-- MAIN CONTENT - GRID -->
-    <main class="max-w-7xl mx-auto px-6 pb-20">
-        <div id="destination-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- JavaScript sẽ đổ dữ liệu vào đây -->
+    <!-- 5. LƯỚI HIỂN THỊ ĐỊA DANH (ID: destination-grid) -->
+    <main id="destinations" class="container mx-auto px-6 pb-32">
+        <div id="destination-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- JavaScript tự đổ dữ liệu card vào đây -->
         </div>
     </main>
 
-    <!-- TRIP PLANNER OVERLAY (Góc dưới trái) -->
-    <div id="trip-planner" class="fixed bottom-6 left-6 z-40 hidden">
-        <div class="bg-white p-6 rounded-[32px] shadow-2xl border border-emerald-100 w-72">
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="font-bold text-emerald-900 uppercase text-xs tracking-widest">Lịch trình của bạn (<span id="trip-count">0</span>)</h4>
-                <button onclick="clearTrip()" class="text-red-500 hover:scale-110"><i class="fas fa-trash-alt"></i></button>
-            </div>
-            <div id="selected-list" class="text-xs text-slate-500 space-y-2 mb-4 max-h-40 overflow-y-auto italic">
-                <!-- Danh sách địa điểm được thêm -->
-            </div>
-            <button onclick="generateAITrip()" class="w-full bg-orange-500 text-white py-3 rounded-2xl font-bold uppercase text-[10px] tracking-widest hover:bg-orange-600 transition shadow-lg shadow-orange-200">
-                <i class="fas fa-wand-magic-sparkles mr-2"></i> AI Lập Tour Ngay
+    <!-- 6. POPUP CHI TIẾT (ID: modal) -->
+    <div id="modal" class="fixed inset-0 bg-black/95 backdrop-blur-sm z-[100] hidden overflow-y-auto p-2 md:p-6">
+        <div class="bg-stone-50 text-slate-900 rounded-3xl max-w-6xl mx-auto relative shadow-2xl overflow-hidden min-h-screen md:min-h-0">
+            <!-- Nút đóng -->
+            <button onclick="closeModal()" class="fixed md:absolute top-4 right-4 bg-black/50 text-white hover:bg-red-600 w-12 h-12 rounded-full transition z-[110] flex items-center justify-center shadow-xl">
+                <i class="fas fa-times text-xl"></i>
             </button>
+            
+            <!-- Nội dung chi tiết (ID: modal-content) -->
+            <div id="modal-content"></div>
         </div>
     </div>
 
-    <!-- CHATBOT WIDGET (Góc dưới phải) -->
-    <div id="chat-container" class="fixed bottom-6 right-6 z-50">
-        <!-- Tooltip -->
-        <div id="chat-tooltip" class="absolute -top-12 right-0 bg-emerald-900 text-white text-[10px] px-4 py-2 rounded-full font-bold uppercase tracking-widest whitespace-nowrap shadow-xl hidden">
-            Hỏi AI về Hà Giang? 
-        </div>
-        <!-- Chat Window -->
-        <div id="chat-window" class="absolute bottom-20 right-0 w-80 h-96 bg-white shadow-2xl rounded-[32px] hidden flex flex-col border border-slate-100 overflow-hidden">
-            <div class="bg-emerald-900 p-4 text-white flex justify-between items-center">
-                <span class="font-bold text-xs uppercase tracking-widest"><i class="fas fa-robot mr-2"></i> Trợ lý Hà Giang</span>
-                <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="chat-content" class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50 flex flex-col">
-                <div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl self-start max-w-[85%] text-xs border border-emerald-200">
-                    Chào bạn! Bạn cần tư vấn gì về chuyến đi Hà Giang?
-                </div>
-            </div>
-            <div class="p-3 bg-white border-t flex gap-2">
-                <input id="chat-input" type="text" placeholder="Nhập câu hỏi..." class="flex-1 bg-slate-100 border-none rounded-xl px-4 py-2 text-xs focus:ring-1 focus:ring-emerald-500 outline-none">
-                <button onclick="sendMessage()" class="bg-emerald-600 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:bg-emerald-700 transition">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-        <!-- Toggle Button -->
-        <button onclick="toggleChat()" class="bg-emerald-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl hover:scale-110 hover:bg-orange-500 transition-all duration-300">
-            <i class="fas fa-comment-dots"></i>
-        </button>
-    </div>
-
-    <!-- MODAL CHI TIẾT -->
-    <div id="modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] hidden overflow-y-auto transition-all duration-500">
-        <div class="min-h-screen flex items-center justify-center p-4 md:p-10">
-            <div class="bg-white w-full max-w-6xl rounded-[40px] overflow-hidden relative shadow-2xl">
-                <!-- Nút đóng nhanh -->
-                <button onclick="closeModal()" class="absolute top-6 right-6 z-50 bg-black/20 text-white w-10 h-10 rounded-full backdrop-blur-lg hover:bg-orange-500 transition shadow-xl">
-                    <i class="fas fa-times"></i>
-                </button>
-                
-                <div id="modal-content">
-                    <!-- JavaScript sẽ đổ nội dung chi tiết vào đây -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-emerald-950 text-white/50 py-10 text-center text-[10px] uppercase tracking-[0.3em]">
-        <p>© 2026 BÀI TẬP CNDPT - NGUYỄN HỒNG PHÚC</p>
-    </footer>
-
-    <!-- FILE JS CỦA BẠN -->
-    <script src="script.js"></script>
-</body>
-</html>
-
+    <!-- 7. CHAT AI TRỢ LÝ ẢO -->
+    <div class="fixed bottom-8 right-8 z-[100] flex flex-col items-end">
+        <!-- Bong bóng lời chào -->
+        <div id="chat-tooltip" class="hidden mb-4 bg-orange-500 text-white px-4 py-2 rounded-2xl shadow-2xl text-xs font-bold animate-bounce relat
