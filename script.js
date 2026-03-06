@@ -988,15 +988,6 @@ relatedCultureIds: [101, 103, 104],
     { id: 105, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Lao động", image: "images/nen-lichsu.jpg", desc: "Canh tác trên đá.", sections: [] },
     { id: 106, isCultureTopic: true, category: "Văn hóa", name: "Ẩm thực truyền thống", image: "images/nen-amthuc.jpg", desc: "Thắng cố, mèn mén.", sections: [] }
 ];
-const culturePillars = [
-    { name: "Chợ phiên", icon: "fa-store", color: "bg-orange-100 text-orange-600" },
-    { name: "Lễ hội", icon: "fa-fire", color: "bg-red-100 text-red-600" },
-    { name: "Kiến trúc", icon: "fa-home", color: "bg-amber-100 text-amber-600" },
-    { name: "Trang phục", icon: "fa-tshirt", color: "bg-pink-100 text-pink-600" },
-    { name: "Nhạc cụ", icon: "fa-music", color: "bg-blue-100 text-blue-600" },
-    { name: "Ẩm thực", icon: "fa-utensils", color: "bg-emerald-100 text-emerald-600" },
-    { name: "Canh tác", icon: "fa-seedling", color: "bg-green-100 text-green-600" }
-];
 
 function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
@@ -1008,14 +999,14 @@ function displayDestinations(items) {
                 <div class="relative h-60 overflow-hidden text-center">
                     <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                     <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
-                        ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[9px] px-2 py-1 rounded font-bold hover:bg-orange-500 transition shadow-lg"># ${kw.label}</span>`).join('')}
+                        ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[9px] px-2 py-1 rounded font-bold hover:bg-orange-500 transition shadow-lg uppercase"># ${kw.label}</span>`).join('')}
                     </div>
-                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs shadow-xl">Chi tiết</div>
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs">Chi tiết</div>
                 </div>
                 <div class="p-6">
                     <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
                     <h3 class="text-xl font-bold mt-2 mb-2 text-emerald-900 uppercase">${item.name}</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed line-clamp-2 italic">${item.desc}</p>
+                    <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 italic">${item.desc}</p>
                 </div>
             </div>
         </div>
@@ -1023,21 +1014,23 @@ function displayDestinations(items) {
 }
 
 function filterDestinations(category) {
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => {
-        btn.classList.remove('bg-emerald-600', 'text-white');
-        btn.classList.add('bg-white', 'text-gray-800');
-    });
     const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
     displayDestinations(filtered);
 }
+
+// Tìm kiếm
+document.getElementById('search-input')?.addEventListener('input', (e) => {
+    const kw = e.target.value.toLowerCase();
+    const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
+    displayDestinations(filtered);
+});
 
 // ==========================================
 // 4. THỜI TIẾT & MODAL (FIX LỖI)
 // ==========================================
 
 function interpretWeather(code) {
-    const map = { 0: { icon: "fa-sun text-yellow-400", txt: "Nắng" }, 1: { icon: "fa-cloud-sun text-orange-300", txt: "Ít mây" }, 2: { icon: "fa-cloud text-gray-400", txt: "Mây" }, 45: { icon: "fa-smog text-slate-300", txt: "Sương mù" }, 61: { icon: "fa-cloud-rain text-blue-400", txt: "Mưa" } };
+    const map = { 0: { icon: "fa-sun text-yellow-400", txt: "Nắng" }, 1: { icon: "fa-cloud-sun", txt: "Ít mây" }, 2: { icon: "fa-cloud", txt: "Mây" }, 45: { icon: "fa-smog", txt: "Sương mù" }, 61: { icon: "fa-cloud-rain", txt: "Mưa" } };
     return map[code] || { icon: "fa-cloud", txt: "Ổn định" };
 }
 
@@ -1049,55 +1042,54 @@ async function openModal(id) {
 
     if (item.isCultureTopic) {
         content.innerHTML = `
-            <div class="relative h-72 md:h-[450px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold font-bold">${item.name}</div></div>
-            <div class="p-8 md:p-16 space-y-12 bg-white text-slate-800 text-left">
+            <div class="relative h-72 md:h-[450px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
+            <div class="p-8 md:p-16 space-y-10 bg-white text-slate-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                    ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm text-left"><h4 class="font-bold text-2xl text-emerald-900 mb-4">${sec.title}</h4><p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p></div>`).join('')}
+                    ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm"><h4 class="font-bold text-xl text-emerald-900 mb-2">${sec.title}</h4><p class="text-gray-600 text-sm leading-relaxed">${sec.content}</p></div>`).join('')}
                 </div>
-                <div class="text-center"><button onclick="closeModal()" class="bg-emerald-900 text-white px-10 py-3 rounded-full font-bold uppercase hover:bg-black transition shadow-lg">Đóng lại</button></div>
+                <div class="text-center"><button onclick="closeModal()" class="bg-emerald-900 text-white px-10 py-3 rounded-full font-bold uppercase hover:bg-black transition">Đóng lại</button></div>
             </div>`;
     } else {
-        let weatherHTML = "";
-        try {
-            const lat = item.lat || 23.2; const lng = item.lng || 105.2;
-            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max&timezone=Asia%20Bangkok`);
-            const w = await res.json();
-            const curr = interpretWeather(w.current_weather.weathercode);
-            weatherHTML = `
-                <section class="bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 my-10 border border-white/5">
-                    <div class="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10 text-left">
-                        <i class="fas ${curr.icon} text-4xl"></i>
-                        <div class="text-left"><p class="text-3xl font-bold">${w.current_weather.temperature}°C</p><p class="text-xs uppercase text-emerald-400 font-bold">${curr.txt}</p></div>
-                    </div>
-                    <div class="flex-1 grid grid-cols-3 gap-3 w-full">
-                        ${w.daily.time.slice(1,4).map((t, i) => `<div class="bg-white/5 p-2 rounded-2xl text-center"><p class="text-[10px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${interpretWeather(w.daily.weathercode[i+1]).icon} text-sm my-1 text-emerald-400"></i><p class="font-bold text-xs">${Math.round(w.daily.temperature_2m_max[i+1])}°</p></div>`).join('')}
-                    </div>
-                </section>`;
-        } catch (e) { weatherHTML = ""; }
-
+        const w = await (async () => {
+            try {
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${item.lat || 23.2}&longitude=${item.lng || 105.2}&current_weather=true&daily=weathercode,temperature_2m_max&timezone=Asia%20Bangkok`);
+                return await res.json();
+            } catch (e) { return null; }
+        })();
+        const curr = w ? interpretWeather(w.current_weather.weathercode) : { icon: "fa-cloud", txt: "N/A" };
         const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
 
         content.innerHTML = `
-            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold drop-shadow-lg">${item.name}</div></div>
+            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
             <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900 text-sm">
                 <div class="lg:col-span-2 space-y-10 text-left">
-                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic">"${item.experience || item.desc}"</p></section>
-                    ${weatherHTML}
-                    <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl">
-                        <h3 class="text-xl font-bold text-orange-400 mb-8 uppercase border-b border-white/10 pb-2">Bản sắc văn hóa</h3>
-                        <div class="space-y-6 mb-10 text-gray-300">
-                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px]">Lễ hội:</p><p>${item.culture?.festival || 'Đang cập nhật'}</p></div>
-                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px]">Trang phục:</p><p>${item.culture?.costume || 'Đang cập nhật'}</p></div>
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase font-bold">Tổng quan</h3><p class="text-gray-700 italic italic">"${item.experience || item.desc}"</p></section>
+                    
+                    <section class="bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10">
+                            <i class="fas ${curr.icon} text-4xl text-yellow-400"></i>
+                            <div><p class="text-3xl font-bold">${w ? w.current_weather.temperature : '--'}°C</p><p class="text-xs uppercase text-emerald-400 font-bold">${curr.txt}</p></div>
                         </div>
-                        <div class="pt-6 border-t border-white/5 text-center">
-                            <div class="flex flex-wrap justify-center gap-3">${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-orange-500 transition shadow-lg transform hover:scale-105 italic"># ${c.name}</button>`).join('')}</div>
+                        <div class="flex-1 grid grid-cols-3 gap-3 w-full">
+                            ${w ? w.daily.time.slice(1,4).map((t, i) => `<div class="bg-white/5 p-2 rounded-xl text-center"><p class="text-[10px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${interpretWeather(w.daily.weathercode[i+1]).icon} text-sm my-1"></i><p class="font-bold text-xs">${Math.round(w.daily.temperature_2m_max[i+1])}°</p></div>`).join('') : ''}
                         </div>
                     </section>
-                    <section><h3 class="text-2xl font-bold border-l-8 border-emerald-500 pl-4 mb-6 text-emerald-900 uppercase">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
+
+                    <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] border border-white/10">
+                        <h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-4 uppercase">Bản sắc văn hóa</h3>
+                        <div class="space-y-8 mb-10 text-gray-300">
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Lễ hội:</p><p class="text-gray-300 leading-relaxed text-base font-light">${item.culture?.festival || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Trang phục:</p><p class="text-gray-300 leading-relaxed text-base font-light">${item.culture?.costume || 'Đang cập nhật'}</p></div>
+                        </div>
+                        <div class="mt-8 pt-8 border-t border-white/5 text-center bg-white/5 -mx-10 -mb-10 p-10 rounded-b-[40px]">
+                            <div class="flex flex-wrap justify-center gap-3">${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-5 py-2 rounded-xl text-xs font-bold transition shadow-lg transform hover:scale-105 italic"># ${c.name}</button>`).join('')}</div>
+                        </div>
+                    </section>
+                    <section><h3 class="text-2xl font-bold text-emerald-900 uppercase">Bản đồ</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
                 </div>
-                <div class="lg:col-span-1 space-y-8">
-                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase">Lịch trình</h3><p class="leading-relaxed opacity-80">${item.logistics?.itinerary2D || 'Cập nhật sau'}</p></div>
-                    <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200 text-center text-slate-800"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic font-bold">${item.logistics?.estimatedCost || 'Tùy nhu cầu'}</p></div>
+                <div class="lg:col-span-1 space-y-8 text-slate-800">
+                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase font-bold">Lịch trình</h3><p class="leading-relaxed opacity-80">${item.logistics?.itinerary2D || 'Cập nhật sau'}</p></div>
+                    <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1 underline">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic font-bold">${item.logistics?.estimatedCost || 'Tùy nhu cầu'}</p></div>
                 </div>
             </div>`;
     }
@@ -1136,7 +1128,7 @@ async function sendMessage() {
         });
         const data = await res.json();
         content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl self-start max-w-[85%] text-xs border border-emerald-200 mb-2">${data.choices[0].message.content}</div>`;
-    } catch (e) { content.innerHTML += `<div class="text-red-500 text-[10px]">Lỗi kết nối AI.</div>`; }
+    } catch (e) { content.innerHTML += `<div class="text-red-500 text-[10px]">Lỗi kết nối.</div>`; }
     content.scrollTo(0, content.scrollHeight);
 }
 
@@ -1155,14 +1147,12 @@ function updateTripUI() {
 async function generateAITrip() {
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(", ");
     document.getElementById('chat-window').classList.remove('hidden');
-    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic text-slate-800">AI đang lập tour đi: ${names}...</div>`;
+    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic text-slate-800 shadow-sm">AI đang lập tour đi: ${names}...</div>`;
 }
 
 // ==========================================
 // 6. KHỞI CHẠY (HẾT LỖI IS NOT DEFINED)
 // ==========================================
-function displayCulturePillars() {} 
-
 window.onload = () => {
     displayDestinations(destinationsData);
     setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
@@ -1173,11 +1163,6 @@ window.onclick = (e) => { if (e.target == document.getElementById('modal')) clos
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
-
-
-const part1 = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy"; 
-const part2 = "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
-const API_KEY = part1 + part2;
 
 
 
