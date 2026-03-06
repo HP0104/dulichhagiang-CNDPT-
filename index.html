@@ -53,12 +53,18 @@
         <p class="text-white/90 text-lg md:text-2xl italic font-light tracking-wide">"Chạm vào mây, say giữa đại ngàn"</p>
     </section>
 
-    <!-- FILTER BUTTONS -->
+ <!-- FILTER BUTTONS (Thay thế đoạn này) -->
     <div class="max-w-7xl mx-auto px-6 -translate-y-1/2">
         <div class="bg-white p-4 rounded-3xl shadow-2xl flex flex-wrap justify-center gap-4 border border-slate-100">
-            <button onclick="filterDestinations('all')" class="filter-btn bg-emerald-600 text-white px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all shadow-lg hover:scale-105">Tất cả</button>
-            <button onclick="filterDestinations('Địa danh')" class="filter-btn bg-white text-slate-800 px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all border border-slate-100 hover:bg-slate-50">Địa danh</button>
-            <button onclick="filterDestinations('Văn hóa')" class="filter-btn bg-white text-slate-800 px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all border border-slate-100 hover:bg-slate-50">Văn hóa</button>
+            <!-- Nút "Tất cả" có thêm class active để hiện màu xanh lúc đầu -->
+            <button class="filter-btn active bg-emerald-600 text-white px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all shadow-lg hover:scale-105" 
+                    data-category="all">Tất cả</button>
+            
+            <button class="filter-btn bg-white text-slate-800 px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all border border-slate-100 hover:bg-slate-50" 
+                    data-category="Địa danh">Địa danh</button>
+            
+            <button class="filter-btn bg-white text-slate-800 px-8 py-3 rounded-2xl font-bold uppercase text-xs tracking-widest transition-all border border-slate-100 hover:bg-slate-50" 
+                    data-category="Văn hóa">Văn hóa</button>
         </div>
     </div>
 
@@ -140,3 +146,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
