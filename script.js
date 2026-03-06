@@ -1,988 +1,340 @@
   
 //  DỮ LIỆU KHU DU LỊCH  
 const destinationsData = [
-    {
-        id: 1,
-        name: "Đèo Mã Pí Lèng",
-        category: "Địa danh/Cảnh quan",
-      lat: 23.2329, lng: 105.2787,
-          relatedCultureIds: [101, 105],
-       cultureKeywords: [
-        { label: "Chợ phiên", linkId: 102 },
-        { label: "Văn hóa Lao động", linkId: 105 },
-        { label: "Ẩm thực", linkId: 106 }
-    ],
-        image: "images/nen-maphileng.jpg",
-        desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
-
-        // Chi tiết
-        visitTime: "Sáng sớm hoặc chiều tà để ngắm hoàng hôn.",
-        ticketPrice: "Miễn phí",
-        transport: "Xe máy phượt là trải nghiệm tốt nhất.",
-        bestSeason: "Tháng 10 - Tháng 12 (Mùa tam giác mạch)",
-        locationMap: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3695.5!2d105.418!3d23.245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3696a096!2zRMOInternalIE3DoyBQaSBMw6huZw!5e0!3m2!1svi!2s",
-        experience: "Hãy dừng chân tại Panorama để ngắm trọn hẻm Tu Sản. Đường đèo rất dốc, cần tay lái vững.",
-
-        // Văn hóa
-        culture: {
-            festival: "Lễ hội hoa Tam Giác Mạch đặc sắc.",
-            costume: "Váy áo rực rỡ của người Mông trắng, người Mông đen.",
-            customs: "Tục khèn Mông gọi bạn, giao lưu tại trạm dừng chân.",
-            art: "Tiếng khèn Mông, múa khèn trên vách đá."
-        },
-
-        // Ẩm thực
-        food: {
-            name: "Thắng Cố & Rượu Ngô Men Lá",
-            image: "images/mon-thangco.jpg",
-            price: "100.000đ - 200.000đ",
-            location: "Chợ phiên Đồng Văn (Sáng CN hàng tuần)"
-        },
-
-        // Logistics
-        logistics: {
-            itinerary2D: "Ngày 1: Hà Giang - Đồng Văn. Ngày 2: Mã Pí Lèng - Nho Quế - Về.",
-            itinerary3D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Lũng Cú - Đồng Văn. Ngày 3: Mã Pí Lèng - Nho Quế.",
-            safety: "Kiểm tra phanh xe thường xuyên. Không đi khi trời tối sương mù.",
-            estimatedCost: "2.500.000đ/người (Tự túc)"
-        }
-    },
-    {
-        id: 2,
-        name: "Sông Nho Quế",
-        category: "Địa danh/Cảnh quan",
-      lat: 23.2305, lng: 105.2874,
-          relatedCultureIds: [101, 105],
-       cultureKeywords: [
-        { label: "Văn hóa Lao động", linkId: 105 }
-    ],
-        image: "images/nen-songnhoque.webp",
-        desc: "Dòng sông xanh biếc uốn lượn dưới chân hẻm vực Tu Sản.",
-        visitTime: "9h sáng đến 3h chiều để thấy màu nước đẹp nhất.",
-        ticketPrice: "100.000đ (Vé thuyền) + 50.000đ (Xe ôm xuống bến)",
-        transport: "Xe máy xuống bến, sau đó đi thuyền.",
-        bestSeason: "Tháng 2 - Tháng 3 (Mùa hoa gạo)",
-        locationMap: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3695.0!2d105.4!3d23.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3696a1!2zU8O0bmcgTmhvIFF14bq_!5e0!3m2!1svi!2s",
-        experience: "Nên thuê thuyền để tự mình khám phá hẻm Tu Sản. Hãy chuẩn bị máy ảnh đầy pin!",
-        culture: {
-            festival: "Các lễ hội của người dân tộc hai bên bờ sông.",
-            costume: "Trang phục dân tộc Lô Lô, Mông rực rỡ.",
-            customs: "Đánh bắt cá suối thủ công.",
-            art: "Hát giao duyên trên bến thuyền."
-        },
-        food: {
-            name: "Cá suối nướng",
-            image: "images/mon-canuong.jpg",
-            price: "80.000đ/đĩa",
-            location: "Các quán ăn ngay bến thuyền"
-        },
-        logistics: {
-            itinerary2D: "Kết hợp tham quan đèo Mã Pí Lèng.",
-            itinerary3D: "Dành trọn nửa ngày trải nghiệm sông Nho Quế.",
-            safety: "Luôn mặc áo phao. Đường xuống bến rất dốc và nhiều cua.",
-            estimatedCost: "500.000đ (Chi phí riêng cho sông)"
-        }
-    },
-    {
-    id: 3,
-    name: "Dinh Thự Họ Vương",
-    category: "Địa danh/Cảnh quan",
-      lat: 23.1526, lng: 105.2343,
-        relatedCultureIds: [104, 105],
-       cultureKeywords: [
-        { label: "Kiến trúc & Làng cổ", linkId: 104 },
-        { label: "Văn hóa Lao động", linkId: 105 }
-    ],
-    image: "images/nen-dinhthuvuameo.jpg",
-    desc: "Còn gọi là dinh Vua Mèo – công trình kiến trúc cổ độc đáo giữa thung lũng Sà Phìn.",
-
-    visitTime: "8h00 - 17h00 hàng ngày.",
-    ticketPrice: "30.000đ/người",
-    transport: "Xe máy hoặc ô tô từ thị trấn Đồng Văn (khoảng 15km).",
-    bestSeason: "Tháng 9 - Tháng 11 (Trời khô ráo, dễ tham quan).",
-    locationMap: "https://www.google.com/maps?q=Dinh+thu+ho+Vuong+Ha+Giang&output=embed",
-    experience: "Nên thuê hướng dẫn viên tại điểm để hiểu rõ hơn về lịch sử dòng họ Vương và kiến trúc đặc biệt hình chữ 'Vương'.",
-
-    culture: {
-        festival: "Các lễ hội truyền thống của người Mông tại Sà Phìn.",
-        costume: "Trang phục người Mông với hoa văn thêu tay tinh xảo.",
-        customs: "Phong tục sinh hoạt và tổ chức gia tộc của người Mông xưa.",
-        art: "Kiến trúc giao thoa giữa nhà Thanh, văn hóa Mông và ảnh hưởng Pháp."
-    },
-
-    food: {
-        name: "Thắng Dền & Rượu Ngô",
-        image: "images/mon-thangden.jpg",
-        price: "20.000đ - 50.000đ",
-        location: "Chợ Sà Phìn hoặc thị trấn Đồng Văn"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Dinh thự họ Vương - Phố cổ Đồng Văn.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Lũng Cú - Dinh họ Vương. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Giữ gìn trật tự, không chạm vào hiện vật cổ.",
-        estimatedCost: "1.500.000đ - 2.000.000đ/người (kết hợp tour Đồng Văn)"
-    }
-},
 {
-    id: 4,
-    name: "Cột Cờ Lũng Cú",
-    category: "Địa danh/Cảnh quan",
-  lat: 23.3784, lng: 105.3139,
-    relatedCultureIds: [101, 105],
-    cultureKeywords: [
-        { label: "Văn hóa dân tộc", linkId: 101 },
-        { label: "Lịch sử biên cương", linkId: 105 }
-    ],
-    image: "images/nen-cotcolngcu.jpg",
-    desc: "Điểm cực Bắc thiêng liêng – biểu tượng chủ quyền quốc gia trên cao nguyên đá Hà Giang.",
+id: 1, name: "Đèo Mã Pí Lèng", category: "Địa danh/Cảnh quan", lat: 23.2329, lng: 105.2787,
+relatedCultureIds: [101,105],
+cultureKeywords: [{ label: "Chợ phiên", linkId: 102 }, { label: "Ẩm thực", linkId: 106 }],
+image: "images/nen-maphileng.jpg",
+desc: "Đệ nhất hùng quan của vùng cao nguyên đá Hà Giang.",
+visitTime: "Sáng sớm hoặc chiều tà", ticketPrice: "Miễn phí", transport: "Xe máy phượt", bestSeason: "Tháng 10 - 12",
+locationMap: "https://www.google.com/maps?q=Ma+Pi+Leng+Ha+Giang&output=embed",
+experience: "Dừng chân tại Panorama để ngắm hẻm Tu Sản.",
+culture: { festival: "Lễ hội hoa Tam Giác Mạch", costume: "Trang phục người Mông", art: "Khèn Mông và múa khèn" },
+food: { name: "Thắng Cố & Rượu Ngô", image: "images/mon-thangco.jpg", price: "100k - 200k", location: "Chợ phiên Đồng Văn" },
+logistics: { itinerary2D: "Hà Giang - Đồng Văn - Mã Pí Lèng", safety: "Đường đèo dốc, cần tay lái vững.", estimatedCost: "2.500.000đ" }
+},
 
-    visitTime: "7h00 - 17h30 hàng ngày.",
-    ticketPrice: "25.000đ/người",
-    transport: "Xe máy hoặc ô tô từ thị trấn Đồng Văn (khoảng 24km).",
-    bestSeason: "Tháng 9 - Tháng 11 (Trời trong, tầm nhìn xa đẹp nhất).",
-    locationMap: "https://www.google.com/maps?q=Cot+Co+Lung+Cu+Ha+Giang&output=embed",
-    experience: "Chuẩn bị sức để leo hơn 800 bậc thang đá. Nên đi buổi sáng để tránh nắng và chụp ảnh toàn cảnh cao nguyên đá.",
+{
+id: 2, name: "Sông Nho Quế", category: "Địa danh/Cảnh quan", lat: 23.2305, lng: 105.2874,
+relatedCultureIds: [101,105],
+cultureKeywords: [{ label: "Văn hóa lao động", linkId: 105 }],
+image: "images/nen-songnhoque.webp",
+desc: "Dòng sông xanh ngọc nằm dưới hẻm vực Tu Sản.",
+visitTime: "9h - 15h", ticketPrice: "150.000đ", transport: "Xe máy + thuyền", bestSeason: "Tháng 2 - 3",
+locationMap: "https://www.google.com/maps?q=Song+Nho+Que&output=embed",
+experience: "Đi thuyền ngắm hẻm Tu Sản và chụp ảnh.",
+culture: { festival: "Lễ hội dân tộc ven sông", costume: "Trang phục Mông và Lô Lô", art: "Hát giao duyên" },
+food: { name: "Cá suối nướng", image: "images/mon-canuong.jpg", price: "80k", location: "Bến thuyền Nho Quế" },
+logistics: { itinerary2D: "Mã Pí Lèng - Nho Quế", safety: "Luôn mặc áo phao.", estimatedCost: "500.000đ" }
+},
 
-    culture: {
-        festival: "Lễ chào cờ và các hoạt động kỷ niệm ngày lễ lớn của địa phương.",
-        costume: "Trang phục truyền thống của người Mông và Lô Lô sinh sống quanh khu vực.",
-        customs: "Phong tục sinh hoạt của đồng bào vùng biên giới.",
-        art: "Kiến trúc mô phỏng Cột cờ Hà Nội với chân đế bát giác tượng trưng cho 8 hướng đất nước."
-    },
+{
+id: 3, name: "Dinh Thự Họ Vương", category: "Địa danh/Cảnh quan", lat: 23.1526, lng: 105.2343,
+relatedCultureIds: [104,105],
+cultureKeywords: [{ label: "Kiến trúc cổ", linkId: 104 }],
+image: "images/nen-dinhthuvuameo.jpg",
+desc: "Dinh thự cổ của Vua Mèo tại thung lũng Sà Phìn.",
+visitTime: "8h - 17h", ticketPrice: "30.000đ", transport: "Xe máy hoặc ô tô", bestSeason: "Tháng 9 - 11",
+locationMap: "https://www.google.com/maps?q=Dinh+thu+ho+Vuong+Ha+Giang&output=embed",
+experience: "Khám phá kiến trúc nhà cổ và lịch sử dòng họ Vương.",
+culture: { festival: "Lễ hội người Mông", costume: "Trang phục Mông", art: "Kiến trúc giao thoa Á - Âu" },
+food: { name: "Thắng Dền", image: "images/mon-thangden.jpg", price: "20k - 50k", location: "Chợ Sà Phìn" },
+logistics: { itinerary2D: "Đồng Văn - Dinh họ Vương", safety: "Giữ gìn hiện vật cổ.", estimatedCost: "1.500.000đ" }
+},
 
-    food: {
-        name: "Bánh Tam Giác Mạch & Thịt Gác Bếp",
-        image: "images/mon-tamgiacmach.jpg",
-        price: "20.000đ - 150.000đ",
-        location: "Các quán ăn gần trung tâm xã Lũng Cú"
-    },
+{
+id: 4, name: "Cột Cờ Lũng Cú", category: "Địa danh/Cảnh quan", lat: 23.3784, lng: 105.3139,
+relatedCultureIds: [101,105],
+cultureKeywords: [{ label: "Lịch sử biên cương", linkId: 105 }],
+image: "images/nen-cotcolngcu.jpg",
+desc: "Điểm cực Bắc thiêng liêng của Việt Nam.",
+visitTime: "7h - 17h", ticketPrice: "25.000đ", transport: "Xe máy hoặc ô tô", bestSeason: "Tháng 9 - 11",
+locationMap: "https://www.google.com/maps?q=Cot+Co+Lung+Cu&output=embed",
+experience: "Leo hơn 800 bậc thang để ngắm toàn cảnh cực Bắc.",
+culture: { festival: "Lễ chào cờ", costume: "Trang phục Lô Lô và Mông", art: "Kiến trúc cột cờ bát giác" },
+food: { name: "Thịt gác bếp", image: "images/mon-tamgiacmach.jpg", price: "50k - 150k", location: "Xã Lũng Cú" },
+logistics: { itinerary2D: "Đồng Văn - Lũng Cú", safety: "Mang giày chống trượt.", estimatedCost: "1.500.000đ" }
+},
 
-    logistics: {
-        itinerary2D: "Ngày 1: Đồng Văn - Lũng Cú - Dinh thự họ Vương. Ngày 2: Mã Pí Lèng - Nho Quế.",
-        itinerary3D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Lũng Cú - Phố cổ Đồng Văn. Ngày 3: Mã Pí Lèng - Sông Nho Quế.",
-        safety: "Mang giày thể thao chống trượt. Cẩn thận khi leo bậc đá vào mùa mưa.",
-        estimatedCost: "1.500.000đ - 2.500.000đ/người (kết hợp tour Đồng Văn)"
-    }
+{
+id: 5, name: "Thung Lũng Sủng Là", category: "Địa danh/Cảnh quan", lat: 23.1567, lng: 105.2148,
+relatedCultureIds: [101,103,104],
+cultureKeywords: [{ label: "Lễ hội", linkId: 103 }],
+image: "images/nen-thunglungsungla.jpg",
+desc: "Thung lũng nổi tiếng với hoa tam giác mạch và Nhà của Pao.",
+visitTime: "6h30 - 17h30", ticketPrice: "20k - 30k", transport: "Xe máy", bestSeason: "Tháng 10 - 12",
+locationMap: "https://www.google.com/maps?q=Thung+Lung+Sung+La&output=embed",
+experience: "Chụp ảnh vườn hoa và tham quan Nhà của Pao.",
+culture: { festival: "Lễ hội Tam Giác Mạch", costume: "Trang phục Mông", art: "Kiến trúc nhà trình tường" },
+food: { name: "Bánh Tam Giác Mạch", image: "images/mon-menmen.jpg", price: "20k - 80k", location: "Sủng Là" },
+logistics: { itinerary2D: "Sủng Là - Lũng Cú", safety: "Không dẫm lên hoa.", estimatedCost: "2.000.000đ" }
+},
+  {
+id: 6, name: "Phố Cáo", category: "Làng văn hóa", lat: 23.1495, lng: 105.2002,
+relatedCultureIds: [101,104],
+cultureKeywords: [{ label: "Nhà trình tường", linkId: 104 }],
+image: "images/nen-phocao.jpg",
+desc: "Ngôi làng cổ nổi bật với những ngôi nhà trình tường của người Mông.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy", bestSeason: "Tháng 9 - 12",
+locationMap: "https://www.google.com/maps?q=Pho+Cao+Ha+Giang&output=embed",
+experience: "Dạo quanh làng và khám phá kiến trúc nhà đất truyền thống.",
+culture: { festival: "Chợ phiên vùng cao", costume: "Trang phục người Mông", art: "Nhà trình tường truyền thống" },
+food: { name: "Mèn mén", image: "images/mon-menmen.jpg", price: "30k - 70k", location: "Chợ Phố Cáo" },
+logistics: { itinerary2D: "Đồng Văn - Phố Cáo", safety: "Đường làng nhỏ, đi chậm.", estimatedCost: "1.500.000đ" }
+},
+
+{
+id: 7, name: "Núi Đôi Quản Bạ", category: "Địa danh/Cảnh quan", lat: 23.0547, lng: 104.9892,
+relatedCultureIds: [101],
+cultureKeywords: [{ label: "Truyền thuyết địa phương", linkId: 101 }],
+image: "images/nen-nuidoi.jpg",
+desc: "Danh thắng nổi tiếng gắn với truyền thuyết Núi Đôi.",
+visitTime: "6h - 18h", ticketPrice: "Miễn phí", transport: "Xe máy hoặc ô tô", bestSeason: "Tháng 9 - 11",
+locationMap: "https://www.google.com/maps?q=Nui+Doi+Quan+Ba&output=embed",
+experience: "Ngắm toàn cảnh thung lũng Tam Sơn từ cổng trời.",
+culture: { festival: "Lễ hội địa phương", costume: "Trang phục Dao", art: "Truyền thuyết Núi Đôi" },
+food: { name: "Phở Tráng Kìm", image: "images/mon-photrankim.jpg", price: "40k - 60k", location: "Quản Bạ" },
+logistics: { itinerary2D: "Hà Giang - Quản Bạ", safety: "Đèo dốc nhiều khúc cua.", estimatedCost: "1.200.000đ" }
+},
+
+{
+id: 8, name: "Làng Lô Lô Chải", category: "Làng văn hóa", lat: 23.3731, lng: 105.3131,
+relatedCultureIds: [101,104,105],
+cultureKeywords: [{ label: "Văn hóa Lô Lô", linkId: 101 }],
+image: "images/nen-lolochai.jpg",
+desc: "Ngôi làng cổ của dân tộc Lô Lô gần Cột Cờ Lũng Cú.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy", bestSeason: "Tháng 9 - 12",
+locationMap: "https://www.google.com/maps?q=Lo+Lo+Chai+Ha+Giang&output=embed",
+experience: "Ở homestay và trải nghiệm đời sống người Lô Lô.",
+culture: { festival: "Lễ hội trống đồng Lô Lô", costume: "Trang phục Lô Lô rực rỡ", art: "Trống đồng Lô Lô" },
+food: { name: "Thịt gác bếp", image: "images/mon-thitgacbep.jpg", price: "100k - 200k", location: "Homestay Lô Lô Chải" },
+logistics: { itinerary2D: "Đồng Văn - Lũng Cú - Lô Lô Chải", safety: "Tôn trọng văn hóa bản địa.", estimatedCost: "2.000.000đ" }
+},
+
+{
+id: 9, name: "Cao Nguyên Đá Đồng Văn", category: "Địa danh/Cảnh quan", lat: 23.2710, lng: 105.2800,
+relatedCultureIds: [101,103,105],
+cultureKeywords: [{ label: "Công viên địa chất", linkId: 105 }],
+image: "images/nen-caonguyenda.jpg",
+desc: "Công viên địa chất toàn cầu UNESCO nổi tiếng với cảnh quan đá vôi.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy hoặc ô tô", bestSeason: "Tháng 10 - 12",
+locationMap: "https://www.google.com/maps?q=Cao+Nguyen+Da+Dong+Van&output=embed",
+experience: "Khám phá những dãy núi đá tai mèo hùng vĩ.",
+culture: { festival: "Lễ hội hoa Tam Giác Mạch", costume: "Trang phục dân tộc vùng cao", art: "Văn hóa cao nguyên đá" },
+food: { name: "Cháo Ấu Tẩu", image: "images/mon-autau.jpg", price: "40k - 70k", location: "Thị trấn Đồng Văn" },
+logistics: { itinerary2D: "Hà Giang - Đồng Văn - Mèo Vạc", safety: "Chuẩn bị áo ấm.", estimatedCost: "3.000.000đ" }
+},
+
+{
+id: 10, name: "Dốc Thẩm Mã", category: "Địa danh/Cảnh quan", lat: 23.1522, lng: 105.1906,
+relatedCultureIds: [101],
+cultureKeywords: [{ label: "Con đường lịch sử", linkId: 101 }],
+image: "images/nen-docthamma.jpg",
+desc: "Con dốc nổi tiếng với những khúc cua tay áo đặc trưng.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy", bestSeason: "Tháng 9 - 11",
+locationMap: "https://www.google.com/maps?q=Doc+Tham+Ma&output=embed",
+experience: "Chụp ảnh cung đường uốn lượn từ trên cao.",
+culture: { festival: "Chợ phiên vùng cao", costume: "Trang phục người Mông", art: "Văn hóa đường đèo" },
+food: { name: "Bánh Tam Giác Mạch", image: "images/mon-banhtamgiacmach.jpg", price: "20k - 40k", location: "Ven đường" },
+logistics: { itinerary2D: "Yên Minh - Đồng Văn", safety: "Đi chậm khi vào cua.", estimatedCost: "1.500.000đ" }
+},
+
+{
+id: 11, name: "Phó Bảng", category: "Làng cổ", lat: 23.1375, lng: 105.1704,
+relatedCultureIds: [101,104],
+cultureKeywords: [{ label: "Làng cổ", linkId: 104 }],
+image: "images/nen-phobang.jpg",
+desc: "Thị trấn cổ yên bình với những ngôi nhà đất đặc trưng.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy", bestSeason: "Tháng 9 - 11",
+locationMap: "https://www.google.com/maps?q=Pho+Bang+Ha+Giang&output=embed",
+experience: "Khám phá thị trấn cổ và cuộc sống bình dị.",
+culture: { festival: "Chợ phiên Phó Bảng", costume: "Trang phục Hoa và Mông", art: "Kiến trúc nhà cổ" },
+food: { name: "Lạp xưởng gác bếp", image: "images/mon-lapxuong.jpg", price: "100k", location: "Chợ Phó Bảng" },
+logistics: { itinerary2D: "Đồng Văn - Phó Bảng", safety: "Đường nhỏ quanh co.", estimatedCost: "1.800.000đ" }
 },
    {
-    id: 5,
-    name: "Thung Lũng Sủng Là",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.1567, lng: 105.2148,
-      relatedCultureIds: [101, 103, 104],
-      cultureKeywords: [
-        { label: "Văn hóa dân tộc", linkId: 101 },
-        { label: "Lễ hội", linkId: 103 },
-        { label: "Kiến trúc", linkId: 104 }
-    ],
-    image: "images/nen-thunglungsungla.jpg",
-    desc: "“Bông hoa giữa cao nguyên đá” – nổi tiếng với mùa hoa tam giác mạch và Nhà của Pao.",
-relatedCultureIds: [101, 103, 104], 
-    visitTime: "6h30 - 17h30 (đẹp nhất vào buổi sáng).",
-    ticketPrice: "20.000đ - 30.000đ (tham quan vườn hoa, Nhà của Pao).",
-    transport: "Nằm trên Quốc lộ 4C, cách Đồng Văn khoảng 20km, di chuyển bằng xe máy hoặc ô tô.",
-    bestSeason: "Tháng 10 - Tháng 12 (Mùa hoa tam giác mạch) hoặc tháng 1 - 3 (mùa đào, mận).",
-    locationMap: "https://www.google.com/maps?q=Thung+Lung+Sung+La+Ha+Giang&output=embed",
-    experience: "Nên thuê trang phục dân tộc để chụp ảnh giữa vườn hoa. Ghé thăm Nhà của Pao để hiểu thêm về văn hóa người Mông.",
-
-    culture: {
-        festival: "Lễ hội hoa Tam Giác Mạch thường tổ chức vào cuối năm.",
-        costume: "Trang phục truyền thống rực rỡ của người Mông và Lô Lô.",
-        customs: "Nhà trình tường đất đặc trưng và đời sống sinh hoạt vùng cao.",
-        art: "Kiến trúc nhà cổ và không gian văn hóa trong phim 'Chuyện của Pao'."
-    },
-
-    food: {
-        name: "Bánh Tam Giác Mạch & Mèn Mén",
-        image: "images/mon-menmen.jpg",
-        price: "20.000đ - 80.000đ",
-        location: "Các quán ăn gia đình tại Sủng Là hoặc thị trấn Đồng Văn"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Sủng Là - Lũng Cú - Đồng Văn.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Sủng Là - Nhà của Pao - Lũng Cú. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Không dẫm lên hoa khi chụp ảnh. Cẩn thận khi di chuyển vào mùa mưa.",
-        estimatedCost: "2.000.000đ - 2.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
+id: 12, name: "Chợ Phiên Đồng Văn", category: "Văn hóa", lat: 23.2793, lng: 105.3625,
+relatedCultureIds: [102,106],
+cultureKeywords: [{ label: "Chợ phiên", linkId: 102 }, { label: "Ẩm thực", linkId: 106 }],
+image: "images/nen-chodongvan.jpg",
+desc: "Phiên chợ vùng cao nổi tiếng nơi giao thương của nhiều dân tộc.",
+visitTime: "Chủ nhật 5h - 12h", ticketPrice: "Miễn phí", transport: "Xe máy hoặc đi bộ", bestSeason: "Quanh năm",
+locationMap: "https://www.google.com/maps?q=Cho+Dong+Van&output=embed",
+experience: "Tham quan chợ, thưởng thức ẩm thực và mua đặc sản.",
+culture: { festival: "Chợ phiên truyền thống", costume: "Trang phục Mông, Dao, Lô Lô", art: "Âm nhạc khèn Mông" },
+food: { name: "Thắng Cố", image: "images/mon-thangco.jpg", price: "50k - 100k", location: "Chợ Đồng Văn" },
+logistics: { itinerary2D: "Phố cổ Đồng Văn - Chợ Đồng Văn", safety: "Cẩn thận đông người.", estimatedCost: "500.000đ" }
 },
-   {
-    id: 6,
-    name: "Phố Cáo",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.1495, lng: 105.2002,
-      relatedCultureIds: [101, 104],
-      cultureKeywords: [
-        { label: "Văn hóa dân tộc", linkId: 101 },
-        { label: "Kiến trúc", linkId: 104 }
-    ],
-    image: "images/nen-phocao.jpg",
-    desc: "Ngôi làng vùng cao yên bình với nhà trình tường cổ kính giữa cao nguyên đá Đồng Văn.",
 
-    visitTime: "Cả ngày (đẹp nhất vào sáng sớm hoặc mùa xuân).",
-    ticketPrice: "Miễn phí",
-    transport: "Nằm trên Quốc lộ 4C, giữa Yên Minh và Đồng Văn, thuận tiện đi xe máy hoặc ô tô.",
-    bestSeason: "Tháng 1 - Tháng 3 (Mùa hoa đào, hoa mận) hoặc tháng 10 - 12 (Mùa tam giác mạch).",
-    locationMap: "https://www.google.com/maps?q=Pho+Cao+Dong+Van+Ha+Giang&output=embed",
-    experience: "Dành thời gian đi bộ trong làng để chụp ảnh nhà trình tường, hàng rào đá và đời sống sinh hoạt của người Mông.",
-
-    culture: {
-        festival: "Các lễ hội truyền thống của người Mông vào dịp đầu xuân.",
-        costume: "Trang phục thêu tay sặc sỡ của phụ nữ Mông.",
-        customs: "Nhà trình tường đất, hàng rào đá xếp thủ công và sinh hoạt chợ phiên nhỏ.",
-        art: "Kiến trúc dân gian đặc trưng vùng cao nguyên đá."
-    },
-
-    food: {
-        name: "Mèn Mén & Thịt Gác Bếp",
-        image: "images/mon-thitgacbep.jpg",
-        price: "50.000đ - 150.000đ",
-        location: "Các quán ăn gia đình dọc đường Quốc lộ 4C"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Phố Cáo - Sủng Là - Đồng Văn.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Yên Minh - Phố Cáo - Sủng Là. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Tôn trọng văn hóa địa phương, không tự ý vào nhà dân khi chưa xin phép.",
-        estimatedCost: "2.000.000đ - 2.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
+{
+id: 13, name: "Phố Cổ Đồng Văn", category: "Làng cổ", lat: 23.2798, lng: 105.3629,
+relatedCultureIds: [104,106],
+cultureKeywords: [{ label: "Kiến trúc cổ", linkId: 104 }],
+image: "images/nen-phocodongvan.jpg",
+desc: "Khu phố cổ hơn 100 năm tuổi với kiến trúc đặc trưng vùng cao.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Đi bộ", bestSeason: "Tháng 10 - 12",
+locationMap: "https://www.google.com/maps?q=Pho+Co+Dong+Van&output=embed",
+experience: "Uống cà phê phố cổ và chụp ảnh nhà cổ.",
+culture: { festival: "Đêm phố cổ Đồng Văn", costume: "Trang phục truyền thống", art: "Nhà cổ mái ngói âm dương" },
+food: { name: "Bánh cuốn Đồng Văn", image: "images/mon-banhcuon.jpg", price: "30k - 50k", location: "Phố cổ Đồng Văn" },
+logistics: { itinerary2D: "Thị trấn Đồng Văn", safety: "Giữ gìn kiến trúc cổ.", estimatedCost: "1.200.000đ" }
 },
-    {
-    id: 7,
-    name: "Núi Đôi Quản Bạ",
-    category: "Địa danh/Cảnh quan",
-      lat: 23.0547, lng: 104.9892,
-         relatedCultureIds: [101],
-      cultureKeywords: [
-        { label: "Truyền thuyết dân gian", linkId: 101 }
-    ],
-    image: "images/nen-nuidoiquanba.jpg",
-    desc: "Biểu tượng cửa ngõ cao nguyên đá với hai ngọn núi tròn đầy giữa thung lũng Tam Sơn.",
 
-    visitTime: "6h00 - 18h00 (đẹp nhất vào sáng sớm hoặc chiều muộn).",
-    ticketPrice: "10.000đ/người (vé tham quan điểm ngắm cảnh).",
-    transport: "Nằm tại thị trấn Tam Sơn, huyện Quản Bạ, cách TP Hà Giang khoảng 45km, đi xe máy hoặc ô tô thuận tiện.",
-    bestSeason: "Tháng 9 - Tháng 12 (trời trong xanh) hoặc tháng 3 - 5 (mùa lúa xanh).",
-    locationMap: "https://www.google.com/maps?q=Nui+Doi+Quan+Ba+Ha+Giang&output=embed",
-    experience: "Dừng chân tại cổng trời Quản Bạ để ngắm trọn thung lũng Tam Sơn và chụp ảnh toàn cảnh Núi Đôi.",
-
-    culture: {
-        festival: "Lễ hội truyền thống của người Mông và Dao tại Quản Bạ.",
-        costume: "Trang phục thổ cẩm đặc trưng của người Dao và Mông.",
-        customs: "Truyền thuyết Núi Cô Tiên gắn với tình mẫu tử thiêng liêng.",
-        art: "Cảnh quan thiên nhiên độc đáo được ví như tác phẩm điêu khắc của tạo hóa."
-    },
-
-    food: {
-        name: "Phở Chua & Lợn Cắp Nách",
-        image: "images/mon-loncapnach.jpg",
-        price: "50.000đ - 200.000đ",
-        location: "Các quán ăn tại thị trấn Tam Sơn"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Hà Giang - Quản Bạ - Yên Minh. Ngày 2: Đồng Văn - Mã Pí Lèng.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Yên Minh - Đồng Văn. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Quan sát kỹ khi qua đèo Quản Bạ vì nhiều khúc cua gấp và sương mù.",
-        estimatedCost: "2.000.000đ - 2.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
+{
+id: 14, name: "Rừng Thông Yên Minh", category: "Địa danh/Cảnh quan", lat: 23.0977, lng: 105.1756,
+relatedCultureIds: [101],
+cultureKeywords: [{ label: "Thiên nhiên", linkId: 101 }],
+image: "images/nen-rungthongyenminh.jpg",
+desc: "Khu rừng thông được ví như 'Đà Lạt của Hà Giang'.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy", bestSeason: "Tháng 9 - 11",
+locationMap: "https://www.google.com/maps?q=Rung+Thong+Yen+Minh&output=embed",
+experience: "Check-in rừng thông và tận hưởng không khí mát mẻ.",
+culture: { festival: "Lễ hội địa phương", costume: "Trang phục Dao", art: "Văn hóa vùng cao" },
+food: { name: "Thịt nướng", image: "images/mon-thitnuong.jpg", price: "50k - 100k", location: "Yên Minh" },
+logistics: { itinerary2D: "Quản Bạ - Yên Minh", safety: "Đường đèo nhiều sương.", estimatedCost: "1.500.000đ" }
 },
-   {
-    id: 8,
-    name: "Làng Lô Lô Chải",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.3731, lng: 105.3131,
-      relatedCultureIds: [101, 104], 
-     cultureKeywords: [
-        { label: "Văn hóa dân tộc", linkId: 101 },
-        { label: "Làng cổ", linkId: 104 }
-    ],
-    image: "images/nen-langlolochai.jpg",
-    desc: "Ngôi làng cổ dưới chân cột cờ Lũng Cú, lưu giữ trọn vẹn bản sắc người Lô Lô đen.",
 
-    visitTime: "Cả ngày (đẹp nhất vào sáng sớm hoặc chiều muộn).",
-    ticketPrice: "Miễn phí (chi phí homestay tính riêng).",
-    transport: "Cách Cột cờ Lũng Cú khoảng 1km, có thể đi bộ hoặc xe máy từ trung tâm xã Lũng Cú.",
-    bestSeason: "Tháng 10 - 12 (mùa tam giác mạch) hoặc tháng 3 - 4 (mùa hoa cải).",
-    locationMap: "https://www.google.com/maps?q=Lang+Lo+Lo+Chai+Ha+Giang&output=embed",
-    experience: "Nên ở homestay một đêm để trải nghiệm sinh hoạt, thưởng thức ẩm thực và ngắm bình minh giữa cao nguyên đá.",
-
-    culture: {
-        festival: "Lễ hội truyền thống và nghi lễ cầu mùa của người Lô Lô.",
-        costume: "Trang phục Lô Lô đen với họa tiết thêu tay nhiều màu sắc.",
-        customs: "Nhà trình tường, hàng rào đá và đời sống sinh hoạt cộng đồng đặc trưng.",
-        art: "Kiến trúc nhà cổ và nghệ thuật thêu thổ cẩm tinh xảo.",
-    },
-
-    food: {
-        name: "Gà Đen & Rượu Ngô",
-        image: "images/mon-gaden.jpg",
-        price: "100.000đ - 300.000đ",
-        location: "Các homestay và quán ăn trong làng"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Đồng Văn - Lũng Cú - Lô Lô Chải. Ngày 2: Mã Pí Lèng - Nho Quế.",
-        itinerary3D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Lũng Cú - Lô Lô Chải - Phố cổ Đồng Văn. Ngày 3: Mã Pí Lèng - Sông Nho Quế.",
-        safety: "Tôn trọng phong tục địa phương, giữ yên tĩnh vào buổi tối trong khu dân cư.",
-        estimatedCost: "2.000.000đ - 3.000.000đ/người (bao gồm homestay 1 đêm)"
-    }
+{
+id: 15, name: "Hang Lùng Khúy", category: "Địa danh/Cảnh quan", lat: 23.0528, lng: 104.9913,
+relatedCultureIds: [101,105],
+cultureKeywords: [{ label: "Danh thắng tự nhiên", linkId: 101 }],
+image: "images/nen-hanglungkhuy.jpg",
+desc: "Hang động nổi tiếng với hệ thống nhũ đá tuyệt đẹp.",
+visitTime: "8h - 17h", ticketPrice: "50.000đ", transport: "Xe máy + đi bộ", bestSeason: "Quanh năm",
+locationMap: "https://www.google.com/maps?q=Hang+Lung+Khuy&output=embed",
+experience: "Khám phá hang động và chụp ảnh nhũ đá.",
+culture: { festival: "Sinh hoạt văn hóa địa phương", costume: "Trang phục Dao", art: "Truyền thuyết hang động" },
+food: { name: "Phở Tráng Kìm", image: "images/mon-photrankim.jpg", price: "40k", location: "Quản Bạ" },
+logistics: { itinerary2D: "Quản Bạ - Lùng Khúy", safety: "Mang giày chống trượt.", estimatedCost: "1.200.000đ" }
 },
-   {
-    id: 9,
-    name: "Cao nguyên đá Đồng Văn",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.2710, lng: 105.2800,
-         relatedCultureIds: [101, 105],
-     cultureKeywords: [
-        { label: "Văn hóa dân tộc", linkId: 101 },
-        { label: "Lịch sử", linkId: 105 }
-    ],
-    image: "images/nen-caonguyendadongvan.jpg",
-    desc: "Công viên địa chất toàn cầu UNESCO – miền đá xám kỳ vĩ giữa trời cực Bắc Hà Giang.",
 
-    visitTime: "Quanh năm (đẹp nhất từ tháng 9 - 12 và tháng 3 - 5).",
-    ticketPrice: "Miễn phí (một số điểm tham quan tính vé riêng).",
-    transport: "Di chuyển bằng xe máy hoặc ô tô theo Quốc lộ 4C từ TP Hà Giang.",
-    bestSeason: "Tháng 10 - 12 (mùa hoa tam giác mạch) hoặc tháng 3 - 4 (mùa hoa cải, đào mận).",
-    locationMap: "https://www.google.com/maps?q=Cao+nguyen+da+Dong+Van&output=embed",
-    experience: "Nên dành ít nhất 3 ngày 2 đêm để khám phá trọn vẹn cảnh quan, văn hóa và các cung đường đèo hùng vĩ.",
-
-    culture: {
-        festival: "Lễ hội hoa Tam Giác Mạch và các phiên chợ vùng cao.",
-        costume: "Trang phục truyền thống của người Mông, Lô Lô, Dao, Tày.",
-        customs: "Nhà trình tường, hàng rào đá và tập quán sinh hoạt vùng cao nguyên đá.",
-        art: "Giá trị địa chất hàng trăm triệu năm và kiến trúc dân gian đặc sắc."
-    },
-
-    food: {
-        name: "Thắng Cố, Mèn Mén & Thịt Gác Bếp",
-        image: "images/mon-thangco.jpg",
-        price: "50.000đ - 300.000đ",
-        location: "Các chợ phiên và thị trấn Đồng Văn, Mèo Vạc"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Quản Bạ - Yên Minh. Ngày 2: Đồng Văn - Mã Pí Lèng.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Lũng Cú - Đồng Văn. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Kiểm tra phanh xe trước khi đi đèo. Hạn chế di chuyển ban đêm do sương mù dày.",
-        estimatedCost: "2.500.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
+{
+id: 16, name: "Hoàng Su Phì", category: "Địa danh/Cảnh quan", lat: 22.7547, lng: 104.6753,
+relatedCultureIds: [101,103,105],
+cultureKeywords: [{ label: "Ruộng bậc thang", linkId: 101 }],
+image: "images/nen-hoangsuphi.jpg",
+desc: "Danh thắng nổi tiếng với ruộng bậc thang tuyệt đẹp.",
+visitTime: "Cả ngày", ticketPrice: "Miễn phí", transport: "Xe máy hoặc ô tô", bestSeason: "Tháng 9 - 10",
+locationMap: "https://www.google.com/maps?q=Hoang+Su+Phi&output=embed",
+experience: "Ngắm mùa lúa chín trên ruộng bậc thang.",
+culture: { festival: "Lễ hội lúa mới", costume: "Trang phục Dao và Nùng", art: "Canh tác ruộng bậc thang" },
+food: { name: "Cơm lam", image: "images/mon-comlam.jpg", price: "30k - 60k", location: "Hoàng Su Phì" },
+logistics: { itinerary2D: "Hà Giang - Hoàng Su Phì", safety: "Đường núi xa, chuẩn bị xăng.", estimatedCost: "3.000.000đ" }
 },
-   {
-    id: 10,
-    name: "Dốc Thẩm Mã",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.1522, lng: 105.1906,
-       relatedCultureIds: [105],
-       cultureKeywords: [
-        { label: "Lịch sử giao thương", linkId: 105 }
-    ],
-    image: "images/nen-docthamma.jpg",
-    desc: "Con dốc với những khúc cua tay áo ngoạn mục trên hành trình khám phá cao nguyên đá Đồng Văn.",
 
-    visitTime: "Cả ngày (đẹp nhất vào sáng sớm hoặc chiều muộn).",
-    ticketPrice: "Miễn phí",
-    transport: "Nằm trên cung đường Yên Minh - Đồng Văn, di chuyển bằng xe máy hoặc ô tô.",
-    bestSeason: "Tháng 10 - 12 (mùa tam giác mạch) hoặc tháng 9 - 10 (trời trong, dễ săn ảnh).",
-    locationMap: "https://www.google.com/maps?q=Doc+Tham+Ma+Ha+Giang&output=embed",
-    experience: "Dừng xe tại điểm cao để chụp toàn cảnh các khúc cua tay áo. Nên đi số thấp khi đổ dốc để đảm bảo an toàn.",
-
-    culture: {
-        festival: "Gắn liền với các phiên chợ vùng cao trên tuyến đường Đồng Văn.",
-        costume: "Hình ảnh người Mông dắt ngựa thồ hàng qua dốc.",
-        customs: "Truyền tích về việc 'thẩm' sức ngựa trước hành trình dài.",
-        art: "Cung đường uốn lượn giữa núi đá tai mèo tạo nên cảnh quan ấn tượng."
-    },
-
-    food: {
-        name: "Ngô Nướng & Thịt Xiên Nướng",
-        image: "images/mon-ngonuong.jpg",
-        price: "10.000đ - 50.000đ",
-        location: "Các quán nhỏ ven đường trên cung Yên Minh - Đồng Văn"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Hà Giang - Quản Bạ - Yên Minh. Ngày 2: Dốc Thẩm Mã - Đồng Văn - Mã Pí Lèng.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Yên Minh - Dốc Thẩm Mã - Lũng Cú. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Giữ tốc độ chậm, kiểm tra phanh trước khi đổ dốc. Cẩn thận khi trời mưa hoặc có sương mù.",
-        estimatedCost: "2.000.000đ - 3.000.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
-   {
-    id: 11,
-    name: "Phó Bảng",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.1375, lng: 105.1704,
-       relatedCultureIds: [101, 104],
-     cultureKeywords: [
-        { label: "Văn hóa dân tộc", linkId: 101 },
-        { label: "Kiến trúc cổ", linkId: 104 }
-    ],
-    image: "images/nen-phobang.jpg",
-    desc: "Thị trấn cổ yên bình giữa cao nguyên đá với những ngôi nhà tường đất phủ rêu phong.",
-
-    visitTime: "Cả ngày (đẹp nhất vào sáng sớm hoặc chiều muộn).",
-    ticketPrice: "Miễn phí",
-    transport: "Cách thị trấn Đồng Văn khoảng 5km, di chuyển bằng xe máy hoặc ô tô.",
-    bestSeason: "Tháng 10 - 12 (mùa hoa tam giác mạch) hoặc mùa xuân khi hoa đào, hoa mận nở.",
-    locationMap: "https://www.google.com/maps?q=Pho+Bang+Dong+Van+Ha+Giang&output=embed",
-    experience: "Dành thời gian đi bộ qua các con ngõ nhỏ, chụp ảnh nhà cổ và cảm nhận nhịp sống chậm rãi của người dân địa phương.",
-
-    culture: {
-        festival: "Các phiên chợ vùng cao và lễ hội truyền thống của người Mông, người Hoa.",
-        costume: "Trang phục truyền thống của người Mông và Hoa sinh sống lâu đời tại đây.",
-        customs: "Nhà tường đất, mái ngói âm dương và sinh hoạt cộng đồng đặc trưng.",
-        art: "Kiến trúc cổ pha trộn giữa văn hóa Hoa và Mông, tạo nên vẻ đẹp hoài niệm."
-    },
-
-    food: {
-        name: "Bánh Ngô & Thịt Gác Bếp",
-        image: "images/mon-banhngo.jpg",
-        price: "20.000đ - 150.000đ",
-        location: "Các quán nhỏ trong thị trấn Phó Bảng"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Hà Giang - Quản Bạ - Yên Minh. Ngày 2: Phó Bảng - Đồng Văn - Mã Pí Lèng.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Yên Minh - Phó Bảng - Lũng Cú. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Đường vào thị trấn khá hẹp và có nhiều khúc cua, cần lái xe cẩn thận.",
-        estimatedCost: "2.000.000đ - 3.000.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
-   {
-    id: 12,
-    name: "Rừng thông Yên Minh",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.0359, lng: 105.0586,
-       relatedCultureIds: [105],
-     cultureKeywords: [
-        { label: "Sinh thái", linkId: 105 }
-    ],
-    image: "images/nen-rungthongyenminh.webp",
-    desc: "“Đà Lạt thu nhỏ” giữa Hà Giang với những triền thông xanh mướt dọc Quốc lộ 4C.",
-
-    visitTime: "Cả ngày (đẹp nhất vào sáng sớm có sương hoặc chiều muộn).",
-    ticketPrice: "Miễn phí",
-    transport: "Nằm trên Quốc lộ 4C, giữa Quản Bạ và Yên Minh, thuận tiện đi xe máy hoặc ô tô.",
-    bestSeason: "Tháng 9 - Tháng 4 (thời tiết mát mẻ, ít mưa).",
-    locationMap: "https://www.google.com/maps?q=Rung+Thong+Yen+Minh+Ha+Giang&output=embed",
-    experience: "Dừng chân bên đường để chụp ảnh con đường xuyên rừng thông. Buổi sáng sớm có sương tạo khung cảnh rất thơ mộng.",
-
-    culture: {
-        festival: "Gắn liền với các phiên chợ và lễ hội của người dân Yên Minh.",
-        costume: "Hình ảnh người Mông, Dao trong trang phục truyền thống giữa rừng thông.",
-        customs: "Điểm nghỉ chân quen thuộc của người dân và du khách trên hành trình lên cao nguyên đá.",
-        art: "Cảnh quan rừng thông mềm mại, khác biệt với núi đá tai mèo đặc trưng Hà Giang."
-    },
-
-    food: {
-        name: "Ngô Luộc & Trứng Nướng",
-        image: "images/mon-ngoluoc.jpg",
-        price: "10.000đ - 40.000đ",
-        location: "Các quán nhỏ ven Quốc lộ 4C"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Hà Giang - Quản Bạ - Rừng thông Yên Minh. Ngày 2: Đồng Văn - Mã Pí Lèng.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Yên Minh - Rừng thông - Lũng Cú. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Cẩn thận khi dừng xe ven đường đèo. Tránh đi quá sâu vào rừng khi trời tối.",
-        estimatedCost: "2.000.000đ - 3.000.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
-    {
-    id: 13,
-    name: "Động Lùng Khúy",
-    category: "Địa danh/Cảnh quan",
-      lat: 23.0333, lng: 104.9915,
-          relatedCultureIds: [105],
-        cultureKeywords: [
-        { label: "Du lịch sinh thái", linkId: 105 }
-    ],
-    image: "images/nen-donglungkhuy.jpg",
-    desc: "Hang động huyền ảo giữa núi rừng Quản Bạ với hệ thống nhũ đá lấp lánh như cung điện dưới lòng đất.",
-
-    visitTime: "7h30 - 17h00 hàng ngày.",
-    ticketPrice: "20.000đ/người",
-    transport: "Cách trung tâm thị trấn Tam Sơn (Quản Bạ) khoảng 7km, đi xe máy hoặc ô tô rồi đi bộ lên cửa hang.",
-    bestSeason: "Tháng 9 - Tháng 4 (thời tiết khô ráo, thuận tiện tham quan).",
-    locationMap: "https://www.google.com/maps?q=Dong+Lung+Khuy+Ha+Giang&output=embed",
-    experience: "Mang giày thể thao chống trượt vì lối đi trong hang có thể ẩm ướt. Nên đi theo nhóm để có trải nghiệm tốt hơn.",
-
-    culture: {
-        festival: "Gắn với đời sống và tín ngưỡng dân gian của người dân Quản Bạ.",
-        costume: "Hình ảnh người Mông, Dao trong trang phục truyền thống khi tham quan hang động.",
-        customs: "Người dân địa phương xem hang động như món quà của thiên nhiên ban tặng.",
-        art: "Hệ thống thạch nhũ, măng đá hình thành hàng triệu năm với nhiều hình thù độc đáo."
-    },
-
-    food: {
-        name: "Lạp Xưởng Gác Bếp & Rượu Ngô",
-        image: "images/mon-lapxuong.jpg",
-        price: "50.000đ - 200.000đ",
-        location: "Các quán ăn tại thị trấn Tam Sơn (Quản Bạ)"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Hà Giang - Quản Bạ - Động Lùng Khúy. Ngày 2: Yên Minh - Đồng Văn.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Động Lùng Khúy - Yên Minh - Đồng Văn. Ngày 3: Mã Pí Lèng - Nho Quế.",
-        safety: "Không chạm tay vào nhũ đá để bảo tồn cảnh quan. Cẩn thận khi di chuyển trên bậc đá ẩm.",
-        estimatedCost: "2.000.000đ - 3.000.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
- {
-    id: 14,
-    name: "Địa danh/Cảnh quan",
-    category: "Cảnh quan",
-   lat: 23.2338, lng: 105.2685,
-    relatedCultureIds: [105],
-   cultureKeywords: [
-        { label: "Check-in", linkId: 105 }
-    ],
-    image: "images/nen-caycodon.jpg",
-    desc: "Điểm check-in nổi bật giữa cao nguyên đá với hình ảnh cây xanh đơn độc giữa thung lũng rộng lớn.",
-
-    visitTime: "Cả ngày (đẹp nhất vào sáng sớm hoặc hoàng hôn).",
-    ticketPrice: "Miễn phí",
-    transport: "Nằm trên cung đường Đồng Văn - Mèo Vạc, gần đèo Mã Pí Lèng, di chuyển bằng xe máy hoặc ô tô.",
-    bestSeason: "Tháng 9 - Tháng 12 (trời trong, ánh sáng đẹp để chụp ảnh).",
-    locationMap: "https://www.google.com/maps?q=Cay+Co+Don+Ha+Giang&output=embed",
-    experience: "Nên dừng xe đúng vị trí an toàn ven đường để chụp ảnh. Buổi chiều muộn ánh nắng xiên tạo khung hình rất ấn tượng.",
-
-    culture: {
-        festival: "Gắn liền với hành trình khám phá đèo Mã Pí Lèng và cao nguyên đá.",
-        costume: "Du khách thường thuê trang phục dân tộc để chụp ảnh tại đây.",
-        customs: "Điểm dừng chân tự phát nhưng được nhiều phượt thủ yêu thích.",
-        art: "Hình ảnh cây đơn độc giữa núi đá tạo nên biểu tượng cảm xúc đặc trưng của Hà Giang."
-    },
-
-    food: {
-        name: "Ngô Nướng & Cà Phê Mang Đi",
-        image: "images/mon-caphe.jpg",
-        price: "15.000đ - 50.000đ",
-        location: "Các quán nhỏ ven đường gần đèo Mã Pí Lèng"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Đồng Văn - Mã Pí Lèng - Cây Cô Đơn. Ngày 2: Sông Nho Quế - Mèo Vạc.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Đồng Văn - Lũng Cú. Ngày 3: Mã Pí Lèng - Cây Cô Đơn - Nho Quế.",
-        safety: "Cẩn thận khi dừng xe trên đường đèo. Tránh đứng quá sát mép vực để chụp ảnh.",
-        estimatedCost: "2.000.000đ - 3.000.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
-   {
-    id: 15,
-    name: "Vách Đá Thần",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.2367, lng: 105.2729,
-       relatedCultureIds: [105],
-     cultureKeywords: [
-        { label: "Cảnh quan đá vôi", linkId: 105 }
-    ],
-    image: "images/nen-vachdatuthan.jpeg",
-    desc: "Vách núi đá vôi cao dựng đứng giữa cao nguyên đá Đồng Văn, tạo nên khung cảnh hùng vĩ và đầy ấn tượng.",
-
-    visitTime: "Cả ngày (đẹp nhất vào buổi sáng khi trời trong xanh).",
-    ticketPrice: "Miễn phí",
-    transport: "Nằm trên cung đường Đồng Văn - Mèo Vạc, gần đèo Mã Pí Lèng, có thể di chuyển bằng xe máy hoặc ô tô.",
-    bestSeason: "Tháng 9 - Tháng 4 (thời tiết khô ráo, dễ di chuyển và chụp ảnh đẹp).",
-    locationMap: "https://www.google.com/maps?q=Vach+Da+Than+Ha+Giang&output=embed",
-    experience: "Nên chọn ngày trời nắng để thấy rõ màu đá xám đặc trưng. Khi chụp ảnh cần giữ khoảng cách an toàn và quan sát xe cộ trên đường đèo.",
-
-    culture: {
-        festival: "Gắn liền với hành trình khám phá cao nguyên đá Đồng Văn và đèo Mã Pí Lèng.",
-        costume: "Du khách thường kết hợp trang phục dân tộc hoặc phong cách phượt để chụp ảnh.",
-        customs: "Là điểm dừng chân tự phát của nhiều phượt thủ trên cung đường Hà Giang.",
-        art: "Hình ảnh vách đá sừng sững giữa trời tạo cảm giác mạnh mẽ, biểu tượng cho vẻ đẹp hoang sơ vùng cực Bắc."
-    },
-
-    food: {
-        name: "Thắng Cố & Cà Phê Núi",
-        image: "images/mon-thangco.jpg",
-        price: "30.000đ - 100.000đ",
-        location: "Các quán ăn và quán cà phê dọc tuyến Đồng Văn - Mèo Vạc"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Đồng Văn - Mã Pí Lèng - Vách Đá Thần. Ngày 2: Sông Nho Quế - Mèo Vạc.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Đồng Văn - Lũng Cú. Ngày 3: Mã Pí Lèng - Vách Đá Thần - Nho Quế.",
-        safety: "Cẩn thận khi dừng xe trên đường đèo, không đứng sát mép vực để chụp ảnh.",
-        estimatedCost: "2.000.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
-   {
-    id: 16,
-    name: "Hẻm Tu Sản",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.2276, lng: 105.2871,
-      relatedCultureIds: [105],
-       cultureKeywords: [
-        { label: "Công viên địa chất", linkId: 105 }
-    ],
-    image: "images/nen-hemtusan.jpg", 
-    desc: "Hẻm vực sâu và hùng vĩ bậc nhất Đông Nam Á với vách đá dựng đứng soi bóng xuống dòng Nho Quế xanh ngọc.",
-
-    visitTime: "Cả ngày (đẹp nhất từ 9h - 15h khi có nắng chiếu xuống lòng hẻm).",
-    ticketPrice: "Khoảng 100.000đ - 150.000đ/người (bao gồm vé thuyền tham quan sông Nho Quế).",
-    transport: "Di chuyển đến đèo Mã Pí Lèng (Đồng Văn - Mèo Vạc), sau đó xuống bến thuyền sông Nho Quế bằng xe máy hoặc xe trung chuyển.",
-    bestSeason: "Tháng 9 - Tháng 4 (mùa khô, nước sông xanh và ít mưa).",
-    locationMap: "https://www.google.com/maps?q=Hem+Tu+San+Ha+Giang&output=embed",
-    experience: "Nên trải nghiệm đi thuyền trên sông Nho Quế để cảm nhận trọn vẹn độ cao của vách đá. Chuẩn bị mũ, kính râm vì khu vực lòng hẻm khá nắng.",
-
-    culture: {
-        festival: "Gắn liền với tuyến du lịch đèo Mã Pí Lèng và cao nguyên đá Đồng Văn.",
-        costume: "Du khách thường mặc trang phục dân tộc hoặc đồ nổi bật để chụp ảnh giữa nền đá xám và nước xanh.",
-        customs: "Tôn trọng cảnh quan thiên nhiên, không xả rác xuống sông.",
-        art: "Vách đá cao 700–900m tạo nên hình ảnh biểu tượng hùng vĩ đặc trưng của Hà Giang."
-    },
-
-    food: {
-        name: "Thắng Dền & Ngô Nướng",
-        image: "images/mon-thangden.jpg",
-        price: "15.000đ - 40.000đ",
-        location: "Khu vực bến thuyền sông Nho Quế và thị trấn Mèo Vạc"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Đồng Văn - Mã Pí Lèng - Hẻm Tu Sản. Ngày 2: Mèo Vạc - Sông Nho Quế.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Đồng Văn - Lũng Cú. Ngày 3: Mã Pí Lèng - Hẻm Tu Sản - Nho Quế.",
-        safety: "Mặc áo phao khi đi thuyền. Không đứng sát mép thuyền hoặc leo trèo vách đá.",
-        estimatedCost: "2.500.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
-},
-   {
-    id: 17,
-    name: "Phố cổ Đồng Văn",
-    category: "Địa danh/Cảnh quan",
-     lat: 23.2766, lng: 105.3625,
-      relatedCultureIds: [101, 102, 104],
-      cultureKeywords: [
-        { label: "Chợ phiên", linkId: 102 },
-        { label: "Kiến trúc cổ", linkId: 104 },
-        { label: "Văn hóa dân tộc", linkId: 101 }
-    ],
-    image: "images/nen-phocodongvan.jpg", 
-    desc: "Khu phố hơn 100 năm tuổi với mái ngói âm dương, tường vàng cổ kính và ánh đèn lồng ấm áp giữa lòng thị trấn Đồng Văn.",
-
-    visitTime: "Cả ngày (đẹp nhất vào buổi tối khi lên đèn và sáng Chủ nhật khi có chợ phiên).",
-    ticketPrice: "Miễn phí",
-    transport: "Nằm ngay trung tâm thị trấn Đồng Văn, dễ dàng di chuyển bằng xe máy, ô tô hoặc đi bộ.",
-    bestSeason: "Tháng 9 - Tháng 4 (thời tiết mát mẻ, ít mưa, thuận tiện tham quan và chụp ảnh).",
-    locationMap: "https://www.google.com/maps?q=Pho+Co+Dong+Van+Ha+Giang&output=embed",
-    experience: "Nên dạo phố vào buổi tối để ngắm đèn lồng và thưởng thức ẩm thực địa phương. Sáng Chủ nhật có thể kết hợp tham quan chợ phiên Đồng Văn.",
-
-    culture: {
-        festival: "Gắn liền với chợ phiên Đồng Văn và các lễ hội truyền thống của đồng bào vùng cao.",
-        costume: "Du khách có thể thuê hoặc mặc trang phục dân tộc để chụp ảnh giữa không gian cổ kính.",
-        customs: "Tôn trọng đời sống sinh hoạt của người dân địa phương khi tham quan và chụp ảnh.",
-        art: "Kiến trúc nhà trình tường, mái ngói âm dương và đèn lồng đỏ tạo nên nét giao thoa văn hóa Mông, Hoa và ảnh hưởng Pháp."
-    },
-
-    food: {
-        name: "Thắng Cố & Bánh Tam Giác Mạch",
-        image: "images/mon-thangco.jpg",
-        price: "20.000đ - 120.000đ",
-        location: "Các quán ăn và hàng rong trong khu phố cổ Đồng Văn"
-    },
-
-    logistics: {
-        itinerary2D: "Ngày 1: Quản Bạ - Yên Minh - Đồng Văn. Ngày 2: Phố cổ Đồng Văn - Lũng Cú - Mã Pí Lèng.",
-        itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Đồng Văn - Phố cổ - Lũng Cú. Ngày 3: Mã Pí Lèng - Mèo Vạc.",
-        safety: "Giữ gìn tư trang cá nhân khi tham quan chợ phiên đông người.",
-        estimatedCost: "2.000.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-    }
+{
+id: 17, name: "Thác Tiên - Đèo Gió", category: "Địa danh/Cảnh quan", lat: 22.7579, lng: 104.6864,
+relatedCultureIds: [101],
+cultureKeywords: [{ label: "Danh thắng thiên nhiên", linkId: 101 }],
+image: "images/nen-thactien.jpg",
+desc: "Thác nước đẹp nằm gần Hoàng Su Phì.",
+visitTime: "7h - 17h", ticketPrice: "30.000đ", transport: "Xe máy + đi bộ", bestSeason: "Tháng 5 - 10",
+locationMap: "https://www.google.com/maps?q=Thac+Tien+Deo+Gio&output=embed",
+experience: "Trekking và tắm suối dưới chân thác.",
+culture: { festival: "Lễ hội dân tộc vùng cao", costume: "Trang phục Dao đỏ", art: "Văn hóa núi rừng" },
+food: { name: "Gà nướng", image: "images/mon-ganuong.jpg", price: "150k", location: "Hoàng Su Phì" },
+logistics: { itinerary2D: "Hoàng Su Phì - Thác Tiên", safety: "Đường trơn sau mưa.", estimatedCost: "2.000.000đ" }
 },
   
-    {
-    id: 101,
-    isCultureTopic: true,
-    category: "Văn hóa",
-    name: "Văn hóa các dân tộc thiểu số",
-    image: "images/nen-dantoc.jpg",
-    desc: "Hà Giang là nơi sinh sống của 22 dân tộc anh em, mỗi cộng đồng mang một bản sắc riêng về trang phục, kiến trúc, lễ hội và tín ngưỡng, tạo nên bức tranh văn hóa đa dạng và đặc sắc nơi địa đầu Tổ quốc.",
-    sections: [
-        { 
-            title: "Người Mông", 
-            content: "Cộng đồng đông nhất tại Hà Giang, nổi bật với nhà trình tường đất dày, váy thêu sáp ong rực rỡ và tiếng khèn vang vọng trong lễ hội Gầu Tào. Người Mông canh tác ngô trên đá, thể hiện sự thích nghi bền bỉ với cao nguyên đá." 
-        },
-        { 
-            title: "Người Tày", 
-            content: "Sinh sống ở thung lũng và ven suối, người Tày ở nhà sàn gỗ, trồng lúa nước và nổi tiếng với hát then, đàn tính. Lễ hội Lồng Tồng đầu xuân thể hiện tín ngưỡng nông nghiệp lâu đời." 
-        },
-        { 
-            title: "Người Dao", 
-            content: "Trang phục đỏ thêu tay cầu kỳ là dấu ấn đặc trưng của người Dao. Lễ cấp sắc đánh dấu sự trưởng thành của nam giới, cùng với phong tục tắm lá thuốc truyền thống độc đáo." 
-        },
-        { 
-            title: "Người Nùng", 
-            content: "Người Nùng gắn bó với lúa nước và nghề rèn thủ công. Họ có làn điệu hát sli, lượn mượt mà và sinh hoạt cộng đồng đậm chất truyền thống miền núi." 
-        },
-        { 
-            title: "Người Lô Lô", 
-            content: "Sinh sống nhiều tại Lũng Cú, người Lô Lô nổi bật với trang phục ghép vải màu tinh xảo và văn hóa trống đồng cổ truyền được gìn giữ qua nhiều thế hệ." 
-        },
-        { 
-            title: "Người Pà Thẻn", 
-            content: "Nổi tiếng với lễ hội Nhảy lửa độc đáo, người Pà Thẻn mang sắc đỏ chủ đạo trong trang phục và duy trì nhiều nghi lễ tâm linh gắn với tín ngưỡng đa thần." 
-        },
-        { 
-            title: "Người La Chí", 
-            content: "Cư trú chủ yếu ở Hoàng Su Phì, người La Chí nổi tiếng với ruộng bậc thang và lễ hội Khu Cù Tê cầu mùa. Trang phục truyền thống mang sắc chàm giản dị." 
-        },
-        { 
-            title: "Người Cờ Lao", 
-            content: "Dân tộc ít người sinh sống tại vùng núi cao, người Cờ Lao duy trì tín ngưỡng thờ thần núi và các nghi lễ cộng đồng đặc trưng." 
-        },
-        { 
-            title: "Người Pu Péo", 
-            content: "Là một trong những dân tộc rất ít người, Pu Péo có tục thờ thần đá và đời sống gắn bó mật thiết với thiên nhiên vùng cao." 
-        },
-        { 
-            title: "Người Bố Y", 
-            content: "Sinh sống rải rác ở vùng cao, người Bố Y làm nông nghiệp và chăn nuôi nhỏ, duy trì các lễ hội cầu mùa và tín ngưỡng dân gian truyền thống." 
-        },
-        { 
-            title: "Người Phù Lá", 
-            content: "Cư trú tại các vùng núi phía bắc tỉnh, người Phù Lá canh tác nương rẫy và lúa nương, trang phục chủ yếu màu chàm truyền thống." 
-        },
-        { 
-            title: "Người La Ha", 
-            content: "Sống bằng nương rẫy và chăn nuôi, người La Ha duy trì nhiều nghi lễ nông nghiệp cổ truyền và phong tục đặc sắc." 
-        },
-        { 
-            title: "Người Sán Chỉ", 
-            content: "Nổi bật với làn điệu hát soóng cọ giao duyên, người Sán Chỉ sinh sống bằng nông nghiệp và ở nhà sàn đơn giản." 
-        },
-        { 
-            title: "Người Cao Lan (Sán Chay)", 
-            content: "Có văn hóa hát đối đáp trong lễ hội, người Cao Lan sinh sống bằng lúa nước và duy trì phong tục cưới hỏi truyền thống." 
-        },
-        { 
-            title: "Người Hoa", 
-            content: "Sinh sống chủ yếu tại thị trấn, người Hoa có truyền thống kinh doanh và góp phần tạo nên nét kiến trúc nhà phố cổ đặc trưng." 
-        },
-        { 
-            title: "Người Kinh", 
-            content: "Đóng vai trò quan trọng trong phát triển kinh tế – xã hội của tỉnh, văn hóa người Kinh giao thoa giữa đồng bằng và miền núi." 
-        },
-        { 
-            title: "Người Thái", 
-            content: "Có truyền thống nhà sàn và múa xòe trong sinh hoạt cộng đồng. Người Thái canh tác lúa nước và sở hữu nền ẩm thực đặc sắc." 
-        },
-        { 
-            title: "Người Mường", 
-            content: "Văn hóa lúa nước, nhà sàn và cồng chiêng là nét đặc trưng của người Mường, thể hiện đời sống cộng đồng gắn kết." 
-        },
-        { 
-            title: "Người Giấy", 
-            content: "Sinh sống ở vùng thung lũng, người Giấy trồng lúa nước và tổ chức lễ hội cầu mùa đầu năm với nhiều nghi thức truyền thống." 
-        },
-        { 
-            title: "Người Ngái", 
-            content: "Có nguồn gốc Hoa, người Ngái sinh sống bằng nông nghiệp và buôn bán nhỏ, văn hóa mang tính giao thoa đặc trưng." 
-        },
-        { 
-            title: "Người Khơ Mú", 
-            content: "Sinh sống rải rác tại vùng cao, người Khơ Mú làm nương rẫy và duy trì phong tục gắn với tín ngưỡng tự nhiên." 
-        },
-        { 
-            title: "Người Hán", 
-            content: "Một bộ phận nhỏ cư trú tại Hà Giang, người Hán mang theo văn hóa truyền thống phương Đông và duy trì phong tục thờ cúng tổ tiên." 
-        }
-    ]
+ const cultureData = [
+{
+id: 101, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa các dân tộc thiểu số", image: "images/nen-dantoc.jpg",
+desc: "Hà Giang có 22 dân tộc với bản sắc văn hóa đa dạng về trang phục, lễ hội và kiến trúc.",
+sections: [
+{ title: "Người Mông", content: "Nhà trình tường đất, váy thêu sáp ong và tiếng khèn trong lễ hội Gầu Tào." },
+{ title: "Người Tày", content: "Nhà sàn gỗ, trồng lúa nước và hát then với đàn tính." },
+{ title: "Người Dao", content: "Trang phục đỏ thêu tay và nghi lễ cấp sắc đánh dấu trưởng thành." },
+{ title: "Người Nùng", content: "Gắn với lúa nước, nghề rèn và làn điệu hát sli, lượn." },
+{ title: "Người Lô Lô", content: "Trang phục ghép vải nhiều màu và văn hóa trống đồng cổ." },
+{ title: "Người Pà Thẻn", content: "Nổi tiếng với lễ hội Nhảy lửa và trang phục màu đỏ." },
+{ title: "Người La Chí", content: "Ruộng bậc thang Hoàng Su Phì và lễ hội Khu Cù Tê." },
+{ title: "Người Cờ Lao", content: "Duy trì tín ngưỡng thờ thần núi và lễ nghi cộng đồng." },
+{ title: "Người Pu Péo", content: "Tín ngưỡng thờ thần đá và đời sống gắn với thiên nhiên." },
+{ title: "Người Bố Y", content: "Làm nông nghiệp và duy trì lễ hội cầu mùa." },
+{ title: "Người Phù Lá", content: "Canh tác nương rẫy, trang phục chàm truyền thống." },
+{ title: "Người La Ha", content: "Sinh sống bằng nương rẫy và nghi lễ nông nghiệp cổ." },
+{ title: "Người Sán Chỉ", content: "Nổi bật với hát soóng cọ giao duyên." },
+{ title: "Người Cao Lan", content: "Hát đối đáp trong lễ hội và văn hóa lúa nước." },
+{ title: "Người Hoa", content: "Truyền thống kinh doanh và kiến trúc phố cổ." },
+{ title: "Người Kinh", content: "Giao thoa văn hóa đồng bằng và miền núi." },
+{ title: "Người Thái", content: "Nhà sàn, múa xòe và ẩm thực đặc sắc." },
+{ title: "Người Mường", content: "Văn hóa cồng chiêng và đời sống nhà sàn." },
+{ title: "Người Giấy", content: "Trồng lúa nước và lễ hội cầu mùa đầu năm." },
+{ title: "Người Ngái", content: "Nguồn gốc Hoa và sinh kế buôn bán nhỏ." },
+{ title: "Người Khơ Mú", content: "Làm nương rẫy và tín ngưỡng tự nhiên." },
+{ title: "Người Hán", content: "Duy trì phong tục thờ cúng tổ tiên." }
+]
 },
-   {
-        id: 102,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Văn hóa Chợ phiên vùng cao",
-        image: "images/nen-phiencho.jpg",
-        desc: "Chợ phiên không chỉ là nơi mua bán mà còn là một 'bảo tàng sống' lưu giữ trọn vẹn đời sống tâm linh và văn hóa cộng đồng của các dân tộc Hà Giang.",
-        sections: [
-            { 
-                title: " Thời gian họp chợ đặc biệt", 
-                content: "Khác với đồng bằng, chợ vùng cao họp theo phiên cố định (mỗi tuần 1 lần) hoặc 'chợ lùi' (mỗi tuần lùi 1 ngày). Chợ thường bắt đầu từ tảng sáng đến giữa trưa. Các phiên chợ nức tiếng gồm: Đồng Văn, Mèo Vạc và Chợ tình Khâu Vai." 
-            },
-            { 
-                title: " Không gian giao lưu cộng đồng", 
-                content: "Đây là nơi thanh niên gặp gỡ giao duyên, người thân ở các bản xa xôi tìm lại nhau sau những ngày lao động. Đặc biệt, chợ tình Khâu Vai là nơi duy nhất để những đôi lứa xưa gặp lại mỗi năm một lần theo phong tục truyền thống." 
-            },
-            { 
-                title: " Trang phục & Sắc màu văn hóa", 
-                content: "Ngày chợ là ngày hội khoe sắc với váy thêu sáp ong của người Mông, áo đỏ thêu tay của người Dao và trang phục ghép vải cầu kỳ của người Lô Lô, tạo nên một bức tranh thổ cẩm sống động giữa núi đá xám." 
-            },
-            { 
-                title: " Ẩm thực đặc trưng", 
-                content: "Chợ phiên là thiên đường của những món ngon dân dã: bát Thắng cố nghi ngút khói, mèn mén thơm mùi ngô mới, cháo ấu tẩu vị đắng thanh và chén rượu ngô men lá nồng nàn, tạo không khí quây quần ấm áp." 
-            },
-            { 
-                title: " Hàng hóa đậm bản sắc địa phương", 
-                content: "Các gian hàng bày bán đủ loại từ nông sản (mật ong, rau rừng), gia súc (lợn cắp nách, bò) đến sản phẩm thủ công tinh xảo như vải thổ cẩm, dao rèn thủ công và các loại nhạc cụ dân tộc." 
-            },
-            { 
-                title: " Âm nhạc & Tiếng khèn", 
-                content: "Âm thanh dìu dặt của tiếng khèn Mông hòa cùng tiếng nói cười rộn ràng chính là bản hòa âm đặc trưng, làm nên linh hồn của phiên chợ vùng cao mà du khách nào cũng muốn một lần được đắm mình trải nghiệm." 
-            },
-            { 
-                title: " Giá trị văn hóa cốt lõi", 
-                content: "Chợ phiên đóng vai trò then chốt trong việc bảo tồn trang phục truyền thống, duy trì tiếng nói bản địa và thắt chặt sợi dây gắn kết cộng đồng giữa 22 dân tộc anh em trên cao nguyên đá." 
-            }
-        ]
-    },
-   {
-        id: 103,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Lễ hội truyền thống",
-        image: "images/nen-lehoitruynthong.jpg",
-        desc: "Hà Giang là vùng đất của những lễ hội đậm chất nhân văn, nơi giao thoa giữa tín ngưỡng tâm linh và khát vọng về một cuộc sống ấm no, hạnh phúc.",
-        sections: [
-            { 
-                title: " Lễ hội Gầu Tào (Người Mông)", 
-                content: "Diễn ra từ mùng 1 đến rằm tháng Giêng, đây là lễ hội cầu phúc, cầu con, cầu sức khỏe và may mắn. Phần hội rộn ràng với tiếng múa khèn, hát giao duyên, thi ném pao, đánh quay, thể hiện niềm tin vào thần linh bảo hộ bản làng." 
-            },
-            { 
-                title: " Lễ hội Lồng Tồng (Người Tày)", 
-                content: "Nghĩa là 'xuống đồng', diễn ra vào đầu năm mới để cúng thần nông cầu mùa màng bội thu. Du khách sẽ được đắm mình trong làn điệu hát Then, tiếng đàn Tính, xem tung còn và kéo co mang đậm dấu ấn văn hóa lúa nước vùng thung lũng." 
-            },
-            { 
-                title: " Lễ hội Nhảy lửa (Người Pà Thẻn)", 
-                content: "Thường tổ chức vào cuối năm âm lịch. Sau nghi lễ cúng thần linh trang trọng, các chàng trai sẽ nhảy chân trần trên lớp than hồng rực rỡ, thể hiện sức mạnh tinh thần vượt bậc và niềm tin tâm linh mãnh liệt của người dân nơi đây." 
-            },
-            { 
-                title: " Lễ cấp sắc (Người Dao)", 
-                content: "Nghi lễ quan trọng nhất trong đời người đàn ông Dao, đánh dấu sự trưởng thành và được thần linh công nhận là thành viên chính thức của cộng đồng thông qua nhiều nghi thức cúng bái và hát lễ truyền thống nghiêm ngặt." 
-            },
-            { 
-                title: " Chợ tình Khâu Vai", 
-                content: "Diễn ra duy nhất vào ngày 27/3 âm lịch hàng năm. Đây không phải nơi buôn bán mà là nơi những đôi lứa từng yêu nhau nhưng không đến được với nhau gặp lại, tạo nên không khí vừa náo nhiệt vừa lãng mạn, đậm tính nhân văn sâu sắc." 
-            },
-            { 
-                title: " Lễ hội Khu Cù Tê (Người La Chí)", 
-                content: "Lễ hội cầu mùa và tạ ơn tổ tiên sau vụ thu hoạch. Đây là dịp sinh hoạt cộng đồng lớn nhất của người La Chí với các điệu múa hát dân gian và nghi lễ tâm linh gắn liền với lịch sử của tộc người." 
-            },
-            { 
-                title: " Lễ hội hoa Tam giác mạch", 
-                content: "Tổ chức vào tháng 10–11 hàng năm để tôn vinh loài hoa biểu tượng của đá xám. Lễ hội quảng bá văn hóa địa phương qua các màn biểu diễn nghệ thuật, thi trang phục dân tộc và giới thiệu ẩm thực đặc trưng đến du khách quốc tế." 
-            },
-            { 
-                title: "Ý nghĩa văn hóa đặc sắc", 
-                content: "Các lễ hội Hà Giang không chỉ gắn liền với tín ngưỡng nông nghiệp mà còn là sợi dây gắn kết cộng đồng, bảo tồn tiếng nói, trang phục và nhạc cụ truyền thống, tạo nên điểm nhấn du lịch tâm linh đặc sắc cho vùng cao nguyên đá." 
-            }
-        ]
-    },
-   {
-        id: 104,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Kiến trúc & Làng cổ",
-        image: "images/nen-kientruc.jpg",
-        desc: "Giữa cao nguyên đá hùng vĩ, kiến trúc truyền thống của các dân tộc Hà Giang không chỉ là nơi ở, mà còn là biểu tượng của lịch sử, tín ngưỡng và sự thích nghi kỳ diệu với thiên nhiên khắc nghiệt.",
-        sections: [
-            { 
-                title: " Nhà trình tường – Biểu tượng của người Mông", 
-                content: "Được xây bằng đất nện dày 40–60cm, giữ ấm mùa đông và mát vào mùa hè. Tường đất vàng nổi bật giữa nền đá xám tạo nên khung cảnh đặc trưng. Mái lợp ngói âm dương, sân nhà thường có hàng rào đá bao quanh bảo vệ gia súc và tạo thế phong thủy. Những ngôi nhà cổ đẹp nhất tập trung tại Phố cổ Đồng Văn với tuổi đời hơn 100 năm." 
-            },
-            { 
-                title: " Nhà sàn của người Tày, Nùng", 
-                content: "Sống ở thung lũng ven suối, người Tày và Nùng dựng nhà sàn bằng gỗ nghiến, gỗ lim chắc chắn, cao ráo để tránh ẩm thấp. Không gian sinh hoạt chia rõ rệt: gian thờ tổ tiên ở trung tâm, bếp lửa phía sau. Du khách có thể khám phá những làng nhà sàn cổ tại Làng văn hóa du lịch cộng đồng thôn Tha." 
-            },
-            { 
-                title: " Làng đá – Kiến trúc hòa vào thiên nhiên", 
-                content: "Ở vùng Cao nguyên đá Đồng Văn, người Mông tận dụng đá để xây tường rào, chuồng trại và nền nhà. Những bức tường đá xếp thủ công không cần chất kết dính nhưng vẫn bền vững hàng trăm năm. Làng Lô Lô Chải là minh chứng tiêu biểu với không gian yên bình ngay dưới chân cột cờ Lũng Cú." 
-            },
-            { 
-                title: " Dinh thự cổ – Dấu ấn giao thoa văn hóa", 
-                content: "Tiêu biểu là Dinh thự họ Vương (Dinh Vua Mèo) hơn 100 năm tuổi. Công trình mang phong cách pha trộn tinh tế giữa kiến trúc nhà Thanh (Trung Hoa), văn hóa người Mông và ảnh hưởng từ Pháp. Tường đá xanh cùng những chạm khắc tinh xảo thể hiện quyền lực của dòng họ Vương xưa." 
-            },
-            { 
-                title: " Làng cổ – Những bảo tàng sống", 
-                content: "Mỗi làng cổ là một câu chuyện về sự gắn bó giữa con người và núi đá. Đặc trưng bởi những cổng làng bằng đá xám, sân phơi ngô vàng rực mỗi mùa thu và bếp lửa hồng giữa nhà – trung tâm đời sống tinh thần gắn liền với lễ hội và chợ phiên vùng cao." 
-            },
-            { 
-                title: " Trải nghiệm không gian kiến trúc", 
-                content: "Đến Hà Giang không chỉ để ngắm nhìn mà để cảm nhận nhịp sống chậm rãi qua việc trải nghiệm homestay nhà trình tường, tham gia nện tường đất cùng đồng bào hoặc thưởng thức ẩm thực truyền thống bên bếp lửa giữa không gian kiến trúc nguyên bản." 
-            }
-        ]
-    },
-   {
-        id: 105,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Văn hóa Lao động & Lịch sử",
-        image: "images/nen-vanhoalichsu.jpg",
-        desc: "Văn hóa lao động và lịch sử Hà Giang là vẻ đẹp của ý chí, của bàn tay bền bỉ và của những lớp trầm tích thời gian còn in dấu sâu đậm giữa đại ngàn đá núi.",
-        sections: [
-            { 
-                title: " Canh tác trên đá – Kỳ tích người Mông", 
-                content: "Tại Cao nguyên đá Đồng Văn, người Mông tạo nên kỳ tích khi gieo ngô trong từng hốc đá nhỏ. Đất được gùi từ thung lũng lên, bỏ vào kẽ đá để trồng trọt. Những nương ngô vàng óng mỗi mùa thu là minh chứng đanh thép cho ý chí chinh phục thiên nhiên khắc nghiệt của cư dân nơi đây." 
-            },
-            { 
-                title: " Ruộng bậc thang – Dấu ấn sáng tạo", 
-                content: "Các thửa ruộng tại Hoàng Su Phì được tạo dựng qua nhiều thế hệ người Dao, Nùng, La Chí. Họ đã biến những sườn núi dốc đứng thành những tầng lúa uốn lượn mềm mại. Đây không chỉ là phương thức sản xuất mà còn là những tác phẩm nghệ thuật khổng lồ từ bàn tay lao động." 
-            },
-            { 
-                title: " Nghề thủ công & Sinh kế bản địa", 
-                content: "Hệ thống tri thức dân gian thể hiện qua nghề dệt lanh, thêu sáp ong, làm giấy dó hay rèn nông cụ thủ công. Bên cạnh đó, việc chăn nuôi bò, ngựa, dê núi không chỉ là nguồn thu nhập mà còn là tài sản quý giá, biểu tượng cho sức sống gắn liền với núi đá Hà Giang." 
-            },
-            { 
-                title: " Lịch sử cư trú & Dinh thự họ Vương", 
-                content: "Hà Giang là nơi định cư hàng trăm năm của 22 dân tộc với lịch sử mở đất biên cương kiên cường. Trong đó, Dinh thự họ Vương (Dinh Vua Mèo) tại Sà Phìn là chứng tích lịch sử tiêu biểu đầu thế kỷ 20, gắn liền với sức ảnh hưởng của dòng họ Vương trên vùng cao nguyên này." 
-            },
-            { 
-                title: " Biên cương kiên cường & Cách mạng", 
-                content: "Giữ vị trí chiến lược quan trọng, Hà Giang ghi dấu lịch sử qua những cuộc kháng chiến bảo vệ Tổ quốc. Mỗi địa danh biên giới, mỗi con đường như đường Hạnh Phúc đều thấm đẫm mồ hôi, máu và tinh thần hy sinh giữ đất của quân và dân miền cực Bắc." 
-            },
-            { 
-                title: " Di sản Công viên địa chất toàn cầu", 
-                content: "Năm 2010, Cao nguyên đá Đồng Văn được UNESCO công nhận là Công viên địa chất toàn cầu. Giá trị này không chỉ nằm ở địa chất hàng triệu năm mà còn là minh chứng sống động cho lịch sử cư trú và khả năng thích nghi kỳ diệu của con người trên miền đá." 
-            },
-            { 
-                title: "Giá trị trải nghiệm lịch sử", 
-                content: "Du khách đến đây để chiêm ngưỡng mùa vàng Hoàng Su Phì, tham quan di tích Dinh Vua Mèo và lắng nghe những câu chuyện bảo vệ biên cương, để cảm nhận một vẻ đẹp lặng lẽ, bền bỉ nhưng đầy kiêu hãnh của con người Hà Giang." 
-            }
-        ]
-    },
-   {
-        id: 106,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Ẩm thực truyền thống",
-        image: "images/nen-amthuc.jpg",
-        desc: "Ẩm thực Hà Giang không chỉ là món ăn, mà là kết tinh từ lao động, thiên nhiên và hơi thở nồng nàn của men đá vùng cao.",
-        sections: [
-            { 
-                title: " Mèn mén – Linh hồn ẩm thực người Mông", 
-                content: "Được làm từ ngô xay nhuyễn, hấp nhiều lần cho tơi và dẻo. Đây là món ăn chính trong bữa cơm của người Mông, thường dùng cùng canh rau hoặc thịt. Giản dị nhưng giàu năng lượng, mèn mén thể hiện rõ đời sống canh tác bền bỉ trên cao nguyên đá." 
-            },
-            { 
-                title: " Thắng cố – Hương vị của chợ phiên", 
-                content: "Món ăn truyền thống nức tiếng tại các phiên chợ vùng cao. Nước dùng được ninh từ xương và thịt, nêm gia vị đặc trưng núi rừng như thảo quả, địa liền, quế. Thắng cố ngon nhất khi ăn nóng bên bếp lửa hồng và nhâm nhi chén rượu ngô cay nồng." 
-            },
-            { 
-                title: " Thịt trâu gác bếp – Đậm đà khói núi", 
-                content: "Thịt trâu được ướp muối, gừng, ớt, mắc khén rồi treo trên gác bếp nhiều tháng. Thịt khô bên ngoài nhưng mềm ngọt bên trong, mang vị thơm đặc trưng của khói củi. Đây là món ăn không thể thiếu dịp lễ Tết và là món quà quý cho du khách." 
-            },
-            { 
-                title: " Phở chua Hà Giang", 
-                content: "Khác với phở nước truyền thống, phở chua có vị thanh mát từ nước sốt pha giấm nhẹ, ăn kèm thịt xá xíu, lạc rang và rau thơm. Món ăn mang đậm dấu ấn giao thoa văn hóa ẩm thực vùng biên, tạo nên hương vị lạ miệng đầy sức hút." 
-            },
-            { 
-                title: " Cháo ấu tẩu – Món ăn của mùa đông", 
-                content: "Được nấu từ củ ấu tẩu, gạo nếp và thịt băm. Vị hơi đắng nhẹ ban đầu, sau đó ngọt dần và rất ấm bụng. Người dân thường ăn vào buổi tối để bồi bổ sức khỏe và giữ ấm cơ thể giữa khí hậu lạnh giá của vùng cao." 
-            },
-            { 
-                title: " Rượu ngô – Hơi thở của men đá", 
-                content: "Nấu thủ công từ ngô địa phương và men lá truyền thống. Vị cay nồng nhưng êm, rượu ngô thường xuất hiện trong các dịp lễ hội, cưới hỏi hay khi tiếp khách quý, thể hiện lòng hiếu khách chân thành của con người Hà Giang." 
-            },
-            { 
-                title: " Rau rừng & Đặc sản theo mùa", 
-                content: "Ẩm thực nơi đây thuận theo tự nhiên với cải mèo, măng rừng, nấm hương đá hay hạt tam giác mạch dùng làm bánh. Mỗi mùa một thức, mộc mạc nhưng đậm đà bản sắc, hoàn toàn không phụ thuộc vào công nghiệp chế biến." 
-            }
-        ]
-    }
-]; 
+
+{
+id: 102, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Chợ phiên vùng cao", image: "images/nen-phiencho.jpg",
+desc: "Chợ phiên là nơi mua bán và giao lưu văn hóa của các dân tộc Hà Giang.",
+sections: [
+{ title: "Thời gian họp chợ", content: "Chợ họp theo phiên hoặc chợ lùi mỗi tuần." },
+{ title: "Không gian giao lưu", content: "Nơi gặp gỡ, giao duyên và kết nối cộng đồng." },
+{ title: "Trang phục dân tộc", content: "Váy thêu Mông, áo đỏ Dao và trang phục Lô Lô." },
+{ title: "Ẩm thực chợ phiên", content: "Thắng cố, mèn mén, cháo ấu tẩu và rượu ngô." },
+{ title: "Hàng hóa địa phương", content: "Nông sản, gia súc và đồ thủ công thổ cẩm." },
+{ title: "Âm nhạc truyền thống", content: "Tiếng khèn Mông và không khí chợ rộn ràng." },
+{ title: "Giá trị văn hóa", content: "Góp phần bảo tồn bản sắc của 22 dân tộc." }
+]
+},
+
+{
+id: 103, isCultureTopic: true, category: "Văn hóa", name: "Lễ hội truyền thống", image: "images/nen-lehoitruynthong.jpg",
+desc: "Những lễ hội đặc sắc phản ánh tín ngưỡng và đời sống tinh thần của người dân Hà Giang.",
+sections: [
+{ title: "Gầu Tào", content: "Lễ hội người Mông cầu phúc, sức khỏe và may mắn." },
+{ title: "Lồng Tồng", content: "Lễ xuống đồng của người Tày cầu mùa bội thu." },
+{ title: "Nhảy lửa", content: "Nghi lễ tâm linh đặc sắc của người Pà Thẻn." },
+{ title: "Cấp sắc", content: "Nghi lễ trưởng thành của nam giới người Dao." },
+{ title: "Chợ tình Khâu Vai", content: "Nơi gặp lại của những đôi lứa xưa." },
+{ title: "Khu Cù Tê", content: "Lễ hội cầu mùa của người La Chí." },
+{ title: "Hoa Tam giác mạch", content: "Lễ hội du lịch tôn vinh loài hoa đặc trưng." }
+]
+},
+
+{
+id: 104, isCultureTopic: true, category: "Văn hóa", name: "Kiến trúc & Làng cổ", image: "images/nen-kientruc.jpg",
+desc: "Kiến trúc truyền thống phản ánh lịch sử và cách thích nghi với thiên nhiên.",
+sections: [
+{ title: "Nhà trình tường", content: "Nhà đất dày của người Mông giữ ấm và bền chắc." },
+{ title: "Nhà sàn", content: "Kiến trúc gỗ của người Tày và Nùng ở vùng thung lũng." },
+{ title: "Làng đá", content: "Những bức tường đá thủ công của cao nguyên đá." },
+{ title: "Dinh thự họ Vương", content: "Công trình hơn 100 năm mang phong cách giao thoa." },
+{ title: "Làng cổ", content: "Không gian sống gắn với sân phơi ngô và bếp lửa." },
+{ title: "Trải nghiệm homestay", content: "Du khách sống cùng người dân trong nhà truyền thống." }
+]
+},
+
+{
+id: 105, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Lao động & Lịch sử", image: "images/nen-vanhoalichsu.jpg",
+desc: "Thể hiện ý chí lao động bền bỉ và lịch sử cư trú của cư dân vùng cao.",
+sections: [
+{ title: "Canh tác trên đá", content: "Người Mông trồng ngô trong hốc đá cao nguyên." },
+{ title: "Ruộng bậc thang", content: "Kiệt tác nông nghiệp ở Hoàng Su Phì." },
+{ title: "Nghề thủ công", content: "Dệt lanh, thêu sáp ong và rèn nông cụ." },
+{ title: "Dinh thự họ Vương", content: "Di tích lịch sử nổi tiếng đầu thế kỷ 20." },
+{ title: "Biên cương kiên cường", content: "Lịch sử bảo vệ biên giới của người dân Hà Giang." },
+{ title: "Công viên địa chất", content: "Cao nguyên đá Đồng Văn được UNESCO công nhận." }
+]
+},
+
+{
+id: 106, isCultureTopic: true, category: "Văn hóa", name: "Ẩm thực truyền thống", image: "images/nen-amthuc.jpg",
+desc: "Ẩm thực Hà Giang mang hương vị núi rừng đặc trưng.",
+sections: [
+{ title: "Mèn mén", content: "Món ăn từ ngô đặc trưng của người Mông." },
+{ title: "Thắng cố", content: "Món ăn nổi tiếng tại các phiên chợ vùng cao." },
+{ title: "Thịt trâu gác bếp", content: "Thịt hun khói với gia vị mắc khén." },
+{ title: "Phở chua", content: "Phở khô với nước sốt chua thanh." },
+{ title: "Cháo ấu tẩu", content: "Món ăn bổ dưỡng thường dùng buổi tối." },
+{ title: "Rượu ngô", content: "Rượu truyền thống nấu từ ngô và men lá." },
+{ title: "Rau rừng", content: "Các loại rau và đặc sản theo mùa vùng núi." }
+]
+}
+];; 
 [
 { id: 102, isCultureTopic: true, category: "Văn hóa", name: "Văn hóa Chợ phiên vùng cao", image: "images/nen-chophien.jpg", desc: "Giao lưu, hò hẹn đặc trưng.", sections: [] },
     { id: 103, isCultureTopic: true, category: "Văn hóa", name: "Lễ hội truyền thống", image: "images/nen-lehoi.jpg", desc: "Nghi lễ tâm linh.", sections: [] },
@@ -1008,16 +360,16 @@ function displayDestinations(items) {
         <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 relative text-slate-800">
             ${!item.isCultureTopic ? `<button onclick="addToTrip(${item.id})" class="absolute top-4 right-4 z-30 bg-white/90 backdrop-blur text-emerald-700 w-10 h-10 rounded-full shadow-lg hover:bg-orange-500 hover:text-white transition-all"><i class="fas fa-plus"></i></button>` : ''}
             <div onclick="openModal(${item.id})" class="cursor-pointer">
-                <div class="relative h-60 overflow-hidden text-center">
+                <div class="relative h-60 overflow-hidden">
                     <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                     <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
                         ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[9px] px-2 py-1 rounded font-bold hover:bg-orange-500 transition shadow-lg"># ${kw.label}</span>`).join('')}
                     </div>
-                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase">Chi tiết</div>
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs">Chi tiết</div>
                 </div>
                 <div class="p-6">
                     <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
-                    <h3 class="text-lg font-bold mt-2 mb-2 text-emerald-900 uppercase">${item.name}</h3>
+                    <h3 class="text-xl font-bold mt-2 mb-3 text-emerald-900 uppercase">${item.name}</h3>
                     <p class="text-gray-500 text-xs leading-relaxed line-clamp-2 italic">${item.desc}</p>
                 </div>
             </div>
@@ -1030,21 +382,20 @@ function filterDestinations(category) {
     displayDestinations(filtered);
 }
 
-document.getElementById('search-input')?.addEventListener('input', (e) => {
-    const kw = e.target.value.toLowerCase();
-    const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
-    displayDestinations(filtered);
-});
-
-// ==========================================
-// 4. THỜI TIẾT & MODAL (FIX LỖI)
-// ==========================================
+// --- 3. THỜI TIẾT ---
+async function fetchWeather(lat, lng) {
+    try {
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max&timezone=Asia%20Bangkok`);
+        return await response.json();
+    } catch (e) { return null; }
+}
 
 function interpretWeather(code) {
-    const map = { 0: { icon: "fa-sun text-yellow-400", txt: "Nắng" }, 1: { icon: "fa-cloud-sun", txt: "Ít mây" }, 2: { icon: "fa-cloud", txt: "Mây" }, 45: { icon: "fa-smog", txt: "Sương mù" }, 61: { icon: "fa-cloud-rain", txt: "Mưa" } };
+    const map = { 0: { icon: "fa-sun text-yellow-400", txt: "Nắng" }, 1: { icon: "fa-cloud-sun", txt: "Ít mây" }, 2: { icon: "fa-cloud", txt: "Mây" }, 45: { icon: "fa-smog", txt: "Sương mù" }, 61: { icon: "fa-cloud-rain text-blue-400", txt: "Mưa" } };
     return map[code] || { icon: "fa-cloud", txt: "Ổn định" };
 }
 
+// --- 4. MODAL CHI TIẾT ---
 async function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
@@ -1053,51 +404,51 @@ async function openModal(id) {
 
     if (item.isCultureTopic) {
         content.innerHTML = `
-            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl font-bold">${item.name}</div></div>
-            <div class="p-8 md:p-16 space-y-10 bg-white text-slate-800">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm"><h4 class="font-bold text-xl text-emerald-900 mb-2">${sec.title}</h4><p class="text-gray-600 text-sm leading-relaxed">${sec.content}</p></div>`).join('')}
+            <div class="relative h-80"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl font-bold">${item.name}</div></div>
+            <div class="p-8 md:p-16 space-y-12 bg-white text-slate-800 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm text-left"><h4 class="font-bold text-2xl text-emerald-900 mb-4">${sec.title}</h4><p class="text-gray-600 leading-relaxed text-lg">${sec.content}</p></div>`).join('')}
                 </div>
+                <div class="text-center"><button onclick="closeModal()" class="bg-emerald-900 text-white px-10 py-3 rounded-full font-bold uppercase hover:bg-black transition">Đóng lại</button></div>
             </div>`;
     } else {
-        // Fix lỗi 400 thời tiết bằng cách đảm bảo lat/lng luôn hợp lệ
-        let weatherHTML = "";
-        try {
-            const lat = item.lat || 23.2; 
-            const lng = item.lng || 105.2;
-            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max&timezone=Asia%20Bangkok`);
-            const w = await res.json();
-            const curr = interpretWeather(w.current_weather.weathercode);
-            weatherHTML = `
-                <section class="bg-slate-900 text-white p-8 rounded-[40px] flex items-center justify-between gap-6 my-10">
-                    <div><p class="text-[10px] uppercase text-emerald-400 font-bold mb-2 tracking-widest">Thời tiết</p><div class="flex items-center gap-4"><i class="fas ${curr.icon} text-4xl"></i><div><p class="text-3xl font-bold">${w.current_weather.temperature}°C</p><p class="text-xs opacity-60">${curr.txt}</p></div></div></div>
-                    <div class="flex gap-2">
-                        ${w.daily.time.slice(1,4).map((t, i) => `<div class="bg-white/5 p-2 rounded-xl text-center"><p class="text-[9px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${interpretWeather(w.daily.weathercode[i+1]).icon} text-xs my-1"></i><p class="font-bold text-[10px]">${Math.round(w.daily.temperature_2m_max[i+1])}°</p></div>`).join('')}
-                    </div>
-                </section>`;
-        } catch (e) { weatherHTML = ""; }
-
+        const w = await fetchWeather(item.lat || 23.2, item.lng || 105.2);
+        const curr = w ? interpretWeather(w.current_weather.weathercode) : { icon: "fa-cloud", txt: "N/A" };
         const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
 
         content.innerHTML = `
             <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl font-bold">${item.name}</div></div>
             <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900 text-sm">
                 <div class="lg:col-span-2 space-y-10">
-                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 italic">"${item.experience || item.desc}"</p></section>
-                    ${weatherHTML}
-                    <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px]">
-                        <h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-2 uppercase">Bản sắc văn hóa</h3>
-                        <div class="space-y-6 mb-10 text-gray-300">
-                            <div><p class="text-emerald-400 font-bold uppercase text-[10px]">Lễ hội:</p><p>${item.culture?.festival || 'Đang cập nhật'}</p></div>
-                            <div><p class="text-emerald-400 font-bold uppercase text-[10px]">Trang phục:</p><p>${item.culture?.costume || 'Đang cập nhật'}</p></div>
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic italic">"${item.experience || item.desc}"</p></section>
+                    
+                    <section class="bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 my-10">
+                        <div class="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10">
+                            <i class="fas ${curr.icon} text-5xl"></i>
+                            <div><p class="text-3xl font-bold">${w ? w.current_weather.temperature : '--'}°C</p><p class="text-xs uppercase text-emerald-400 font-bold">${curr.txt}</p></div>
                         </div>
-                        <div class="pt-6 border-t border-white/5 flex flex-wrap gap-2">${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-4 py-2 rounded-full font-bold text-[10px] hover:bg-orange-500 transition shadow-lg"># ${c.name}</button>`).join('')}</div>
+                        <div class="flex-1 grid grid-cols-3 gap-3 w-full">
+                            ${w ? w.daily.time.slice(1,4).map((t, i) => `<div class="bg-white/5 p-2 rounded-2xl text-center"><p class="text-[10px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${interpretWeather(w.daily.weathercode[i+1]).icon} text-sm my-1"></i><p class="font-bold text-xs">${Math.round(w.daily.temperature_2m_max[i+1])}°</p></div>`).join('') : ''}
+                        </div>
                     </section>
-                    <section><h3 class="text-2xl font-bold text-emerald-900 uppercase">Bản đồ</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
+
+                    <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl">
+                        <h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-4 uppercase">Bản sắc văn hóa</h3>
+                        <div class="space-y-8 mb-12">
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px]">Lễ hội:</p><p class="text-gray-300">${item.culture?.festival || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px]">Trang phục:</p><p class="text-gray-300">${item.culture?.costume || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px]">Phong tục:</p><p class="text-gray-300">${item.culture?.customs || 'Đang cập nhật'}</p></div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                            <div class="flex flex-wrap justify-center gap-3">${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-orange-500 transition shadow-lg"># ${c.name}</button>`).join('')}</div>
+                        </div>
+                    </section>
+
+                    <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase">Bản đồ</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
                 </div>
-                <div class="lg:col-span-1 space-y-8 text-slate-800">
-                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase">Lịch trình</h3><p>${item.logistics?.itinerary2D || 'Liên hệ sau'}</p></div>
-                    <div class="bg-orange-50 p-6 rounded-[30px] text-center"><p class="text-[10px] text-orange-600 font-bold uppercase">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700">${item.logistics?.estimatedCost || 'Tùy nhu cầu'}</p></div>
+                <div class="lg:col-span-1 space-y-8">
+                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-6 border-b border-emerald-700 pb-2 text-orange-400 uppercase text-sm font-bold">Lịch trình</h3><div class="space-y-6 text-sm opacity-90 italic"><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 2 Ngày:</p><p>${item.logistics?.itinerary2D || 'Cập nhật sau'}</p></div><div><p class="font-bold text-emerald-300 uppercase text-[10px]">Tour 3 Ngày:</p><p>${item.logistics?.itinerary3D || 'Cập nhật sau'}</p></div></div></div>
+                    <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-md text-center text-slate-800"><p class="text-[10px] text-orange-600 font-bold uppercase">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic">${item.logistics?.estimatedCost || 'Tùy nhu cầu'}</p></div>
                 </div>
             </div>`;
     }
@@ -1106,25 +457,17 @@ async function openModal(id) {
     document.getElementById('modal').scrollTo(0,0);
 }
 
-function closeModal() { document.getElementById('modal')?.classList.add('hidden'); document.body.style.overflow = 'auto'; }
+function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
-// ==========================================
-// 5. CHAT AI (GROQ) & TRIP BASKET
-// ==========================================
-const part1 = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy"; 
-const part2 = "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
-const API_KEY = part1 + part2;
+// --- 5. CHAT AI & TRIP PLANNER ---
+const API_KEY = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy" + "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
 
-function toggleChat() { 
-    document.getElementById('chat-window')?.classList.toggle('hidden'); 
-    const tooltip = document.getElementById('chat-tooltip');
-    if(tooltip) tooltip.style.display = 'none';
-}
+function toggleChat() { document.getElementById('chat-window').classList.toggle('hidden'); document.getElementById('chat-tooltip').style.display = 'none'; }
 
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
-    if (!input || !input.value.trim()) return;
+    if (!input.value.trim()) return;
 
     const userMsg = input.value.trim();
     content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs shadow-sm mb-2 text-right">${userMsg}</div>`;
@@ -1158,12 +501,22 @@ function updateTripUI() {
 async function generateAITrip() {
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(", ");
     document.getElementById('chat-window').classList.remove('hidden');
-    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic text-slate-800 shadow-sm">AI đang lập tour đi: ${names}...</div>`;
+    const content = document.getElementById('chat-content');
+    content.innerHTML += `<div class="bg-orange-100 p-4 rounded-2xl text-[11px] italic text-slate-800 shadow-md">AI đang lập tour đi: ${names}...</div>`;
+    
+    try {
+        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Bạn là tour guide Hà Giang. Khách muốn đi các điểm này. Hãy lập lịch trình 2 ngày 1 đêm tối ưu cung đường và tính tổng chi phí (xăng, ăn, ngủ, vé) cực ngắn gọn bằng gạch đầu dòng." }, { role: "user", content: "Lập tour cho: " + names }] })
+        });
+        const data = await res.json();
+        content.innerHTML += `<div class="bg-emerald-100 p-4 rounded-2xl self-start max-w-[95%] text-xs border border-emerald-200 shadow-lg">${data.choices[0].message.content.replace(/\n/g, '<br>')}</div>`;
+    } catch (e) { content.innerHTML += `<div class="text-red-500">Lỗi AI.</div>`; }
+    content.scrollTo(0, content.scrollHeight);
 }
 
-// ==========================================
-// 6. KHỞI CHẠY
-// ==========================================
+// --- KHỞI CHẠY ---
 window.onload = () => {
     displayDestinations(destinationsData);
     setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
@@ -1171,10 +524,6 @@ window.onload = () => {
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-
-
-
-
 
 
 
