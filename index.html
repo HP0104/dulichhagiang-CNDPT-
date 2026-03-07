@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
-        body { font-family: 'Lexend', sans-serif; scroll-behavior: smooth; background-color: #0f172a; color: white; }
+        body { font-family: 'Lexend', sans-serif; scroll-behavior: smooth; background-color: #0f172a; }
         .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
         #modal-container::-webkit-scrollbar { width: 6px; }
         #modal-container::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
@@ -16,26 +16,24 @@
 </head>
 <body class="bg-slate-900 text-slate-100">
 
-    <!-- NAVBAR -->
     <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-[60] border-b border-white/10">
         <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-mountain text-emerald-500 text-2xl"></i>
-                <span class="text-xl font-bold tracking-tighter">HA GIANG EXPLORE</span>
+                <span class="text-xl font-bold tracking-tighter text-white">HA GIANG EXPLORE</span>
             </div>
-            <div class="relative w-full md:w-96 text-white">
+            <div class="relative w-full md:w-96">
                 <input type="text" id="search-input" placeholder="Tìm địa danh, văn hóa..." 
                     class="w-full bg-white/10 pl-10 pr-4 py-2 rounded-full border border-white/20 focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white">
                 <i class="fas fa-search absolute left-4 top-3 text-white/40"></i>
             </div>
             <div class="flex space-x-6 font-semibold text-xs uppercase tracking-widest text-white">
-                <a href="#" class="text-emerald-400">Trang chủ</a>
+                <a href="#" class="hover:text-emerald-400 transition">Trang chủ</a>
                 <a href="#destinations" class="hover:text-emerald-400 transition">Địa danh</a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section class="relative h-[60vh] flex items-center justify-center text-center px-4 bg-cover bg-center" 
              style="background-image: url('images/anh-nenchinh.jpg');">
         <div class="absolute inset-0 bg-black/50"></div>
@@ -45,69 +43,66 @@
         </div>
     </section>
     
-    <!-- BỘ LỌC -->
     <div class="container mx-auto px-6 py-12 flex flex-wrap justify-center gap-4">
         <button onclick="filterDestinations('all')" class="filter-btn bg-emerald-600 text-white px-8 py-2 rounded-full font-bold shadow-lg transition">Tất cả</button>
-        <button onclick="filterDestinations('Địa danh')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold">Địa danh / Cảnh quan</button>
-        <button onclick="filterDestinations('Văn hóa')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold">Chuyên đề Văn hóa</button>
+        <button onclick="filterDestinations('Địa danh')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold text-white">Địa danh</button>
+        <button onclick="filterDestinations('Văn hóa')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold text-white">Văn hóa</button>
     </div>
 
-    <!-- LƯỚI ĐỊA DANH -->
     <main id="destinations" class="container mx-auto px-6 pb-32">
         <div id="destination-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
     </main>
 
-    <!-- MODAL CHI TIẾT -->
     <div id="modal" class="fixed inset-0 bg-black/95 backdrop-blur-sm z-[100] hidden overflow-y-auto p-2 md:p-6">
         <div id="modal-container" class="bg-stone-50 text-slate-900 rounded-3xl max-w-6xl mx-auto relative shadow-2xl overflow-hidden mb-10">
-            <button onclick="closeModal()" class="fixed md:absolute top-4 right-4 bg-black/50 text-white hover:bg-red-600 w-12 h-12 rounded-full transition z-[110] flex items-center justify-center shadow-xl">
+            <button onclick="closeModal()" class="fixed md:absolute top-4 right-4 bg-black/50 text-white hover:bg-red-600 w-12 h-12 rounded-full transition z-[110] flex items-center justify-center">
                 <i class="fas fa-times text-xl"></i>
             </button>
             <div id="modal-content"></div>
         </div>
     </div>
 
-    <!-- CHATBOT AI -->
-    <div class="fixed bottom-8 right-8 z-[100] flex flex-col items-end">
-        <div id="chat-tooltip" class="hidden mb-4 bg-orange-500 text-white px-4 py-2 rounded-2xl shadow-2xl text-xs font-bold animate-bounce relative border-2 border-white text-right">
-            Hỏi mình về Hà Giang nhé! 👋
+    <!-- AI CHAT -->
+    <div class="fixed bottom-8 right-8 z-[100] flex flex-col items-end text-slate-800">
+        <div id="chat-tooltip" class="hidden mb-4 bg-orange-500 text-white px-4 py-2 rounded-2xl shadow-2xl text-xs font-bold animate-bounce relative border-2 border-white">
+            Cần mình lập tour không? 👋
             <div class="absolute -bottom-2 right-4 w-4 h-4 bg-orange-500 rotate-45 border-r-2 border-b-2 border-white"></div>
         </div>
-        <button onclick="toggleChat()" class="w-16 h-16 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-3xl hover:bg-orange-500 transition-all duration-300 hover:scale-110">
+        <button onclick="toggleChat()" class="w-16 h-16 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-3xl hover:bg-orange-500 transition-all">
             <i class="fas fa-robot"></i>
         </button>
     </div>
 
     <div id="chat-window" class="fixed bottom-28 right-8 w-[320px] md:w-[420px] bg-white rounded-3xl shadow-2xl z-[100] hidden flex flex-col border border-white/40 overflow-hidden text-slate-800">
         <div class="bg-emerald-800 p-4 flex justify-between items-center text-white font-bold">
-            <span>Trợ lý ảo Hà Giang</span>
+            <span>Trợ lý AI Hà Giang</span>
             <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
         </div>
-        <div id="chat-content" class="h-96 overflow-y-auto p-4 space-y-4 bg-slate-50 flex flex-col text-xs leading-relaxed">
-            <div class="bg-emerald-100 p-3 rounded-2xl self-start max-w-[85%]">Chào bạn! Mình là AI chuyên gia Hà Giang. Bạn muốn tìm hiểu gì không?</div>
+        <div id="chat-content" class="h-96 overflow-y-auto p-4 space-y-4 bg-slate-50 flex flex-col text-sm">
+            <div class="bg-emerald-100 p-3 rounded-2xl self-start max-w-[85%]">Chào bạn! Mình là AI chuyên gia Hà Giang. Bạn muốn tìm hiểu gì hay cần lập tour không?</div>
         </div>
         <div class="p-4 bg-white border-t flex gap-2">
-            <input type="text" id="chat-input" placeholder="Hỏi AI..." class="flex-1 bg-slate-100 rounded-full px-4 py-2 outline-none text-sm">
+            <input type="text" id="chat-input" placeholder="Hỏi AI..." class="flex-1 bg-slate-100 rounded-full px-4 py-2 outline-none text-sm text-slate-800">
             <button onclick="sendMessage()" class="bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-orange-500 transition"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <!-- TRIP PLANNER -->
-    <div id="trip-planner" class="fixed bottom-8 left-8 z-[90] hidden">
-        <div class="bg-white rounded-[32px] shadow-2xl border border-emerald-100 w-72 overflow-hidden flex flex-col text-slate-800">
+    <div id="trip-planner" class="fixed bottom-8 left-8 z-[90] hidden text-slate-800">
+        <div class="bg-white rounded-[32px] shadow-2xl border border-emerald-100 w-72 overflow-hidden flex flex-col">
             <div class="bg-emerald-800 p-4 text-white flex justify-between items-center font-bold text-sm">
                 <span>📍 Giỏ hành trình</span>
                 <span id="trip-count" class="bg-orange-500 px-2 py-0.5 rounded-full text-[10px]">0</span>
             </div>
-            <div id="selected-list" class="max-h-48 overflow-y-auto p-4 text-[10px] italic text-slate-500">Chưa chọn điểm nào...</div>
+            <div id="selected-list" class="max-h-48 overflow-y-auto p-4 text-[10px] italic text-slate-500 space-y-1">Chưa chọn điểm nào...</div>
             <div class="p-4 bg-slate-50 border-t space-y-2">
-                <button onclick="generateAITrip()" class="w-full bg-emerald-600 text-white py-3 rounded-2xl font-bold text-xs hover:bg-orange-500 shadow-lg transition">AI LẬP TOUR & CHI PHÍ</button>
+                <button onclick="generateAITrip()" class="w-full bg-emerald-600 text-white py-3 rounded-2xl font-bold text-[10px] hover:bg-orange-500 shadow-lg transition">AI LẬP TOUR & CHI PHÍ</button>
                 <button onclick="clearTrip()" class="w-full text-slate-400 text-[10px] hover:text-red-500">Xóa hết</button>
             </div>
         </div>
     </div>
 
-    <footer class="bg-black py-16 text-center text-white/20 text-[10px] uppercase tracking-[0.3em]">
+    <footer class="bg-black py-12 text-center text-white/20 text-[10px] uppercase tracking-[0.3em]">
         <p>&copy; 2026 Bài tập CNDPT - NGUYỄN HỒNG PHÚC</p>
     </footer>
 
