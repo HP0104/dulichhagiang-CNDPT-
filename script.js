@@ -688,389 +688,217 @@ const destinationsData = [
 // ==========================================
 // TÍNH NĂNG 1: HIỂN THỊ DANH SÁCH (GRID DISPLAY)
 // ==========================================
+// ==========================================
+// 1. CẤU HÌNH & DỮ LIỆU (ĐẢM BẢO KHÔNG TRÙNG ID)
+// ==========================================
 const API_KEY = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy" + "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
+let selectedTripIds = []; 
+
+// Chèn mảng destinationsData của bạn vào đây (Hãy chắc chắn mảng này nằm ở đầu file)
+// ... (Mảng destinationsData đã có ở các câu trả lời trước) ...
 
 // ==========================================
-// 1. HÀM HỖ TRỢ THỜI TIẾT (OPEN-METEO API)
+// 2. HÀM HỖ TRỢ THỜI TIẾT
 // ==========================================
-
-// Chuyển mã số thời tiết từ vệ tinh sang Icon và Chữ tiếng Việt
 function interpretWeather(code) {
-    const map = { 
-        0: { icon: "fa-sun text-yellow-400", txt: "Nắng rực rỡ" }, 
-        1: { icon: "fa-cloud-sun text-orange-300", txt: "Ít mây" }, 
-        2: { icon: "fa-cloud text-gray-400", txt: "Nhiều mây" }, 
-        3: { icon: "fa-cloud text-gray-500", txt: "U ám" }, 
-        45: { icon: "fa-smog text-slate-300", txt: "Sương mù" }, 
-        61: { icon: "fa-cloud-rain text-blue-400", txt: "Mưa nhỏ" }, 
-        95: { icon: "fa-bolt text-purple-500", txt: "Dông bão" } 
-    };
+    const map = { 0: { icon: "fa-sun text-yellow-400", txt: "Nắng" }, 1: { icon: "fa-cloud-sun", txt: "Ít mây" }, 2: { icon: "fa-cloud", txt: "Nhiều mây" }, 61: { icon: "fa-cloud-rain", txt: "Mưa" }, 95: { icon: "fa-bolt", txt: "Dông" } };
     return map[code] || { icon: "fa-cloud", txt: "Ổn định" };
 }
 
 async function fetchWeather(lat, lng) {
     if (!lat || !lng) return null;
     try {
-        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max&timezone=Asia%2FBangkok`);
-        if (!response.ok) return null;
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max&timezone=Asia/Bangkok`);
         return await response.json();
-    } catch (e) { 
-        console.error("Weather API Error:", e);
-        return null; 
-    }
+    } catch (e) { return null; }
 }
 
 async function updateWeatherUI(lat, lng) {
     const wData = await fetchWeather(lat, lng);
-    const weatherBox = document.getElementById('weather-box');
-    if (!weatherBox) return;
-
-    if (wData && wData.current_weather) {
+    const box = document.getElementById('weather-box');
+    if (wData && box) {
         const curr = interpretWeather(wData.current_weather.weathercode);
-        weatherBox.className = "bg-slate-900 text-white p-6 rounded-[35px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 my-8 border border-white/5";
-        weatherBox.innerHTML = `
-            <div class="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10 text-left">
-                <i class="fas ${curr.icon} text-4xl animate-pulse"></i>
-                <div class="text-left">
-                    <p class="text-3xl font-bold">${wData.current_weather.temperature}°C</p>
-                    <p class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold">${curr.txt}</p>
-                </div>
-            </div>
-            <div class="flex-1 grid grid-cols-3 gap-3 w-full">
-                ${wData.daily.time.slice(1, 4).map((t, i) => {
-                    const d = interpretWeather(wData.daily.weathercode[i+1]);
-                    return `<div class="text-center bg-white/5 p-2 rounded-2xl">
-                        <p class="text-[9px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p>
-                        <i class="fas ${d.icon} text-sm my-1"></i>
-                        <p class="font-bold text-[10px]">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p>
-                    </div>`;
-                }).join('')}
-            </div>`;
-    } else {
-        weatherBox.innerHTML = `<p class="p-4 italic text-sm text-gray-500">Thông tin thời tiết hiện không khả dụng.</p>`;
+        box.className = "bg-slate-900 text-white p-6 rounded-[35px] flex flex-col md:flex-row items-center justify-between gap-6 my-8 border border-white/5";
+        box.innerHTML = `<div class="flex items-center gap-4 border-r border-white/10 pr-10">
+            <i class="fas ${curr.icon} text-4xl animate-pulse"></i>
+            <div><p class="text-3xl font-bold">${wData.current_weather.temperature}°C</p><p class="text-[10px] uppercase text-emerald-400 font-bold">${curr.txt}</p></div>
+        </div>
+        <div class="flex-1 grid grid-cols-3 gap-3 w-full">
+            ${wData.daily.time.slice(1, 4).map((t, i) => `<div class="text-center bg-white/5 p-2 rounded-2xl">
+                <p class="text-[9px] opacity-40 uppercase">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p>
+                <i class="fas ${interpretWeather(wData.daily.weathercode[i+1]).icon} text-sm my-1"></i>
+                <p class="font-bold text-[10px]">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p>
+            </div>`).join('')}
+        </div>`;
     }
 }
 
 // ==========================================
-// 3. QUẢN LÝ MODAL (CHI TIẾT ĐỊA DANH / VĂN HÓA)
+// 3. HIỂN THỊ CHI TIẾT (MODAL)
 // ==========================================
-async function openModal(id) {
+window.openModal = async function(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
-    if (!item || !content) return;
+    if (!item) return;
 
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    modal.scrollTo(0, 0);
 
     if (item.isCultureTopic) {
-        // ... (Giữ nguyên phần Chuyên đề văn hóa của bạn)
+        content.innerHTML = `<div class="relative h-72 md:h-[450px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl font-bold text-center">${item.name}</div></div>
+        <div class="p-8 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white text-slate-800">
+            ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm"><h4 class="font-bold text-xl text-emerald-900 mb-2 uppercase">${sec.title}</h4><p class="text-gray-600 text-sm leading-relaxed">${sec.content}</p></div>`).join('')}
+            <div class="col-span-full text-center"><button onclick="closeModal()" class="bg-emerald-900 text-white px-10 py-3 rounded-full font-bold uppercase shadow-lg">Quay lại</button></div>
+        </div>`;
     } else {
         const linked = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
-        
         content.innerHTML = `
-            <div class="relative h-72 md:h-96">
-                <img src="${item.image}" class="w-full h-full object-cover shadow-2xl">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div>
-            </div>
+            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover shadow-2xl"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
             <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-[#1a1a1a] text-white text-sm text-left">
                 <div class="lg:col-span-2 space-y-8 text-left">
-                    
-                    <!-- BOX THÔNG TIN NHANH (HIỂN THỊ CÁC THÔNG TIN BẠN CẦN) -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/5 p-6 rounded-3xl border border-white/10">
-                        <div class="text-center md:text-left border-r border-white/10 pr-2">
-                            <p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Mùa đẹp nhất</p>
-                            <p class="text-xs font-medium">${item.bestSeason || 'Quanh năm'}</p>
-                        </div>
-                        <div class="text-center md:text-left border-r border-white/10 pr-2">
-                            <p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Thời điểm</p>
-                            <p class="text-xs font-medium">${item.visitTime || 'Cả ngày'}</p>
-                        </div>
-                        <div class="text-center md:text-left border-r border-white/10 pr-2">
-                            <p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Giá vé</p>
-                            <p class="text-xs font-medium">${item.ticketPrice || 'Miễn phí'}</p>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Di chuyển</p>
-                            <p class="text-xs font-medium">${item.transport || 'Tự túc'}</p>
-                        </div>
+                        <div class="border-r border-white/10 pr-2"><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Mùa đẹp</p><p class="text-xs font-medium">${item.bestSeason || 'Quanh năm'}</p></div>
+                        <div class="border-r border-white/10 pr-2"><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Thời điểm</p><p class="text-xs font-medium">${item.visitTime || 'Cả ngày'}</p></div>
+                        <div class="border-r border-white/10 pr-2"><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Giá vé</p><p class="text-xs font-medium">${item.ticketPrice || 'Miễn phí'}</p></div>
+                        <div><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Di chuyển</p><p class="text-xs font-medium">${item.transport || 'Tự túc'}</p></div>
                     </div>
-
-                    <section>
-                        <h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4 uppercase tracking-wider">Tổng quan</h3>
-                        <p class="text-gray-300 leading-relaxed italic text-lg">"${item.experience || item.desc}"</p>
-                    </section>
-                    
-                    <div id="weather-box" class="min-h-[80px] flex items-center justify-center bg-white/5 rounded-3xl italic text-gray-500">
-                        <i class="fas fa-circle-notch animate-spin mr-2"></i> Đang tải thời tiết...
-                    </div>
-
-                    <section class="bg-zinc-900 p-8 rounded-[40px] shadow-2xl border border-white/5">
-                        <h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-4 uppercase">Bản sắc văn hóa</h3>
-                        <div class="space-y-6">
-                            <div class="flex gap-4">
-                                <span class="text-orange-500 font-bold text-[10px] uppercase mt-1">Lễ hội:</span>
-                                <p class="text-gray-300 text-sm">${item.culture?.festival || 'Đang cập nhật'}</p>
-                            </div>
-                            <div class="flex gap-4">
-                                <span class="text-orange-500 font-bold text-[10px] uppercase mt-1">Trang phục:</span>
-                                <p class="text-gray-300 text-sm">${item.culture?.costume || 'Đang cập nhật'}</p>
-                            </div>
-                            <div class="flex gap-4">
-                                <span class="text-orange-500 font-bold text-[10px] uppercase mt-1">Phong tục:</span>
-                                <p class="text-gray-300 text-sm">${item.culture?.customs || 'Đang cập nhật'}</p>
-                            </div>
+                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4 uppercase">Tổng quan</h3><p class="text-gray-300 italic text-lg">"${item.experience || item.desc}"</p></section>
+                    <div id="weather-box" class="min-h-[80px] flex items-center justify-center bg-white/5 rounded-3xl italic text-gray-500"><i class="fas fa-circle-notch animate-spin mr-2"></i> Đang tải thời tiết...</div>
+                    <section class="bg-zinc-900 p-8 rounded-[40px] border border-white/5">
+                        <h3 class="text-xl font-bold text-orange-400 mb-6 uppercase border-b border-white/10 pb-4">Bản sắc văn hóa</h3>
+                        <div class="space-y-4">
+                            <p><span class="text-orange-500 font-bold uppercase text-[10px]">Lễ hội:</span> ${item.culture?.festival || 'Đang cập nhật'}</p>
+                            <p><span class="text-orange-500 font-bold uppercase text-[10px]">Trang phục:</span> ${item.culture?.costume || 'Đang cập nhật'}</p>
+                            <p><span class="text-orange-500 font-bold uppercase text-[10px]">Phong tục:</span> ${item.culture?.customs || 'Đang cập nhật'}</p>
                         </div>
-                        <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-center gap-3">
-                            ${linked.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-700/50 hover:bg-orange-600 text-white px-4 py-2 rounded-xl font-bold text-[9px] transition uppercase tracking-widest border border-white/10"># ${c.name}</button>`).join('')}
+                        <div class="mt-6 flex flex-wrap justify-center gap-3">
+                            ${linked.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-700/50 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-[9px] uppercase tracking-widest border border-white/10"># ${c.name}</button>`).join('')}
                         </div>
                     </section>
-
-                    <section>
-                         <h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-6 uppercase">Vị trí địa lý</h3>
-                         <iframe src="${item.locationMap}" class="w-full h-72 rounded-3xl border-0 opacity-80 hover:opacity-100 transition shadow-lg" loading="lazy"></iframe>
-                    </section>
+                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-6 uppercase">Vị trí</h3><iframe src="${item.locationMap}" class="w-full h-72 rounded-3xl border-0 opacity-80 shadow-lg"></iframe></section>
                 </div>
-
-                <!-- CỘT PHẢI (SIDEBAR) -->
                 <div class="lg:col-span-1 space-y-6">
-                    <div class="bg-emerald-900/40 p-8 rounded-[40px] border border-emerald-500/20 text-left">
-                        <h3 class="text-lg font-bold mb-4 text-emerald-400 uppercase tracking-widest border-b border-emerald-500/10 pb-2">Lịch trình gợi ý</h3>
-                        <p class="leading-relaxed text-gray-200 italic text-sm">${item.logistics?.itinerary2D || 'Liên hệ sau'}</p>
-                    </div>
-                    
-                    <div class="bg-orange-950/30 p-8 rounded-[40px] border border-orange-500/20 text-center">
-                        <p class="text-[10px] text-orange-400 font-bold uppercase mb-2">Chi phí ước tính</p>
-                        <p class="text-2xl font-bold text-orange-500">${item.logistics?.estimatedCost || 'Liên hệ sau'}</p>
-                    </div>
-
-                    <div class="bg-zinc-800 p-6 rounded-[35px] border border-white/5">
-                        <h4 class="text-sm font-bold text-emerald-400 mb-4 uppercase">Đặc sản</h4>
-                        <img src="${item.food?.image}" class="w-full h-32 object-cover rounded-2xl mb-4 border border-white/10" onerror="this.src='https://placehold.co/300x200?text=Food'">
-                        <p class="font-bold text-sm uppercase">${item.food?.name}</p>
-                        <p class="text-orange-400 text-xs">${item.food?.price}</p>
-                    </div>
+                    <div class="bg-emerald-900/40 p-8 rounded-[40px] border border-emerald-500/20"><h3 class="text-lg font-bold mb-4 text-emerald-400 uppercase tracking-widest">Lịch trình gợi ý</h3><p class="text-gray-200 italic text-sm">${item.logistics?.itinerary2D || 'Liên hệ sau'}</p></div>
+                    <div class="bg-orange-950/30 p-8 rounded-[40px] border border-orange-500/20 text-center"><p class="text-[10px] text-orange-400 font-bold uppercase mb-2">Chi phí ước tính</p><p class="text-2xl font-bold text-orange-500">${item.logistics?.estimatedCost || 'Liên hệ sau'}</p></div>
+                    <div class="bg-zinc-800 p-6 rounded-[35px] border border-white/5"><h4 class="text-sm font-bold text-emerald-400 mb-4 uppercase">Đặc sản</h4><img src="${item.food?.image}" class="w-full h-32 object-cover rounded-2xl mb-4 border border-white/10" onerror="this.src='https://placehold.co/300x200?text=Food'"><p class="font-bold text-sm uppercase">${item.food?.name}</p><p class="text-orange-400 text-xs">${item.food?.price}</p></div>
                 </div>
             </div>`;
         updateWeatherUI(item.lat, item.lng);
     }
 }
+
+window.closeModal = function() {
+    document.getElementById('modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
 }
 
 // ==========================================
-// 4. LẬP LỊCH TRÌNH THÔNG MINH (AI TRIP)
+// 4. LẬP LỊCH TRÌNH & CHATBOT (AI)
 // ==========================================
-function addToTrip(id) {
+window.addToTrip = function(id) {
     if (!selectedTripIds.includes(id)) {
         selectedTripIds.push(id);
-        // Thêm hiệu ứng rung nhẹ cho nút Robot khi thêm điểm
-        const robotBtn = document.querySelector('.fa-robot').parentElement;
-        robotBtn.classList.add('animate-bounce');
-        setTimeout(() => robotBtn.classList.remove('animate-bounce'), 1000);
-        
+        const robot = document.querySelector('.fa-robot').parentElement;
+        robot.classList.add('animate-bounce');
+        setTimeout(() => robot.classList.remove('animate-bounce'), 1000);
         updateTripUI();
     }
 }
 
-function updateTripUI() {
+window.clearTrip = function() { selectedTripIds = []; updateTripUI(); }
+
+window.updateTripUI = function() {
     const planner = document.getElementById('trip-planner');
     const list = document.getElementById('selected-list');
     const count = document.getElementById('trip-count');
-    
     if (selectedTripIds.length > 0) {
         planner.classList.remove('hidden');
-        // Đảm bảo Planner nằm trên các thành phần khác nhưng dưới Modal
-        planner.style.zIndex = "90"; 
         count.innerText = selectedTripIds.length;
-        
-        // Vẽ lại danh sách tên các điểm đã chọn
         list.innerHTML = selectedTripIds.map(id => {
             const place = destinationsData.find(d => d.id === id);
-            return `<div class="flex items-center gap-2 text-white mb-1">
-                        <i class="fas fa-check-circle text-emerald-500 text-[8px]"></i>
-                        <span>${place.name}</span>
-                    </div>`;
+            return `<div class="flex items-center gap-2 text-white text-[10px] mb-1"><i class="fas fa-check-circle text-emerald-500"></i><span>${place.name}</span></div>`;
         }).join('');
-    } else {
-        planner.classList.add('hidden');
-    }
+    } else { planner.classList.add('hidden'); }
 }
 
-// Sửa lại hàm AI Generate để nó hiển thị kết quả đẹp hơn
-async function generateAITrip() {
+window.generateAITrip = async function() {
     if (selectedTripIds.length === 0) return;
-    
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(', ');
-    
-    // Mở modal để hiển thị kết quả lập tour
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
     modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    
-    content.innerHTML = `
-        <div class="p-20 text-center bg-[#1a1a1a] text-white">
-            <i class="fas fa-robot animate-spin text-5xl text-emerald-500 mb-6"></i>
-            <h2 class="text-2xl font-bold uppercase tracking-widest">AI đang thiết kế tour cho bạn...</h2>
-            <p class="text-gray-400 mt-2">Đang phân tích: ${names}</p>
-        </div>`;
-
+    content.innerHTML = `<div class="p-20 text-center bg-[#1a1a1a] text-white"><i class="fas fa-robot animate-spin text-5xl text-emerald-500 mb-6"></i><h2 class="text-2xl font-bold uppercase tracking-widest">AI đang thiết kế tour cho bạn...</h2></div>`;
     try {
         const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({ 
-                model: "llama-3.1-8b-instant", 
-                messages: [{ 
-                    role: "system", 
-                    content: "Bạn là chuyên gia du lịch Hà Giang. Hãy lập lịch trình 3 ngày cho danh sách các điểm sau, tư vấn phương tiện và tổng chi phí chi tiết. Trả lời bằng tiếng Việt, định dạng chuyên nghiệp." 
-                }, { 
-                    role: "user", 
-                    content: `Các điểm tôi muốn đi: ${names}` 
-                }] 
-            })
+            method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Lập lịch trình 3 ngày Hà Giang qua các điểm này, tư vấn phương tiện và tổng chi phí." }, { role: "user", content: names }] })
         });
         const data = await res.json();
-        const aiResponse = data.choices[0].message.content.replace(/\n/g, '<br>');
-
-        content.innerHTML = `
-            <div class="p-8 md:p-12 bg-[#1a1a1a] text-white min-h-screen">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-bold text-emerald-400 mb-8 uppercase tracking-widest border-b border-emerald-500/20 pb-4">Lịch trình Tour đề xuất</h2>
-                    <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed text-sm">
-                        ${aiResponse}
-                    </div>
-                    <div class="mt-12 text-center">
-                        <button onclick="closeModal()" class="bg-emerald-600 hover:bg-orange-600 text-white px-10 py-3 rounded-full font-bold uppercase transition shadow-xl">Đóng lịch trình</button>
-                    </div>
-                </div>
-            </div>`;
-    } catch (e) {
-        content.innerHTML = `<div class="p-20 text-center bg-red-900 text-white">Lỗi kết nối AI. Vui lòng kiểm tra lại mạng!</div>`;
-    }
+        content.innerHTML = `<div class="p-8 md:p-12 bg-[#1a1a1a] text-white min-h-screen"><h2 class="text-3xl font-bold text-emerald-400 mb-8 uppercase tracking-widest border-b border-emerald-500/20 pb-4">Lịch trình Tour đề xuất</h2><div class="prose prose-invert max-w-none text-gray-300 text-sm">${data.choices[0].message.content.replace(/\n/g, '<br>')}</div><div class="mt-12 text-center"><button onclick="closeModal()" class="bg-emerald-600 text-white px-10 py-3 rounded-full font-bold uppercase shadow-xl">Đóng</button></div></div>`;
+    } catch (e) { content.innerHTML = `<div class="p-20 text-center bg-red-900 text-white">Lỗi AI. Hãy thử lại sau!</div>`; }
 }
 
-async function generateAITrip() {
-    if (selectedTripIds.length === 0) {
-        alert("Hãy chọn ít nhất một địa điểm!");
-        return;
-    }
-    const selectedPoints = selectedTripIds.map(id => destinationsData.find(d => d.id === id)?.name).join(", ");
-    const modal = document.getElementById('modal');
-    const content = document.getElementById('modal-content');
-    modal.classList.remove('hidden');
-    content.innerHTML = `<div class="p-20 text-center"><i class="fas fa-robot animate-bounce text-4xl text-emerald-600"></i><p class="mt-4 font-bold">AI đang tính toán lịch trình cho: ${selectedPoints}...</p></div>`;
+window.toggleChat = function() { 
+    document.getElementById('chat-window')?.classList.toggle('hidden'); 
+    document.getElementById('chat-tooltip').style.display = 'none';
+}
 
+window.sendMessage = async function() {
+    const input = document.getElementById('chat-input');
+    const content = document.getElementById('chat-content');
+    if (!input.value.trim()) return;
+    const msg = input.value.trim();
+    input.value = "";
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs mb-2 text-right">${msg}</div>`;
     try {
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
-                messages: [
-                    { role: "system", content: "Bạn là hướng dẫn viên du lịch Hà Giang chuyên nghiệp." },
-                    { role: "user", content: `Lập lịch trình 3 ngày đi các điểm: ${selectedPoints}. Tư vấn phương tiện và tổng chi phí.` }
-                ]
-            })
+        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "user", content: msg }] })
         });
-        const data = await response.json();
-        const text = data.choices[0].message.content.replace(/\n/g, "<br>");
-        content.innerHTML = `<div class="p-10 bg-white"><h2 class="text-2xl font-bold text-emerald-900 mb-6 uppercase">Lịch trình AI của bạn</h2><div class="text-gray-700 leading-relaxed text-sm">${text}</div><div class="mt-10 text-center"><button onclick="closeModal()" class="bg-black text-white px-8 py-2 rounded-full font-bold">ĐÓNG</button></div></div>`;
-    } catch (e) {
-        content.innerHTML = `<div class="p-20 text-center text-red-500">Lỗi khi gọi AI. Hãy thử lại!</div>`;
-    }
+        const data = await res.json();
+        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl self-start max-w-[85%] text-xs mb-2">${data.choices[0].message.content}</div>`;
+    } catch (e) { content.innerHTML += `<div>Lỗi.</div>`; }
+    content.scrollTo(0, content.scrollHeight);
 }
 
 // ==========================================
-// 5. CÁC HÀM CƠ BẢN (LỌC, TÌM KIẾM, ĐÓNG)
+// 5. CÁC HÀM KHỞI CHẠY (ONLOAD)
 // ==========================================
-function closeModal() {
-    const modal = document.getElementById('modal');
-    if(modal) modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
-function displayDestinations(items) {
+window.displayDestinations = function(items) {
     const grid = document.getElementById('destination-grid');
     if (!grid) return;
     grid.innerHTML = items.map(item => `
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 relative text-slate-800">
-            ${!item.isCultureTopic ? `<button onclick="addToTrip(${item.id})" class="absolute top-4 right-4 z-30 bg-white/90 backdrop-blur text-emerald-700 w-10 h-10 rounded-full shadow-lg hover:bg-orange-500 hover:text-white transition-all active:scale-90"><i class="fas fa-plus"></i></button>` : ''}
+        <div class="bg-[#1a1a1a] rounded-2xl shadow-sm overflow-hidden group border border-white/5 relative text-white">
+            ${!item.isCultureTopic ? `<button onclick="addToTrip(${item.id})" class="absolute top-4 right-4 z-30 bg-white/90 text-emerald-700 w-10 h-10 rounded-full shadow-lg hover:bg-orange-500 hover:text-white transition-all"><i class="fas fa-plus"></i></button>` : ''}
             <div onclick="openModal(${item.id})" class="cursor-pointer">
-                <div class="relative h-60 overflow-hidden text-center text-white font-bold">
-                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20 text-white font-bold">
-                        ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[9px] px-2 py-1 rounded font-bold hover:bg-orange-500 transition shadow-lg uppercase tracking-widest font-bold"># ${kw.label}</span>`).join('')}
-                    </div>
-                </div>
-                <div class="p-6 text-left">
-                    <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
-                    <h3 class="text-lg font-bold mt-2 mb-2 text-emerald-900 uppercase">${item.name}</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed line-clamp-2 italic">${item.desc}</p>
+                <div class="relative h-60 overflow-hidden"><img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
+                <div class="p-6">
+                    <span class="text-[10px] font-bold uppercase text-emerald-600">${item.category}</span>
+                    <h3 class="text-lg font-bold mt-2 mb-2 text-white uppercase">${item.name}</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2 italic">${item.desc}</p>
                 </div>
             </div>
         </div>`).join('');
 }
 
-function filterDestinations(category) {
+window.filterDestinations = function(category) {
     const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
     displayDestinations(filtered);
 }
 
-// ==========================================
-// 6. CHATBOT AI & KHỞI CHẠY
-// ==========================================
-function toggleChat() { 
-    document.getElementById('chat-window')?.classList.toggle('hidden'); 
-    document.getElementById('chat-tooltip').style.display = 'none';
-}
-
-async function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const content = document.getElementById('chat-content');
-    if (!input || !input.value.trim()) return;
-
-    const msg = input.value.trim();
-    input.value = "";
-    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs mb-2 text-right">${msg}</div>`;
-    
-    const loadingId = "loading-" + Date.now();
-    content.innerHTML += `<div id="${loadingId}" class="bg-gray-100 p-3 rounded-2xl self-start text-xs mb-2">Đang suy nghĩ...</div>`;
-    content.scrollTo(0, content.scrollHeight);
-
-    try {
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST", 
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({ 
-                model: "llama-3.1-8b-instant", 
-                messages: [{ role: "system", content: "Bạn là hướng dẫn viên du lịch Hà Giang." }, { role: "user", content: msg }] 
-            })
-        });
-        const data = await res.json();
-        document.getElementById(loadingId).remove();
-        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl self-start max-w-[85%] text-xs border border-emerald-200 mb-2">${data.choices[0].message.content}</div>`;
-    } catch (e) { 
-        document.getElementById(loadingId).innerText = "Lỗi kết nối. Vui lòng thử lại."; 
-    }
-    content.scrollTo(0, content.scrollHeight);
-}
-
-// EVENT LISTENERS
-document.getElementById('search-input')?.addEventListener('input', (e) => {
-    const kw = e.target.value.toLowerCase();
-    const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
-    displayDestinations(filtered);
-});
-
-document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
-window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
-
 window.onload = () => {
     displayDestinations(destinationsData);
+    document.getElementById('search-input')?.addEventListener('input', (e) => {
+        const kw = e.target.value.toLowerCase();
+        const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
+        displayDestinations(filtered);
+    });
     setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
 };
+
+window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
 
 
 
