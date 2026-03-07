@@ -296,7 +296,7 @@ const destinationsData = [
         food: {
             name: "Thịt Trâu Gác Bếp & Mèn Mén",
             image: "images/mon-thitgacbep.jpg",
-            price: "Vô giá theo trải nghiệm",
+            price: "từng phân  theo trải nghiệm",
             location: "Thị trấn Đồng Văn hoặc các chợ phiên"
         },
         logistics: {
@@ -486,39 +486,39 @@ const destinationsData = [
         }
     },
     {
-        id: 15,
-        name: "Vách đá Thần",
-        category: "Địa danh/Cảnh quan",
-        lat: 23.2367, lng: 105.2729,
-        relatedCultureIds: [105],
-        cultureKeywords: [{ label: "Cảnh quan đá vôi", linkId: 105 }],
-        image: "images/nen-vachdatuthan.jpeg",
-        desc: "Vách núi đá vôi cao dựng đứng hùng vĩ.",
-        visitTime: "Cả ngày.",
-        ticketPrice: "Miễn phí",
-        transport: "Gần đèo Mã Pí Lèng.",
-        bestSeason: "Tháng 9 - Tháng 4.",
-        locationMap: "https://www.google.com/maps?q=Vach+Da+Than+Ha+Giang&output=embed",
-        experience: "Nên chọn ngày trời nắng để thấy rõ màu đá xám đặc trưng.",
-        culture: {
-            festival: "Hành trình khám phá đèo Mã Pí Lèng.",
-            costume: "Phong cách phượt hoặc trang phục dân tộc.",
-            customs: "Điểm dừng chân tự phát.",
-            art: "Biểu tượng cho vẻ đẹp hoang sơ cực Bắc."
-        },
-        food: {
-            name: "Thắng Cố & Cà Phê Núi",
-            image: "images/mon-thangco.jpg",
-            price: "30.000đ - 100.000đ",
-            location: "Các quán ăn dọc tuyến Đồng Văn - Mèo Vạc"
-        },
-        logistics: {
-            itinerary2D: "Ngày 1: Đồng Văn. Ngày 2: Vách đá Thần - Mèo Vạc.",
-            itinerary3D: "Ngày 1: Hà Giang. Ngày 2: Lũng Cú. Ngày 3: Vách đá Thần - Nho Quế.",
-            safety: "Không đứng sát mép vực chụp ảnh.",
-            estimatedCost: "2.000.000đ - 3.500.000đ/người"
-        }
+    id: 15,
+    name: "Vách Đá Thần (Vách Đá Trắng)",
+    category: "Địa danh/Cảnh quan",
+    lat: 23.2367, lng: 105.2729,
+    relatedCultureIds: [105],
+    cultureKeywords: [{ label: "Cảnh quan đá vôi", linkId: 105 }],
+    image: "images/nen-vachdatuthan.jpeg",
+    desc: "Điểm đi bộ trekking ngắm toàn cảnh hẻm Tu Sản từ trên cao.",
+    visitTime: "Cả ngày (Nên đi buổi sáng)",
+    ticketPrice: "Miễn phí",
+    transport: "Đi bộ từ trạm dừng nghỉ đèo Mã Pí Lèng.",
+    bestSeason: "Tháng 9 - Tháng 4.",
+    locationMap: "https://www.google.com/maps?q=Vach+Da+Than+Ha+Giang&output=embed",
+    experience: "Cung đường đi bộ sát vách núi, cảm giác mạnh nhưng cảnh sắc vô cùng xứng đáng.",
+    culture: {
+        festival: "Nằm trong quần thể công viên địa chất toàn cầu.",
+        costume: "Trang phục trekking gọn nhẹ.",
+        customs: "Điểm thờ cúng tâm linh nhỏ của người dân địa phương trên vách đá.",
+        art: "Vẻ đẹp kỳ vĩ của tạo hóa."
     },
+    food: {
+        name: "Lạp xưởng & Ngô nướng",
+        image: "images/mon-lapxuong.jpg",
+        price: "20.000đ - 50.000đ",
+        location: "Dọc đường đi bộ"
+    },
+    logistics: {
+        itinerary2D: "Kết hợp trong ngày đi Mã Pí Lèng.",
+        itinerary3D: "Dành 2 tiếng trekking tại đây.",
+        safety: "Không dành cho người sợ độ cao, không đi khi trời mưa trơn trượt.",
+        estimatedCost: "200.000đ (bao gồm ăn vặt & nước uống)"
+    }
+},
     {
         id: 16,
         name: "Hẻm Tu Sản",
@@ -992,6 +992,7 @@ window.onload = () => {
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
