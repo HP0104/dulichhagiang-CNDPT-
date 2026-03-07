@@ -684,92 +684,54 @@ const destinationsData = [
 function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
     if (!grid) return;
+
     grid.innerHTML = items.map(item => `
-        <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 relative">
-            <div class="relative h-60 overflow-hidden">
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold uppercase tracking-widest text-xs shadow-xl">Chi tiết</div>
+        <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-3xl overflow-hidden shadow-lg border border-white/10 group transition-all">
+            <div class="relative h-64 overflow-hidden">
+                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold uppercase tracking-widest">
+                    Xem chi tiết
+                </div>
             </div>
-            <div class="p-6">
-                <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
-                <h3 class="text-xl font-bold mt-2 mb-3 text-emerald-900 uppercase">${item.name}</h3>
-                <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 italic">${item.desc}</p>
+            <div class="p-6 bg-stone-800 text-white">
+                <span class="text-[10px] font-bold text-emerald-400 uppercase">${item.category}</span>
+                <h3 class="text-xl font-bold mt-1 uppercase">${item.name}</h3>
+                <p class="text-gray-400 text-sm mt-2 line-clamp-2 italic">${item.desc}</p>
             </div>
         </div>
     `).join('');
 }
 
-function filterDestinations(category) {
-    const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
-    displayDestinations(filtered);
-}
-
-// Lắng nghe ô tìm kiếm
-document.getElementById('search-input')?.addEventListener('input', (e) => {
-    const kw = e.target.value.toLowerCase();
-    const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
-    displayDestinations(filtered);
-});
-
-// ==========================================
-// 3. LOGIC MODAL (Xử lý 2 loại giao diện)
-// ==========================================
-
+// 3. Hàm mở cửa sổ chi tiết
 function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
 
     if (item) {
-        if (item.isCultureTopic) {
-            // GIAO DIỆN CHUYÊN ĐỀ VĂN HÓA (Hiển thị các khối sections)
-            content.innerHTML = `
-                <div class="relative h-72 md:h-[450px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold font-bold">${item.name}</div></div>
-                <div class="p-8 md:p-16 space-y-12 bg-white">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        ${(item.sections || []).map(sec => `
-                            <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm">
-                                <h4 class="font-bold text-2xl text-emerald-900 mb-4">${sec.title}</h4>
-                                <p class="text-gray-600 leading-relaxed">${sec.content}</p>
-                            </div>`).join('')}
-                    </div>
-                </div>`;
-        } else {
-            // GIAO DIỆN ĐỊA DANH (Hiển thị Bản đồ, Lịch trình, Ẩm thực)
-            const culture = item.culture || {};
-            const food = item.food || {};
-            const logistics = item.logistics || {};
-            content.innerHTML = `
-                <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl font-bold">${item.name}</div></div>
-                <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-sm">
-                    <div class="lg:col-span-2 space-y-12 text-left">
-                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase font-bold">Tổng quan</h3><p class="text-gray-700 italic">"${item.experience || item.desc}"</p></section>
-                        <section class="bg-stone-900 text-white p-8 rounded-[40px] shadow-2xl">
-                            <h3 class="text-xl font-bold text-orange-400 mb-6 uppercase border-b border-white/10 pb-2">Bản sắc văn hóa</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-300">
-                                <div><p class="text-emerald-400 font-bold uppercase text-[10px]">Lễ hội:</p><p>${culture.festival || 'Đang cập nhật'}</p></div>
-                                <div><p class="text-emerald-400 font-bold uppercase text-[10px]">Trang phục:</p><p>${culture.costume || 'Đang cập nhật'}</p></div>
-                            </div>
-                        </section>
-                        <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Ẩm thực</h3><div class="bg-slate-100 p-6 rounded-3xl flex gap-4 items-center text-slate-800"><h4 class="font-bold">${food.name || 'Đặc sản địa phương'}</h4> - <p>${food.price || ''}</p></div></section>
-                        <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
-                    </div>
-                    <div class="lg:col-span-1 space-y-8">
-                        <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase">Lịch trình</h3><p>${logistics.itinerary2D || 'Liên hệ sau'}</p></div>
-                    </div>
-                </div>`;
-        }
+        content.innerHTML = `
+            <img src="${item.image}" class="w-full h-80 object-cover">
+            <div class="p-8">
+                <span class="text-emerald-600 font-bold uppercase text-xs tracking-widest">${item.category}</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2 mb-4">${item.name}</h2>
+                <p class="text-gray-600 leading-relaxed text-lg">${item.details || item.desc}</p>
+                <div class="mt-8 pt-6 border-t flex justify-end">
+                    <button onclick="closeModal()" class="bg-emerald-600 text-white px-8 py-2 rounded-full font-bold">Đóng</button>
+                </div>
+            </div>
+        `;
         modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        document.getElementById('modal').scrollTo(0,0);
+        document.body.style.overflow = 'hidden'; // Khóa cuộn trang chính
     }
 }
 
+// 4. Hàm đóng cửa sổ
 function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Mở lại cuộn trang
 }
 
-// Khởi chạy
-window.onload = () => displayDestinations(destinationsData);
-window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+// 5. Khởi chạy
+window.onload = () => {
+    displayDestinations(destinationsData);
