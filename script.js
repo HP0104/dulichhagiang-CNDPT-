@@ -757,7 +757,7 @@ const destinationsData = [
             { title: "Rượu ngô men lá", content: "Thức uống nồng nàn say lòng người, thể hiện sự hiếu khách của người bản địa." }
         ]
     }
-]
+];
 
 
 // ==========================================
@@ -905,4 +905,5 @@ window.onload = () => {
 };
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
 
