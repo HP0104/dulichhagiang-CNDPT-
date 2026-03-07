@@ -3,66 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ha Giang Explore - Step 2</title>
+    <title>Hà Giang Explore - Step 2 Fix</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
-        body { font-family: 'Lexend', sans-serif; scroll-behavior: smooth; background-color: #0f172a; color: white; }
+        body { font-family: 'Lexend', sans-serif; background-color: #0f172a; color: white; }
         .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
     </style>
 </head>
-<body>
+<body class="bg-slate-900">
 
-    <!-- 1. Thanh Menu có ô tìm kiếm -->
-    <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-[60] border-b border-white/10">
-        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-mountain text-emerald-500 text-2xl"></i>
-                <span class="text-xl font-bold tracking-tighter">HA GIANG EXPLORE</span>
-            </div>
-            
-            <!-- Ô TÌM KIẾM -->
-            <div class="relative w-full md:w-96 text-slate-800">
-                <input type="text" id="search-input" placeholder="Tìm địa danh, món ăn..." 
-                    class="w-full bg-white/10 pl-10 pr-4 py-2 rounded-full border border-white/20 focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white">
-                <i class="fas fa-search absolute left-4 top-3 text-white/40"></i>
-            </div>
-
-            <div class="flex space-x-6 font-semibold text-xs uppercase tracking-widest text-white">
-                <a href="#" class="hover:text-emerald-400">Trang chủ</a>
-                <a href="#destinations" class="hover:text-emerald-400">Địa danh</a>
-            </div>
+    <!-- Header -->
+    <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10 p-4 flex justify-between items-center px-6">
+        <h1 class="text-xl font-bold text-emerald-500">HA GIANG EXPLORE</h1>
+        <div class="space-x-6 text-sm font-semibold">
+            <a href="#" class="text-emerald-400">Trang chủ</a>
+            <a href="#destinations" class="hover:text-emerald-400">Địa danh</a>
         </div>
     </nav>
 
-    <!-- 2. Banner chính -->
-    <section class="relative h-[50vh] flex items-center justify-center text-center px-4 bg-emerald-900">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 uppercase tracking-[0.2em]">Kỳ vĩ Hà Giang</h1>
-    </section>
-    
-    <!-- 3. Bộ lọc -->
-    <div class="container mx-auto px-6 py-12 flex flex-wrap justify-center gap-4">
-        <button onclick="filterDestinations('all')" class="filter-btn bg-emerald-600 text-white px-8 py-2 rounded-full font-bold shadow-lg transition">Tất cả</button>
-        <button onclick="filterDestinations('Địa danh')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold text-white">Địa danh</button>
-        <button onclick="filterDestinations('Văn hóa')" class="filter-btn bg-white/5 border border-white/10 px-8 py-2 rounded-full hover:bg-white/10 transition uppercase text-[11px] font-bold text-white">Văn hóa</button>
-    </div>
+    <!-- Banner -->
+    <header class="h-[50vh] flex items-center justify-center bg-emerald-900 relative overflow-hidden">
+        <div class="relative z-10 text-center">
+            <h1 class="text-5xl font-bold uppercase tracking-widest">Kỳ vĩ Hà Giang</h1>
+            <p class="italic opacity-70 mt-2">"Chạm vào mây, say giữa đại ngàn"</p>
+        </div>
+    </header>
 
-    <!-- 4. Danh sách hiển thị -->
-    <main id="destinations" class="container mx-auto px-6 pb-32 text-slate-800">
-        <div id="destination-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+    <!-- Lưới hiển thị -->
+    <main id="destinations" class="container mx-auto px-6 py-16">
+        <div id="destination-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- JS đổ dữ liệu vào đây -->
+        </div>
     </main>
 
-    <!-- 5. Popup chi tiết (Modal) -->
-    <div id="modal" class="fixed inset-0 bg-black/95 backdrop-blur-sm z-[100] hidden overflow-y-auto p-2 md:p-6">
-        <div class="bg-stone-50 text-slate-900 rounded-3xl max-w-6xl mx-auto relative shadow-2xl overflow-hidden mb-10">
+    <!-- CỬA SỔ POPUP (MODAL) - QUAN TRỌNG NHẤT -->
+    <div id="modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white text-slate-900 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl">
             <!-- Nút đóng -->
-            <button onclick="closeModal()" class="fixed md:absolute top-4 right-4 bg-black/50 text-white hover:bg-red-600 w-12 h-12 rounded-full transition z-[110] flex items-center justify-center">
-                <i class="fas fa-times text-xl"></i>
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-slate-200 hover:bg-red-500 hover:text-white w-10 h-10 rounded-full transition z-10">
+                <i class="fas fa-times"></i>
             </button>
             
             <div id="modal-content">
-                <!-- JavaScript sẽ đổ nội dung cực chi tiết vào đây -->
+                <!-- Nội dung chi tiết sẽ hiện ở đây -->
             </div>
         </div>
     </div>
