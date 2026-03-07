@@ -681,57 +681,152 @@ const destinationsData = [
 
 
 
+// ==========================================
+// TÍNH NĂNG 1: HIỂN THỊ DANH SÁCH (GRID DISPLAY)
+// ==========================================
 function displayDestinations(items) {
     const grid = document.getElementById('destination-grid');
     if (!grid) return;
 
+    if (items.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-20 italic">Không tìm thấy địa danh nào phù hợp...</p>`;
+        return;
+    }
+
     grid.innerHTML = items.map(item => `
-        <div onclick="openModal(${item.id})" class="cursor-pointer bg-white rounded-3xl overflow-hidden shadow-lg border border-white/10 group transition-all">
-            <div class="relative h-64 overflow-hidden">
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold uppercase tracking-widest">
-                    Xem chi tiết
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 relative text-slate-800">
+            <!-- Nút thêm vào hành trình (Trip Planner) -->
+            ${!item.isCultureTopic ? `
+            <button onclick="addToTrip(${item.id})" class="absolute top-4 right-4 z-30 bg-white/90 backdrop-blur text-emerald-700 w-10 h-10 rounded-full shadow-lg hover:bg-orange-500 hover:text-white transition-all active:scale-90">
+                <i class="fas fa-plus"></i>
+            </button>` : ''}
+
+            <div onclick="openModal(${item.id})" class="cursor-pointer">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    
+                    <!-- Keyword hiển thị trên ảnh -->
+                    <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
+                        ${(item.cultureKeywords || []).map(kw => `
+                            <span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[9px] px-2 py-1 rounded font-bold hover:bg-orange-500 transition shadow-lg uppercase">
+                                # ${kw.label}
+                            </span>
+                        `).join('')}
+                    </div>
+
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs">Xem chi tiết</div>
                 </div>
-            </div>
-            <div class="p-6 bg-stone-800 text-white">
-                <span class="text-[10px] font-bold text-emerald-400 uppercase">${item.category}</span>
-                <h3 class="text-xl font-bold mt-1 uppercase">${item.name}</h3>
-                <p class="text-gray-400 text-sm mt-2 line-clamp-2 italic">${item.desc}</p>
+                <div class="p-6">
+                    <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
+                    <h3 class="text-lg font-bold mt-1 mb-2 text-emerald-900 uppercase">${item.name}</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed line-clamp-2 italic">${item.desc}</p>
+                </div>
             </div>
         </div>
     `).join('');
 }
 
-// 3. Hàm mở cửa sổ chi tiết
-function openModal(id) {
+// ==========================================
+// TÍNH NĂNG 2: BỘ LỌC & TÌM KIẾM (FILTER & SEARCH)
+// ==========================================
+function filterDestinations(category) {
+    // Đổi màu nút bấm để nhận diện
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white');
+        btn.classList.add('bg-white/5', 'text-white');
+    });
+    if(window.event && window.event.target) {
+        window.event.target.classList.add('bg-emerald-600', 'text-white');
+    }
+
+    const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
+    displayDestinations(filtered);
+}
+
+// Lắng nghe sự kiện gõ phím trong ô tìm kiếm
+document.getElementById('search-input')?.addEventListener('input', (e) => {
+    const kw = e.target.value.toLowerCase();
+    const filtered = destinationsData.filter(d => 
+        d.name.toLowerCase().includes(kw) || 
+        d.desc.toLowerCase().includes(kw)
+    );
+    displayDestinations(filtered);
+});
+
+// ==========================================
+// TÍNH NĂNG 3: MỞ CỬA SỔ CHI TIẾT (MODAL POPUP)
+// ==========================================
+async function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
+    if (!item || !content) return;
 
-    if (item) {
+    if (item.isCultureTopic) {
+        // Giao diện cho chuyên đề văn hóa
         content.innerHTML = `
-            <img src="${item.image}" class="w-full h-80 object-cover">
-            <div class="p-8">
-                <span class="text-emerald-600 font-bold uppercase text-xs tracking-widest">${item.category}</span>
-                <h2 class="text-3xl font-bold text-slate-900 mt-2 mb-4">${item.name}</h2>
-                <p class="text-gray-600 leading-relaxed text-lg">${item.details || item.desc}</p>
-                <div class="mt-8 pt-6 border-t flex justify-end">
-                    <button onclick="closeModal()" class="bg-emerald-600 text-white px-8 py-2 rounded-full font-bold">Đóng</button>
+            <div class="relative h-72 md:h-[400px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold text-center">${item.name}</div></div>
+            <div class="p-8 md:p-16 space-y-10 bg-white text-slate-800">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    ${(item.sections || []).map(sec => `
+                        <div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md">
+                            <h4 class="font-bold text-xl text-emerald-900 mb-2 uppercase tracking-tighter">${sec.title}</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">${sec.content}</p>
+                        </div>
+                    `).join('')}
                 </div>
-            </div>
-        `;
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Khóa cuộn trang chính
+            </div>`;
+    } else {
+        // Giao diện cho địa danh du lịch
+        const culture = item.culture || {};
+        const food = item.food || {};
+        const logistics = item.logistics || {};
+        const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
+
+        content.innerHTML = `
+            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
+            <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900 text-sm">
+                <div class="lg:col-span-2 space-y-10 text-left">
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic italic">"${item.experience || item.desc}"</p></section>
+                    
+                    <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl">
+                        <h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-2 uppercase">Bản sắc văn hóa</h3>
+                        <div class="space-y-6 mb-10 text-gray-300">
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px] mb-1">Lễ hội:</p><p class="text-sm leading-relaxed">${culture.festival || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px] mb-1">Trang phục:</p><p class="text-sm leading-relaxed">${culture.costume || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px] mb-1">Phong tục:</p><p class="text-sm leading-relaxed">${culture.customs || 'Đang cập nhật'}</p></div>
+                        </div>
+                        <div class="mt-8 pt-8 border-t border-white/5 text-center">
+                            <div class="flex flex-wrap justify-center gap-3">${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold text-[10px] hover:bg-orange-500 transition shadow-lg tracking-widest italic font-bold uppercase"># ${c.name}</button>`).join('')}</div>
+                        </div>
+                    </section>
+
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase">Ẩm thực</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-slate-800 text-left items-center"><img src="${food.image || 'images/default-food.jpg'}" class="w-full md:w-48 h-32 object-cover rounded-2xl"><div class="flex-1"><h4 class="text-xl font-bold text-emerald-900">${food.name || 'Đặc sản địa phương'}</h4><p class="text-orange-600 font-bold underline font-bold">${food.price || ''}</p><p class="text-gray-500 italic text-xs">Tại: ${food.location || 'Chợ phiên'}</p></div></div></section>
+                    <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase text-center font-bold">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
+                </div>
+                <div class="lg:col-span-1 space-y-8 text-slate-800">
+                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase tracking-tighter font-bold">Lịch trình</h3><p class="leading-relaxed opacity-80 italic text-sm font-light leading-relaxed">${logistics.itinerary2D || 'Liên hệ để biết thêm'}</p></div>
+                    <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-100 text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1 underline font-bold">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic font-bold">${logistics.estimatedCost || 'Tùy nhu cầu'}</p></div>
+                </div>
+            </div>`;
     }
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modal').scrollTo(0,0);
 }
 
-// 4. Hàm đóng cửa sổ
 function closeModal() {
     const modal = document.getElementById('modal');
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto'; // Mở lại cuộn trang
+    if (modal) modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
 }
 
-// 5. Khởi chạy
+// KHỞI CHẠY (INITIALIZE)
 window.onload = () => {
     displayDestinations(destinationsData);
+};
+
+window.onclick = (e) => {
+    if (e.target == document.getElementById('modal')) closeModal();
+};
