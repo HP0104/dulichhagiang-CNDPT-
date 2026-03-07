@@ -757,7 +757,7 @@ const destinationsData = [
             { title: "Rượu ngô men lá", content: "Thức uống nồng nàn say lòng người, thể hiện sự hiếu khách của người bản địa." }
         ]
     }
-
+];
 
 
 // ==========================================
@@ -777,7 +777,7 @@ function displayDestinations(items) {
                     <div class="absolute bottom-3 left-3 flex flex-wrap gap-2 z-20">
                         ${(item.cultureKeywords || []).map(kw => `<span onclick="event.stopPropagation(); openModal(${kw.linkId})" class="bg-emerald-600/90 backdrop-blur-md text-white text-[9px] px-2 py-1 rounded font-bold hover:bg-orange-500 transition shadow-lg uppercase"># ${kw.label}</span>`).join('')}
                     </div>
-                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs">Chi tiết</div>
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold tracking-widest uppercase text-xs shadow-xl">Chi tiết</div>
                 </div>
                 <div class="p-6">
                     <span class="text-[10px] font-bold uppercase text-emerald-600 tracking-wider">${item.category}</span>
@@ -788,51 +788,96 @@ function displayDestinations(items) {
         </div>`).join('');
 }
 
+// 2. Bộ lọc danh mục
 function filterDestinations(category) {
     const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
     displayDestinations(filtered);
 }
 
-function toggleChat() { 
-    document.getElementById('chat-window')?.classList.toggle('hidden'); 
-    const tooltip = document.getElementById('chat-tooltip');
-    if(tooltip) tooltip.style.display = 'none';
-}
+// 3. Tìm kiếm
+document.getElementById('search-input')?.addEventListener('input', (e) => {
+    const kw = e.target.value.toLowerCase();
+    const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
+    displayDestinations(filtered);
+});
 
-async function openModal(id) {
+// 4. Mở Modal chi tiết
+function openModal(id) {
     const item = destinationsData.find(d => d.id === id);
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
     if (!item || !content) return;
 
     if (item.isCultureTopic) {
-        content.innerHTML = `<div class="relative h-72 md:h-[400px]"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold text-center">${item.name}</div></div><div class="p-8 md:p-16 space-y-10 bg-white text-slate-800 text-left"><div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm"><h4 class="font-bold text-xl text-emerald-900 mb-2 uppercase">${sec.title}</h4><p class="text-gray-600 text-sm leading-relaxed">${sec.content}</p></div>`).join('')}</div><div class="text-center pt-6"><button onclick="closeModal()" class="bg-emerald-900 text-white px-10 py-3 rounded-full font-bold uppercase hover:bg-black transition shadow-lg">Đóng</button></div></div>`;
+        // Giao diện Chuyên đề Văn hóa
+        content.innerHTML = `
+            <div class="relative h-72 md:h-[400px]"><img src="${item.image}" class="w-full h-full object-cover shadow-2xl"><div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-white uppercase text-4xl md:text-6xl font-bold font-bold text-center">${item.name}</div></div>
+            <div class="p-8 md:p-16 space-y-10 bg-white text-slate-800 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    ${(item.sections || []).map(sec => `<div class="bg-stone-50 p-8 rounded-3xl border-l-8 border-emerald-700 shadow-sm transition hover:shadow-md hover:bg-white"><h4 class="font-bold text-xl text-emerald-900 mb-2 uppercase">${sec.title}</h4><p class="text-gray-600 text-sm leading-relaxed">${sec.content}</p></div>`).join('')}
+                </div>
+            </div>`;
     } else {
-        const linked = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
-        content.innerHTML = `<div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div><div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900 text-sm text-left"><div class="lg:col-span-2 space-y-10"><section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase">Tổng quan</h3><p class="text-gray-700 italic">"${item.experience || item.desc}"</p></section><section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl"><h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-2 uppercase">Bản sắc văn hóa</h3><div class="space-y-6 mb-10 text-gray-300"><div><p class="text-emerald-400 font-bold uppercase text-[10px]">Lễ hội:</p><p>${item.culture?.festival || 'Cập nhật'}</p></div><div><p class="text-emerald-400 font-bold uppercase text-[10px]">Trang phục:</p><p>${item.culture?.costume || 'Cập nhật'}</p></div></div><div class="pt-6 border-t border-white/5 flex flex-wrap gap-2">${linked.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold text-[10px] hover:bg-orange-500 transition shadow-lg uppercase"># ${c.name}</button>`).join('')}</div></section><section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase">Bản đồ</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section></div><div class="lg:col-span-1 space-y-8 text-slate-800"><div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase">Lịch trình</h3><p class="opacity-80 leading-relaxed italic text-sm">${item.logistics?.itinerary2D || 'Liên hệ'}</p></div><div class="bg-orange-50 p-8 rounded-[40px] border border-orange-100 text-center"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic">${item.logistics?.estimatedCost || 'Tùy nhu cầu'}</p></div></div></div>`;
+        // Giao diện Địa danh
+        const culture = item.culture || {};
+        const food = item.food || {};
+        const logistics = item.logistics || {};
+        const linkedCultures = (item.relatedCultureIds || []).map(cId => destinationsData.find(d => d.id === cId)).filter(Boolean);
+
+        content.innerHTML = `
+            <div class="relative h-72 md:h-96"><img src="${item.image}" class="w-full h-full object-cover shadow-2xl"><div class="absolute inset-0 bg-gradient-to-t from-black/90 flex items-end p-8 text-white uppercase text-4xl md:text-6xl font-bold">${item.name}</div></div>
+            <div class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10 bg-white text-slate-900 text-sm text-left">
+                <div class="lg:col-span-2 space-y-10">
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-4 text-emerald-900 uppercase font-bold">Tổng quan</h3><p class="text-gray-700 leading-relaxed text-lg italic italic">"${item.experience || item.desc}"</p></section>
+                    
+                    <section class="bg-stone-900 text-white p-8 md:p-10 rounded-[40px] shadow-2xl border border-white/10">
+                        <h3 class="text-xl font-bold text-orange-400 mb-8 border-b border-white/10 pb-4 uppercase italic font-bold">Bản sắc văn hóa</h3>
+                        <div class="space-y-8 mb-12">
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[10px] mb-1">Lễ hội:</p><p class="text-gray-300 leading-relaxed text-base font-light">${culture.festival || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Trang phục:</p><p class="text-gray-300 leading-relaxed text-base font-light">${culture.costume || 'Đang cập nhật'}</p></div>
+                            <div class="border-l-2 border-emerald-500/30 pl-4"><p class="text-emerald-400 font-bold uppercase text-[11px] mb-1">Phong tục:</p><p class="text-gray-300 leading-relaxed text-base font-light">${culture.customs || 'Đang cập nhật'}</p></div>
+                        </div>
+                        <div class="mt-8 pt-8 border-t border-white/5 text-center bg-white/5 -mx-10 -mb-10 p-10 rounded-b-[40px]">
+                            <p class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Khám phá chi tiết chuyên đề:</p>
+                            <div class="flex flex-wrap justify-center gap-3">${linkedCultures.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-600 hover:bg-orange-500 text-white px-5 py-2 rounded-xl font-bold text-[10px] transition shadow-lg transform hover:scale-105 uppercase tracking-widest italic font-bold"># ${c.name}</button>`).join('')}</div>
+                        </div>
+                    </section>
+
+                    <section><h3 class="text-2xl font-bold border-l-8 border-orange-500 pl-4 mb-6 text-emerald-900 uppercase font-bold">Ẩm thực vùng cao</h3><div class="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-slate-800 text-left items-center"><img src="${item.food?.image || 'images/default-food.jpg'}" class="w-full md:w-52 h-40 object-cover rounded-2xl shadow-md"><div class="flex-1 flex flex-col justify-center text-sm"><h4 class="text-xl font-bold text-emerald-900 mb-2 uppercase">${item.food?.name || 'Đặc sản địa phương'}</h4><p class="text-orange-600 font-bold mb-1">${item.food?.price || ''}</p><p class="text-gray-500 italic text-xs">Tại: ${item.food?.location || 'Chợ phiên'}</p></div></div></section>
+                    <section><h3 class="text-2xl font-bold mb-6 text-emerald-900 uppercase text-center font-bold">Vị trí địa lý</h3><iframe src="${item.locationMap}" class="w-full h-80 rounded-3xl border-0 shadow-lg" loading="lazy"></iframe></section>
+                </div>
+                <div class="lg:col-span-1 space-y-8">
+                    <div class="bg-emerald-900 text-white p-8 rounded-[40px] shadow-xl text-left"><h3 class="text-xl font-bold mb-4 text-orange-400 uppercase tracking-tighter font-bold">Lịch trình</h3><p class="leading-relaxed opacity-80 italic text-sm font-light leading-relaxed">${item.logistics?.itinerary2D || 'Liên hệ sau'}</p></div>
+                    <div class="bg-orange-50 p-8 rounded-[40px] border border-orange-200 text-center text-slate-800 shadow-sm"><p class="text-[10px] text-orange-600 font-bold uppercase mb-1 underline font-bold italic">Chi phí dự kiến</p><p class="text-xl font-bold text-orange-700 italic font-bold">${item.logistics?.estimatedCost || 'Tùy nhu cầu'}</p></div>
+                </div>
+            </div>`;
     }
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    document.getElementById('modal').scrollTo(0,0);
 }
 
 function closeModal() { document.getElementById('modal')?.classList.add('hidden'); document.body.style.overflow = 'auto'; }
+
+// 5. Chat AI (Groq) & Trip Planner
+function toggleChat() { document.getElementById('chat-window')?.classList.toggle('hidden'); document.getElementById('chat-tooltip').style.display = 'none'; }
 
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
     if (!input.value.trim()) return;
     const msg = input.value.trim();
-    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs shadow-sm mb-2 text-right">${msg}</div>`;
+    content.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl ml-auto max-w-[85%] shadow-sm mb-2 text-right">${msg}</div>`;
     input.value = "";
     content.scrollTo(0, content.scrollHeight);
     try {
         const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Trợ lý Hà Giang chuyên nghiệp. Trả lời cực ngắn bằng tiếng Việt." }, { role: "user", content: msg }] })
+            body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{ role: "system", content: "Trợ lý Hà Giang chuyên nghiệp. Trả lời ngắn gọn." }, { role: "user", content: msg }] })
         });
         const data = await res.json();
-        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl self-start max-w-[85%] text-xs shadow-sm mb-2 border border-emerald-200">${data.choices[0].message.content}</div>`;
-    } catch (e) { content.innerHTML += `<div class="text-red-500">Lỗi kết nối AI.</div>`; }
+        content.innerHTML += `<div class="bg-emerald-100 text-emerald-900 p-3 rounded-2xl self-start max-w-[85%] text-xs border border-emerald-200 mb-2">${data.choices[0].message.content}</div>`;
+    } catch (e) { content.innerHTML += `<div class="text-red-500">Lỗi kết nối.</div>`; }
     content.scrollTo(0, content.scrollHeight);
 }
 
@@ -841,20 +886,19 @@ function addToTrip(id) { if (!selectedTripIds.includes(id)) { selectedTripIds.pu
 function clearTrip() { selectedTripIds = []; updateTripUI(); }
 function updateTripUI() {
     const planner = document.getElementById('trip-planner');
-    document.getElementById('trip-count').innerText = selectedTripIds.length;
     if (selectedTripIds.length > 0) {
         planner.classList.remove('hidden');
+        document.getElementById('trip-count').innerText = selectedTripIds.length;
         document.getElementById('selected-list').innerHTML = selectedTripIds.map(id => `• ${destinationsData.find(d => d.id === id).name}`).join('<br>');
     } else { planner.classList.add('hidden'); }
 }
-
 async function generateAITrip() {
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(", ");
     document.getElementById('chat-window').classList.remove('hidden');
-    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic shadow-sm mb-2 border border-orange-200">AI đang lập tour đi: ${names}...</div>`;
+    document.getElementById('chat-content').innerHTML += `<div class="bg-orange-100 p-3 rounded-2xl text-[10px] italic text-slate-800 shadow-sm">AI đang lập tour đi: ${names}...</div>`;
 }
 
-// KHỞI CHẠY
+// 6. KHỞI CHẠY
 window.onload = () => {
     displayDestinations(destinationsData);
     setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
