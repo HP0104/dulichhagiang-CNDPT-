@@ -722,7 +722,7 @@ const destinationsData = [
             { title: "Rượu ngô", content: "Nấu thủ công từ ngô bản địa và men lá rừng truyền thống, thể hiện lòng hiếu khách chân thành của người dân vùng cao." }
         ]
     }
-]
+];
 
 
 // ==========================================
@@ -944,5 +944,6 @@ window.onload = () => {
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
