@@ -1,8 +1,4 @@
 
-
-
-// DỮ LIỆU TỔNG HỢP (17 ĐỊA DANH + 6 VĂN HÓA)
-
 const destinationsData = [
   {
         id: 1,
@@ -491,42 +487,6 @@ const destinationsData = [
     },
     {
         id: 15,
-        name: "Vách Đá Thần",
-        category: "Địa danh/Cảnh quan",
-        lat: 23.2367, lng: 105.2729,
-        relatedCultureIds: [105],
-        cultureKeywords: [
-            { label: "Cảnh quan đá vôi", linkId: 105 }
-        ],
-        image: "images/nen-vachdatuthan.jpeg",
-        desc: "Vách núi đá vôi cao dựng đứng giữa cao nguyên đá Đồng Văn, tạo nên khung cảnh hùng vĩ và đầy ấn tượng.",
-        visitTime: "Cả ngày (đẹp nhất vào buổi sáng khi trời trong xanh).",
-        ticketPrice: "Miễn phí",
-        transport: "Nằm trên cung đường Đồng Văn - Mèo Vạc, gần đèo Mã Pí Lèng, có thể di chuyển bằng xe máy hoặc ô tô.",
-        bestSeason: "Tháng 9 - Tháng 4 (thời tiết khô ráo, dễ di chuyển và chụp ảnh đẹp).",
-        locationMap: "https://www.google.com/maps?q=Vach+Da+Than+Ha+Giang&output=embed",
-        experience: "Nên chọn ngày trời nắng để thấy rõ màu đá xám đặc trưng. Khi chụp ảnh cần giữ khoảng cách an toàn và quan sát xe cộ trên đường đèo.",
-        culture: {
-            festival: "Gắn liền với hành trình khám phá cao nguyên đá Đồng Văn và đèo Mã Pí Lèng.",
-            costume: "Du khách thường kết hợp trang phục dân tộc hoặc phong cách phượt để chụp ảnh.",
-            customs: "Là điểm dừng chân tự phát của nhiều phượt thủ trên cung đường Hà Giang.",
-            art: "Hình ảnh vách đá sừng sững giữa trời tạo cảm giác mạnh mẽ, biểu tượng cho vẻ đẹp hoang sơ vùng cực Bắc."
-        },
-        food: {
-            name: "Thắng Cố & Cà Phê Núi",
-            image: "images/mon-thangco.jpg",
-            price: "30.000đ - 100.000đ",
-            location: "Các quán ăn và quán cà phê dọc tuyến Đồng Văn - Mèo Vạc"
-        },
-        logistics: {
-            itinerary2D: "Ngày 1: Đồng Văn - Mã Pí Lèng - Vách Đá Thần. Ngày 2: Sông Nho Quế - Mèo Vạc.",
-            itinerary3D: "Ngày 1: Hà Giang - Quản Bạ. Ngày 2: Đồng Văn - Lũng Cú. Ngày 3: Mã Pí Lèng - Vách Đá Thần - Nho Quế.",
-            safety: "Cẩn thận khi dừng xe trên đường đèo, không đứng sát mép vực để chụp ảnh.",
-            estimatedCost: "2.000.000đ - 3.500.000đ/người (tour 3 ngày 2 đêm tự túc)"
-        }
-    },
-    {
-        id: 15,
         name: "Vách đá Thần",
         category: "Địa danh/Cảnh quan",
         lat: 23.2367, lng: 105.2729,
@@ -944,6 +904,7 @@ window.onload = () => {
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
