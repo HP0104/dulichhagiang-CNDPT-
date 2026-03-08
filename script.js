@@ -889,9 +889,8 @@ const API_KEY = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy" + "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
 let selectedTripIds = []; 
 
 
-// ==========================================
-// 2. TIỆN ÍCH (THỜI TIẾT)
-// ==========================================
+
+//  TIỆN ÍCH (THỜI TIẾT)
 function interpretWeather(code) {
     const map = { 
         0: { icon: "fa-sun text-yellow-400", txt: "Nắng rực rỡ" }, 
@@ -936,9 +935,9 @@ async function updateWeatherUI(lat, lng) {
         </div>`;
 }
 
-// ==========================================
-// 3. CORE UI (MODAL & GRID)
-// ==========================================
+
+//  CORE UI (MODAL & GRID)
+
 window.openModal = async function(id) {
     const item = destinationsData.find(d => d.id === id);
     if (!item) return;
@@ -998,9 +997,9 @@ window.closeModal = function() {
     document.body.style.overflow = 'auto';
 };
 
-// ==========================================
+
 //  FEATURE LOGIC (CHATBOT & TRIP)
-// ==========================================
+
 window.toggleChat = function() { 
     const chat = document.getElementById('chat-window');
     const tip = document.getElementById('chat-tooltip');
@@ -1066,7 +1065,7 @@ window.generateAITrip = async function() {
 
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(', ');
 
-    // 1. Lấy thông tin thời tiết thực tế từ điểm đầu tiên trong giỏ hàng để AI có căn cứ tư vấn
+    //  Lấy thông tin thời tiết thực tế từ điểm đầu tiên trong giỏ hàng để AI có căn cứ tư vấn
     const firstPoint = destinationsData.find(d => d.id === selectedTripIds[0]);
     let weatherInfo = "Không có dữ liệu thời tiết thực tế hiện tại.";
     if (firstPoint && firstPoint.lat) {
@@ -1076,7 +1075,7 @@ window.generateAITrip = async function() {
         }
     }
 
-    // 2. Hiển thị trạng thái loading chuyên nghiệp
+    //  Hiển thị trạng thái loading chuyên nghiệp
     openModal(1); // Mượn modal để hiện loading
     document.getElementById('modal-content').innerHTML = `
         <div class="p-20 text-center bg-[#1a1a1a] text-white">
@@ -1085,16 +1084,16 @@ window.generateAITrip = async function() {
             <p class="text-gray-400 mt-4 italic">Đang tính toán theo cung đường, thời tiết và văn hóa bản địa...</p>
         </div>`;
 
-    // 3. ĐỊNH NGHĨA PROMPT HỆ THỐNG (SYSTEM PROMPT) ĐẦY ĐỦ Ý TƯỞNG
-    const systemPrompt = `Bạn là "Phúc Hà Giang" - Chuyên gia điều hành tour và hướng dẫn viên bản địa có 15 năm kinh nghiệm.
+    //  ĐỊNH NGHĨA PROMPT HỆ THỐNG (SYSTEM PROMPT) ĐẦY ĐỦ Ý TƯỞNG
+    const systemPrompt = `Bạn là "chatbot tư ván" - Chuyên gia điều hành tour và hướng dẫn viên bản địa có 15 năm kinh nghiệm.
     Nhiệm vụ: Thiết kế hành trình du lịch Hà Giang tối ưu dựa trên danh sách địa danh khách chọn.
 
     YÊU CẦU CHUYÊN MÔN:
     1. Logic Di Chuyển: Sắp xếp các điểm theo cung đường "Ha Giang Loop" (vòng cung) để không đi ngược đường. Phải tính toán thứ tự huyện hợp lý (Quản Bạ -> Yên Minh -> Đồng Văn -> Mèo Vạc).
     2. Tư vấn Thời tiết: Dựa trên dữ liệu thời tiết được cung cấp, nếu trời xấu/mưa/sương mù, hãy đưa ra cảnh báo an toàn khi đổ đèo và gợi ý các điểm tham quan trong nhà hoặc linh hoạt thay đổi lịch trình.
-    3. Phương tiện & Chi phí: Tư vấn ưu/nhược điểm giữa xe máy (phượt thủ) và ô tô kèm tài xế (gia đình). Dự toán chi tiết chi phí VNĐ (xăng, xe, ăn 150k/bữa, ngủ 200k-500k).
+    3. Phương tiện & Chi phí: Tư vấn ưu/nhược điểm giữa xe máy (phượt thủ) và ô tô kèm tài xế (gia đình). Dự toán chi tiết chi phí VNĐ (xăng, xe, ăn 150k/bữa, ngủ 200k-500k) , tính tổng tiền dự kiến.
     4. Văn hóa & Đạo đức: Luôn nhắc khách KHÔNG cho tiền trẻ em ven đường (chỉ cho bánh kẹo/đồ dùng học tập), giữ vệ sinh môi trường và tôn trọng phong tục 22 dân tộc.
-    5. Góc Phúc Bật Mí: Gợi ý ít nhất 1 quán ăn chuẩn vị hoặc 1 góc check-in bí mật ít người biết gần khu vực khách đi.
+    5. Góc Bật Mí: Gợi ý ít nhất 1 quán ăn chuẩn vị hoặc 1 góc check-in bí mật ít người biết gần khu vực khách đi.
 
     ĐỊNH DẠNG TRÌNH BÀY:
     - Sử dụng thẻ HTML: <h3> cho tiêu đề ngày, <b> cho điểm nhấn quan trọng, <ul><li> cho danh sách chi phí/lưu ý.
@@ -1185,6 +1184,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
