@@ -692,78 +692,195 @@ const destinationsData = [
         ]
     },
     {
-        id: 102,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Văn hóa Chợ phiên vùng cao",
-        image: "images/nen-phiencho.jpg",
-        desc: "Chợ phiên là 'bảo tàng sống' lưu giữ đời sống tâm linh và văn hóa cộng đồng của các dân tộc Hà Giang.",
-        sections: [
-            { title: "Thời gian họp chợ đặc biệt", content: "Chợ họp theo phiên cố định hoặc 'chợ lùi' (mỗi tuần lùi 1 ngày). Chợ bắt đầu từ tảng sáng đến trưa. Các phiên nức tiếng: Đồng Văn, Mèo Vạc, Khâu Vai." },
-            { title: "Không gian giao lưu cộng đồng", content: "Nơi thanh niên gặp gỡ giao duyên, người thân tìm lại nhau. Chợ tình Khâu Vai là nơi đôi lứa xưa gặp lại mỗi năm một lần." },
-            { title: "Trang phục & Sắc màu", content: "Ngày chợ là ngày hội khoe sắc với váy thêu sáp ong người Mông, áo đỏ người Dao, tạo nên bức tranh thổ cẩm sống động." },
-            { title: "Ẩm thực đặc trưng", content: "Thiên đường món ngon dân dã: Thắng cố nghi ngút khói, mèn mén thơm mùi ngô, cháo ấu tẩu và rượu ngô men lá nồng nàn." },
-            { title: "Âm nhạc & Tiếng khèn", content: "Âm thanh dìu dặt của tiếng khèn Mông hòa cùng tiếng nói cười rộn ràng làm nên linh hồn của phiên chợ vùng cao." }
-        ]
-    },
+    id: 102,
+    isCultureTopic: true,
+    category: "Văn hóa",
+    name: "Văn hóa Chợ phiên vùng cao",
+    image: "images/nen-phiencho.jpg",
+    desc: "Chợ phiên vùng cao Hà Giang là nét văn hóa đặc sắc của các dân tộc miền núi, nơi diễn ra hoạt động mua bán, giao lưu văn hóa và gặp gỡ cộng đồng, phản ánh rõ đời sống sinh hoạt và bản sắc truyền thống của người dân địa phương.",
+    sections: [
+        { 
+            title: "Thời gian họp chợ theo phiên truyền thống", 
+            content: "Khác với chợ thường ngày ở đồng bằng, chợ vùng cao chỉ họp theo các ngày cố định trong tuần hoặc theo chu kỳ. Nhiều nơi còn có 'chợ lùi', nghĩa là mỗi tuần chợ sẽ lùi lại một ngày so với tuần trước. Người dân thường đi chợ từ rất sớm, khi trời còn mờ sương, và chợ thường tan vào khoảng giữa trưa." 
+        },
+        { 
+            title: "Không gian giao lưu và gặp gỡ cộng đồng", 
+            content: "Chợ phiên không chỉ là nơi trao đổi hàng hóa mà còn là nơi gặp gỡ, trò chuyện và kết nối cộng đồng của các dân tộc như Mông, Dao, Tày, Nùng… Nhiều người đi chợ không chỉ để mua bán mà còn để thăm hỏi bạn bè, người thân sau một tuần làm việc trên nương rẫy." 
+        },
+        { 
+            title: "Trang phục truyền thống rực rỡ sắc màu", 
+            content: "Ngày họp chợ cũng giống như ngày hội của người vùng cao. Phụ nữ và thanh niên thường mặc những bộ trang phục truyền thống đẹp nhất như váy thêu sáp ong của người Mông, áo đỏ thêu hoa văn của người Dao hay trang phục chàm của người Tày, tạo nên một bức tranh văn hóa đầy màu sắc." 
+        },
+        { 
+            title: "Ẩm thực đặc trưng của chợ vùng cao", 
+            content: "Các phiên chợ là nơi du khách có thể thưởng thức nhiều món ăn truyền thống như thắng cố nấu từ thịt và nội tạng ngựa, mèn mén làm từ ngô xay, cháo ấu tẩu đặc sản của Hà Giang hay rượu ngô men lá thơm nồng. Những món ăn này thể hiện rõ nét văn hóa ẩm thực của người dân miền núi." 
+        },
+        { 
+            title: "Âm nhạc dân gian và tiếng khèn Mông", 
+            content: "Trong không khí náo nhiệt của phiên chợ, du khách dễ dàng bắt gặp hình ảnh các chàng trai Mông thổi khèn hay những nhóm người tụ tập trò chuyện, hát giao duyên. Tiếng khèn Mông trầm bổng hòa cùng tiếng cười nói tạo nên âm thanh đặc trưng của chợ phiên vùng cao." 
+        }
+    ]
+},
     {
-        id: 103,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Lễ hội truyền thống",
-        image: "images/nen-lehoitruynthong.jpg",
-        desc: "Những nghi lễ tâm linh và ngày hội sôi động thể hiện khát vọng về cuộc sống ấm no, hạnh phúc.",
-        sections: [
-            { title: "Lễ hội Gầu Tào (Mông)", content: "Cầu phúc, cầu con, cầu sức khỏe từ mùng 1 đến rằm tháng Giêng với múa khèn, hát giao duyên và ném pao." },
-            { title: "Lễ hội Lồng Tồng (Tày)", content: "Lễ xuống đồng cúng thần nông cầu mùa bội thu với hát then, đàn tính và trò chơi tung còn." },
-            { title: "Lễ hội Nhảy lửa (Pà Thẻn)", content: "Nghi lễ huyền bí nơi các chàng trai nhảy chân trần trên than hồng, thể hiện sức mạnh tinh thần và niềm tin tâm linh." },
-            { title: "Lễ cấp sắc (Dao)", content: "Nghi lễ quan trọng đánh dấu sự trưởng thành của nam giới, xác nhận người đàn ông được thần linh công nhận." },
-            { title: "Lễ hội hoa Tam giác mạch", content: "Tổ chức tháng 10-11 để tôn vinh loài hoa biểu tượng và quảng bá văn hoá, ẩm thực đặc sắc của địa phương." }
-        ]
-    },
+    id: 103,
+    isCultureTopic: true,
+    category: "Văn hóa",
+    name: "Lễ hội truyền thống",
+    image: "images/nen-lehoitruynthong.jpg",
+    desc: "Hà Giang có nhiều lễ hội truyền thống đặc sắc của các dân tộc như Mông, Tày, Dao, Pà Thẻn… Mỗi lễ hội gắn với tín ngưỡng, nông nghiệp và đời sống cộng đồng, thể hiện ước vọng về mùa màng bội thu, sức khỏe và hạnh phúc.",
+    sections: [
+        { 
+            title: "Lễ hội Gầu Tào của người Mông", 
+            content: "Đây là lễ hội lớn của người Mông thường diễn ra từ mùng 1 đến rằm tháng Giêng âm lịch. Lễ hội ban đầu được tổ chức để cầu phúc, cầu con và cầu sức khỏe cho gia đình. Trong ngày hội có nhiều hoạt động như múa khèn, hát giao duyên, ném pao, đánh quay và các trò chơi dân gian truyền thống." 
+        },
+        { 
+            title: "Lễ hội Lồng Tồng (Lễ xuống đồng) của người Tày", 
+            content: "Lễ hội diễn ra vào đầu năm mới sau Tết Nguyên Đán nhằm cầu cho mùa màng bội thu và cuộc sống ấm no. Người dân làm lễ cúng thần nông, sau đó tổ chức nhiều hoạt động văn hóa như hát then, đàn tính, tung còn, múa sạp và các trò chơi dân gian." 
+        },
+        { 
+            title: "Lễ hội Nhảy lửa của người Pà Thẻn", 
+            content: "Nghi lễ tâm linh độc đáo diễn ra vào dịp cuối năm hoặc đầu năm mới. Sau khi thầy cúng làm lễ, các chàng trai nhảy chân trần vào đống than hồng đang cháy. Nghi lễ thể hiện lòng dũng cảm, sức mạnh tinh thần và niềm tin vào sự bảo hộ của thần linh." 
+        },
+        { 
+            title: "Lễ cấp sắc của người Dao", 
+            content: "Đây là nghi lễ quan trọng đánh dấu sự trưởng thành của nam giới trong cộng đồng người Dao. Sau nghi lễ, người đàn ông mới được công nhận là thành viên đầy đủ của cộng đồng và có quyền tham gia các nghi lễ tâm linh." 
+        },
+        { 
+            title: "Lễ hội hoa Tam giác mạch", 
+            content: "Được tổ chức hằng năm vào khoảng tháng 10–11 khi hoa tam giác mạch nở rộ trên cao nguyên đá Hà Giang. Lễ hội có nhiều hoạt động như biểu diễn văn hóa dân tộc, hội chợ ẩm thực, trải nghiệm du lịch và quảng bá hình ảnh Hà Giang." 
+        },
+        { 
+            title: "Chợ tình Khâu Vai", 
+            content: "Diễn ra vào ngày 27 tháng 3 âm lịch tại huyện Mèo Vạc. Đây là phiên chợ đặc biệt nơi những đôi trai gái từng yêu nhau nhưng không đến được với nhau có dịp gặp lại, trò chuyện và tâm sự sau nhiều năm xa cách." 
+        },
+        { 
+            title: "Tết nhảy của người Dao", 
+            content: "Lễ hội truyền thống quan trọng của người Dao đỏ, thường diễn ra vào dịp Tết Nguyên Đán. Trong lễ có các điệu nhảy nghi lễ đặc trưng do các thầy cúng và nam giới thực hiện nhằm tưởng nhớ tổ tiên và cầu mong bình an cho gia đình." 
+        },
+        { 
+            title: "Lễ cúng rừng của các dân tộc vùng cao", 
+            content: "Đây là nghi lễ thể hiện tín ngưỡng tôn trọng thiên nhiên của nhiều dân tộc ở Hà Giang. Người dân tổ chức lễ cúng tại khu rừng thiêng của bản làng để cầu mong mùa màng tốt tươi, cuộc sống bình an và bảo vệ rừng." 
+        }
+    ]
+},
+   {
+    id: 104,
+    isCultureTopic: true,
+    category: "Văn hóa",
+    name: "Kiến trúc & Làng cổ",
+    image: "images/nen-kientruc.jpg",
+    desc: "Kiến trúc truyền thống ở Hà Giang phản ánh sự thích nghi của các dân tộc vùng cao với điều kiện tự nhiên khắc nghiệt của cao nguyên đá. Từ nhà trình tường của người Mông đến nhà sàn của người Tày, mỗi kiểu nhà đều mang nét văn hóa, tín ngưỡng và lối sống riêng.",
+    sections: [
+        { 
+            title: "Nhà trình tường của người Mông", 
+            content: "Nhà được xây bằng đất nện với tường dày khoảng 40–60cm, giúp giữ ấm vào mùa đông và mát mẻ vào mùa hè. Kiểu nhà này thường có tường màu vàng đất nổi bật giữa nền đá xám của cao nguyên. Mái nhà lợp ngói âm dương hoặc ngói máng, xung quanh có hàng rào đá xếp thủ công để bảo vệ gia súc và tạo ranh giới cho khu nhà." 
+        },
+        { 
+            title: "Nhà sàn của người Tày và Nùng", 
+            content: "Nhà sàn thường được dựng bằng gỗ chắc chắn, mái lợp lá cọ hoặc ngói. Nhà được nâng cao khỏi mặt đất để tránh ẩm thấp và thú rừng. Không gian bên trong được chia thành nhiều gian, trong đó gian giữa thường đặt bàn thờ tổ tiên – vị trí trang trọng nhất của ngôi nhà." 
+        },
+        { 
+            title: "Làng cổ Lô Lô Chải", 
+            content: "Nằm dưới chân cột cờ Lũng Cú, đây là một trong những ngôi làng cổ đẹp nhất Hà Giang. Làng nổi bật với những ngôi nhà trình tường truyền thống, hàng rào đá xếp thủ công và con đường nhỏ lát đá. Nơi đây vẫn giữ được nhiều nét sinh hoạt văn hóa của người Lô Lô." 
+        },
+        { 
+            title: "Dinh thự họ Vương (Dinh Vua Mèo)", 
+            content: "Công trình kiến trúc hơn 100 năm tuổi nằm tại thung lũng Sà Phìn. Dinh thự được xây dựng bằng đá, gỗ và ngói âm dương với kiến trúc pha trộn giữa phong cách nhà Thanh của Trung Hoa, nghệ thuật xây dựng của người Mông và ảnh hưởng kiến trúc Pháp." 
+        },
+        { 
+            title: "Phố cổ Đồng Văn", 
+            content: "Khu phố cổ có lịch sử hơn một thế kỷ với những ngôi nhà tường đá, mái ngói âm dương và ban công gỗ. Phố cổ mang đậm nét kiến trúc truyền thống vùng cao và là nơi sinh sống của nhiều dân tộc như Hoa, Tày và Mông." 
+        },
+        { 
+            title: "Làng văn hóa du lịch cộng đồng", 
+            content: "Nhiều bản làng ở Hà Giang như Nặm Đăm (Quản Bạ) hay Thôn Tha (Hà Giang) vẫn giữ được kiến trúc truyền thống của nhà sàn và nhà trình tường. Các làng này đang phát triển du lịch cộng đồng, giúp du khách trải nghiệm đời sống, ẩm thực và văn hóa bản địa." 
+        },
+        { 
+            title: "Hàng rào đá của người vùng cao", 
+            content: "Trên cao nguyên đá Đồng Văn, người dân thường dùng đá xếp thành hàng rào bao quanh nhà và nương rẫy. Những hàng rào đá này được xếp thủ công không cần vữa nhưng vẫn rất chắc chắn, trở thành nét kiến trúc đặc trưng của vùng cao Hà Giang." 
+        }
+    ]
+},
     {
-        id: 104,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Kiến trúc & Làng cổ",
-        image: "images/nen-kientruc.jpg",
-        desc: "Biểu tượng của lịch sử và sự thích nghi kỳ diệu của con người với thiên nhiên núi đá khắc nghiệt.",
-        sections: [
-            { title: "Nhà trình tường (Mông)", content: "Xây bằng đất nện dày 40-60cm, giữ ấm mùa đông, mát mùa hè. Tường vàng nổi bật giữa đá xám, mái lợp ngói âm dương." },
-            { title: "Nhà sàn (Tày, Nùng)", content: "Dựng bằng gỗ quý chắc chắn ở vùng thung lũng ven suối để tránh ẩm thấp. Gian thờ tổ tiên nằm ở trung tâm ngôi nhà." },
-            { title: "Làng cổ Lô Lô Chải", content: "Không gian yên bình dưới chân cột cờ Lũng Cú với những nếp nhà trình tường cổ và hàng rào đá xếp tay tỉ mỉ." },
-            { title: "Dinh thự họ Vương", content: "Công trình hơn 100 năm tuổi giao thoa kiến trúc nhà Thanh (Trung Hoa), văn hóa Mông và phong cách Pháp." }
-        ]
-    },
-    {
-        id: 105,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Văn hóa Lao động & Lịch sử",
-        image: "images/nen-vanhoalichsu.jpg",
-        desc: "Vẻ đẹp của ý chí kiên cường và tinh thần vượt khó của con người miền cực Bắc.",
-        sections: [
-            { title: "Canh tác trên đá", content: "Kỳ tích gieo ngô trong từng hốc đá nhỏ. Đất được gùi từ thung lũng lên kẽ đá, tạo nên những nương ngô xanh mướt giữa đá xám." },
-            { title: "Ruộng bậc thang", content: "Tác phẩm nghệ thuật khổng lồ tại Hoàng Su Phì do bàn tay con người tạo dựng qua nhiều thế hệ để thích nghi địa hình dốc." },
-            { title: "Đường Hạnh Phúc", content: "Biểu tượng ý chí của hàng vạn thanh niên xung phong mở đường qua những vách đá hiểm trở nhất." },
-            { title: "Công viên địa chất", content: "Cao nguyên đá Đồng Văn được UNESCO công nhận là di sản toàn cầu, minh chứng cho lịch sử địa chất hàng triệu năm." }
-        ]
-    },
-    {
-        id: 106,
-        isCultureTopic: true,
-        category: "Văn hóa",
-        name: "Ẩm thực truyền thống",
-        image: "images/nen-amthuc.jpg",
-        desc: "Kết tinh từ lao động, thiên nhiên và hơi thở nồng nàn của núi rừng Hà Giang.",
-        sections: [
-            { title: "Mèn mén", content: "Linh hồn ẩm thực người Mông từ ngô xay nhuyễn hấp dẻo. Giản dị nhưng giàu năng lượng, gắn liền với đời sống canh tác trên đá." },
-            { title: "Thắng cố", content: "Món ăn truyền thống nức tiếng từ thịt ngựa/bò ninh cùng thảo quả, gia vị rừng, thường dùng kèm rượu ngô men lá." },
-            { title: "Thịt gác bếp", content: "Thịt trâu/lợn ướp gừng, ớt, mắc khén treo gác bếp nhiều tháng, đậm đà vị khói củi đặc trưng." },
-            { title: "Phở chua & Cháo ấu tẩu", content: "Những món ăn mang đậm dấu ấn giao thoa văn hóa vùng biên và bài thuốc giữ ấm cơ thể mùa đông giá lạnh." },
-            { title: "Rượu ngô", content: "Nấu thủ công từ ngô bản địa và men lá rừng truyền thống, thể hiện lòng hiếu khách chân thành của người dân vùng cao." }
-        ]
-    }
+    id: 105,
+    isCultureTopic: true,
+    category: "Văn hóa",
+    name: "Văn hóa Lao động & Lịch sử",
+    image: "images/nen-vanhoalichsu.jpg",
+    desc: "Văn hóa lao động và lịch sử của Hà Giang thể hiện rõ ý chí bền bỉ của con người vùng cực Bắc. Trên vùng núi đá khắc nghiệt, các dân tộc nơi đây đã sáng tạo nhiều phương thức canh tác độc đáo, đồng thời để lại những dấu ấn lịch sử quan trọng gắn liền với quá trình xây dựng và bảo vệ quê hương.",
+    sections: [
+        { 
+            title: "Canh tác trên đá ở cao nguyên đá Đồng Văn", 
+            content: "Do đất canh tác rất ít, người dân vùng cao phải tận dụng từng khe đá nhỏ để trồng ngô. Đất màu được gùi từ nơi khác về đổ vào các hốc đá rồi gieo hạt. Qua nhiều thế hệ, những nương ngô xanh đã hình thành giữa biển đá xám, trở thành hình ảnh đặc trưng của đời sống lao động trên cao nguyên đá." 
+        },
+        { 
+            title: "Ruộng bậc thang Hoàng Su Phì", 
+            content: "Những thửa ruộng bậc thang được tạo nên qua hàng trăm năm lao động của các dân tộc như Dao, Nùng và La Chí. Ruộng được xây theo sườn núi để giữ nước và đất, tạo nên những tầng ruộng uốn lượn đẹp mắt. Vào mùa lúa chín, cả vùng núi như được phủ một màu vàng rực rỡ." 
+        },
+        { 
+            title: "Con đường Hạnh Phúc", 
+            content: "Con đường dài hơn 180 km nối thành phố Hà Giang với Đồng Văn và Mèo Vạc. Công trình được xây dựng trong những năm 1960 bởi hàng vạn thanh niên xung phong. Nhiều đoạn đường phải khoan phá đá trên vách núi dựng đứng, thể hiện tinh thần kiên cường và ý chí vượt khó của con người." 
+        },
+        { 
+            title: "Công viên địa chất toàn cầu Cao nguyên đá Đồng Văn", 
+            content: "Khu vực cao nguyên đá Đồng Văn được UNESCO công nhận là Công viên địa chất toàn cầu vào năm 2010. Nơi đây lưu giữ nhiều dấu tích địa chất có tuổi đời hàng trăm triệu năm, đồng thời là nơi sinh sống của nhiều cộng đồng dân tộc với văn hóa đặc sắc." 
+        },
+        { 
+            title: "Nghề dệt lanh và làm thổ cẩm", 
+            content: "Người Mông ở Hà Giang nổi tiếng với nghề trồng lanh, se sợi và dệt vải truyền thống. Vải lanh sau khi dệt sẽ được nhuộm chàm và thêu hoa văn tinh xảo để tạo thành trang phục truyền thống. Nghề này không chỉ phục vụ đời sống mà còn là nét văn hóa lâu đời của cộng đồng." 
+        },
+        { 
+            title: "Chăn nuôi trên vùng núi đá", 
+            content: "Bên cạnh trồng trọt, người dân vùng cao còn phát triển chăn nuôi trâu, bò, dê và ngựa để phục vụ sản xuất và vận chuyển. Những đàn gia súc gặm cỏ trên sườn núi đá là hình ảnh quen thuộc trong đời sống lao động của người dân Hà Giang." 
+        },
+        { 
+            title: "Truyền thống bảo vệ biên giới", 
+            content: "Hà Giang là tỉnh biên giới phía Bắc nên từ lâu người dân nơi đây luôn gắn bó với nhiệm vụ bảo vệ biên cương. Các bản làng vùng biên vừa phát triển kinh tế vừa góp phần giữ gìn an ninh và chủ quyền lãnh thổ của đất nước." 
+        }
+    ]
+},
+   {
+    id: 106,
+    isCultureTopic: true,
+    category: "Văn hóa",
+    name: "Ẩm thực truyền thống",
+    image: "images/nen-amthuc.jpg",
+    desc: "Ẩm thực Hà Giang mang đậm hương vị núi rừng, được hình thành từ điều kiện tự nhiên khắc nghiệt và lối sống lao động của các dân tộc vùng cao. Những món ăn giản dị nhưng giàu dinh dưỡng, sử dụng nguyên liệu địa phương như ngô, thịt gia súc và các loại gia vị rừng.",
+    sections: [
+        { 
+            title: "Mèn mén – món ăn từ ngô của người Mông", 
+            content: "Mèn mén được làm từ ngô xay nhỏ, sau đó hấp nhiều lần để tạo độ tơi và dẻo. Đây là món ăn quen thuộc trong bữa cơm hằng ngày của người Mông, thường ăn kèm với canh rau hoặc thịt. Món ăn giản dị nhưng giàu năng lượng, phù hợp với cuộc sống lao động trên cao nguyên đá." 
+        },
+        { 
+            title: "Thắng cố – món ăn truyền thống vùng cao", 
+            content: "Thắng cố là món ăn nổi tiếng thường thấy trong các phiên chợ vùng cao. Món được nấu từ thịt và nội tạng ngựa hoặc bò, hầm trong chảo lớn cùng nhiều loại gia vị như thảo quả, gừng và các loại thảo mộc rừng. Thắng cố thường được ăn nóng và uống kèm rượu ngô." 
+        },
+        { 
+            title: "Thịt gác bếp", 
+            content: "Thịt trâu hoặc thịt lợn được tẩm ướp với muối, ớt, gừng và mắc khén rồi treo trên gác bếp để hun khói trong thời gian dài. Nhờ khói bếp và gia vị, thịt có hương vị đậm đà và có thể bảo quản được nhiều tháng." 
+        },
+        { 
+            title: "Phở chua và cháo ấu tẩu", 
+            content: "Phở chua là món ăn có nguồn gốc từ văn hóa vùng biên, với bánh phở trộn cùng thịt quay, lạc rang, rau thơm và nước sốt chua ngọt. Cháo ấu tẩu lại là món đặc trưng của Hà Giang, được nấu từ củ ấu tẩu cùng gạo nếp và thịt, thường ăn vào buổi tối để giữ ấm cơ thể." 
+        },
+        { 
+            title: "Rượu ngô men lá", 
+            content: "Rượu ngô được nấu thủ công từ ngô địa phương và men lá truyền thống. Sau khi ủ và chưng cất, rượu có hương thơm đặc trưng và vị nồng ấm. Đây là thức uống quen thuộc trong các dịp lễ hội, cưới hỏi và tiếp đãi khách." 
+        },
+        { 
+            title: "Bánh tam giác mạch", 
+            content: "Bánh được làm từ bột hạt tam giác mạch – loại cây đặc trưng của cao nguyên đá Hà Giang. Bánh có vị bùi nhẹ, thường được nướng trên bếp than và bán nhiều ở các chợ phiên hoặc lễ hội hoa tam giác mạch." 
+        },
+        { 
+            title: "Lạp xưởng gác bếp", 
+            content: "Lạp xưởng được làm từ thịt lợn tẩm ướp gia vị, nhồi vào ruột non rồi treo trên gác bếp để hun khói. Khi chế biến, lạp xưởng có mùi thơm đặc trưng của khói và gia vị núi rừng." 
+        },
+        { 
+            title: "Bánh cuốn trứng Hà Giang", 
+            content: "Khác với bánh cuốn ở nhiều nơi khác, bánh cuốn Hà Giang thường ăn cùng nước dùng ninh từ xương và có thêm trứng gà trong lớp bánh. Món ăn nóng hổi này rất phổ biến trong bữa sáng của người dân địa phương." 
+        }
+    ]
+}
 ];
 
 
@@ -999,6 +1116,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
