@@ -1059,22 +1059,91 @@ window.updateTripUI = function() {
 };
 
 window.generateAITrip = async function() {
-    if (selectedTripIds.length === 0) return;
+    if (selectedTripIds.length === 0) {
+        alert("Vui lòng chọn ít nhất một địa danh vào giỏ hành trình để Phúc lập tour nhé!");
+        return;
+    }
+
     const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(', ');
+
+    // 1. Lấy thông tin thời tiết thực tế từ điểm đầu tiên trong giỏ hàng để AI có căn cứ tư vấn
+    const firstPoint = destinationsData.find(d => d.id === selectedTripIds[0]);
+    let weatherInfo = "Không có dữ liệu thời tiết thực tế hiện tại.";
+    if (firstPoint && firstPoint.lat) {
+        const w = await fetchWeather(firstPoint.lat, firstPoint.lng);
+        if (w) {
+            weatherInfo = `Nhiệt độ hiện tại khoảng ${w.current_weather.temperature}°C. Mã thời tiết: ${w.current_weather.weathercode}.`;
+        }
+    }
+
+    // 2. Hiển thị trạng thái loading chuyên nghiệp
     openModal(1); // Mượn modal để hiện loading
-    document.getElementById('modal-content').innerHTML = `<div class="p-20 text-center bg-[#1a1a1a] text-white"><i class="fas fa-robot animate-spin text-5xl text-emerald-500 mb-6"></i><h2 class="text-2xl font-bold uppercase">AI đang lập tour tối ưu...</h2></div>`;
+    document.getElementById('modal-content').innerHTML = `
+        <div class="p-20 text-center bg-[#1a1a1a] text-white">
+            <i class="fas fa-robot animate-spin text-5xl text-emerald-500 mb-6"></i>
+            <h2 class="text-2xl font-bold uppercase tracking-widest">Phúc Hà Giang đang lập tour tối ưu...</h2>
+            <p class="text-gray-400 mt-4 italic">Đang tính toán theo cung đường, thời tiết và văn hóa bản địa...</p>
+        </div>`;
+
+    // 3. ĐỊNH NGHĨA PROMPT HỆ THỐNG (SYSTEM PROMPT) ĐẦY ĐỦ Ý TƯỞNG
+    const systemPrompt = `Bạn là "Phúc Hà Giang" - Chuyên gia điều hành tour và hướng dẫn viên bản địa có 15 năm kinh nghiệm.
+    Nhiệm vụ: Thiết kế hành trình du lịch Hà Giang tối ưu dựa trên danh sách địa danh khách chọn.
+
+    YÊU CẦU CHUYÊN MÔN:
+    1. Logic Di Chuyển: Sắp xếp các điểm theo cung đường "Ha Giang Loop" (vòng cung) để không đi ngược đường. Phải tính toán thứ tự huyện hợp lý (Quản Bạ -> Yên Minh -> Đồng Văn -> Mèo Vạc).
+    2. Tư vấn Thời tiết: Dựa trên dữ liệu thời tiết được cung cấp, nếu trời xấu/mưa/sương mù, hãy đưa ra cảnh báo an toàn khi đổ đèo và gợi ý các điểm tham quan trong nhà hoặc linh hoạt thay đổi lịch trình.
+    3. Phương tiện & Chi phí: Tư vấn ưu/nhược điểm giữa xe máy (phượt thủ) và ô tô kèm tài xế (gia đình). Dự toán chi tiết chi phí VNĐ (xăng, xe, ăn 150k/bữa, ngủ 200k-500k).
+    4. Văn hóa & Đạo đức: Luôn nhắc khách KHÔNG cho tiền trẻ em ven đường (chỉ cho bánh kẹo/đồ dùng học tập), giữ vệ sinh môi trường và tôn trọng phong tục 22 dân tộc.
+    5. Góc Phúc Bật Mí: Gợi ý ít nhất 1 quán ăn chuẩn vị hoặc 1 góc check-in bí mật ít người biết gần khu vực khách đi.
+
+    ĐỊNH DẠNG TRÌNH BÀY:
+    - Sử dụng thẻ HTML: <h3> cho tiêu đề ngày, <b> cho điểm nhấn quan trọng, <ul><li> cho danh sách chi phí/lưu ý.
+    - Ngôn ngữ: Tiếng Việt, nhiệt tình, chân thành. Xưng "Phúc" và gọi khách là "Anh/Chị".`;
 
     try {
         const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
             body: JSON.stringify({ 
                 model: "llama-3.1-8b-instant", 
-                messages: [{ role: "system", content: "Bạn là một hướng dẫn viên du lịch bản địa Hà Giang đồng thời là chuyên gia tour Hà Giang tên là Chatbot tư vấn tour .Lập lịch trình nhiều ngày dựa vào các địa diểm đã chọn (Có thể tham khảo trên internet để biết ) , tư vấn phương tiện và chi phí chi tiết bằng tiếng Việt. Kiến thức: Bạn am hiểu sâu sắc về các địa danh , văn hóa 22 dân tộc, các quán ăn ngon nhất thị trấn, những góc check-in ít người biết.Nhiệm vụ: Tư vấn dưa theo thời tiết thời gian thực (hiện tại, vài ngày tới hoặc tuần tới theo lịch trình tour ). Luôn nhắc nhở khách giữ gìn vệ sinh và tôn trọng văn hóa đồng bào, trình bày bằng thẻ HTML." }, { role: "user", content: names }] 
+                messages: [
+                    { role: "system", content: systemPrompt }, 
+                    { role: "user", content: `Thông tin thời tiết: ${weatherInfo}. Các địa danh tôi đã chọn: ${names}. Hãy lập lịch trình chi tiết và tư vấn giúp tôi.` }
+                ] 
             })
         });
+        
         const data = await res.json();
-        document.getElementById('modal-content').innerHTML = `<div class="p-8 md:p-12 bg-[#1a1a1a] text-white min-h-screen"><h2 class="text-3xl font-bold text-emerald-400 mb-8 uppercase border-b border-white/10 pb-4">Tour chuyên gia đề xuất</h2><div class="prose prose-invert max-w-none text-gray-300 text-sm">${data.choices[0].message.content.replace(/\n/g, '<br>')}</div><div class="mt-12 text-center"><button onclick="closeModal()" class="bg-emerald-600 text-white px-10 py-3 rounded-full font-bold uppercase shadow-xl">Đóng</button></div></div>`;
-    } catch (e) { closeModal(); alert("Lỗi kết nối AI."); }
+        const aiResponse = data.choices[0].message.content.replace(/\n/g, '<br>');
+
+        // 4. Hiển thị kết quả ra Modal
+        document.getElementById('modal-content').innerHTML = `
+            <div class="p-8 md:p-12 bg-[#1a1a1a] text-white min-h-screen">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center gap-4 mb-8 border-b border-emerald-500/20 pb-4">
+                        <i class="fas fa-map-marked-alt text-4xl text-emerald-400"></i>
+                        <h2 class="text-3xl font-bold uppercase tracking-widest text-emerald-400">Lịch trình đề xuất từ Phúc Hà Giang</h2>
+                    </div>
+                    
+                    <div class="text-gray-300 leading-relaxed text-sm bg-white/5 p-6 rounded-3xl border border-white/10 shadow-2xl">
+                        ${aiResponse}
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <button onclick="closeModal()" class="bg-emerald-600 hover:bg-orange-600 text-white px-10 py-3 rounded-full font-bold uppercase transition shadow-xl transform hover:scale-105">
+                            Cảm ơn Phúc, đóng lịch trình!
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+    } catch (e) {
+        document.getElementById('modal-content').innerHTML = `
+            <div class="p-20 text-center bg-[#1a1a1a] text-white">
+                <i class="fas fa-wifi text-red-500 text-5xl mb-4"></i>
+                <p class="text-lg">Dạ, mạng vùng cao hơi kém nên Phúc chưa gửi lịch trình được. Anh/Chị nhấn lại giúp Phúc nhé!</p>
+                <button onclick="closeModal()" class="mt-6 bg-white/10 px-8 py-2 rounded-full text-xs">Đóng lại</button>
+            </div>`;
+    }
 };
 
 
@@ -1116,6 +1185,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
