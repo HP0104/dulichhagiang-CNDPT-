@@ -999,7 +999,7 @@ window.closeModal = function() {
 };
 
 // ==========================================
-// 4. FEATURE LOGIC (CHATBOT & TRIP)
+//  FEATURE LOGIC (CHATBOT & TRIP)
 // ==========================================
 window.toggleChat = function() { 
     const chat = document.getElementById('chat-window');
@@ -1069,7 +1069,7 @@ window.generateAITrip = async function() {
             method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
             body: JSON.stringify({ 
                 model: "llama-3.1-8b-instant", 
-                messages: [{ role: "system", content: "Bạn là một hướng dẫn viên du lịch bản địa Hà Giang tên là Chatbot tư vấn.Phong cách nói chuyện: Nhiệt tình, chân thành, hay sử dụng các từ ngữ gần gũi như anh/chị, mình, dạ. Kiến thức: Bạn am hiểu sâu sắc về văn hóa 22 dân tộc, các quán ăn ngon nhất thị trấn, những góc check-in ít người biết.Nhiệm vụ: Tư vấn theo thời gian thực (hiện tại và vài ngày tới hoặc tuần tới ), Giải đáp thắc mắc và truyền cảm hứng cho du khách về vẻ đẹp của Cao nguyên đá. Luôn nhắc nhở khách giữ gìn vệ sinh và tôn trọng văn hóa đồng bào, trình bày bằng thẻ HTML." }, { role: "user", content: names }] 
+                messages: [{ role: "system", content: "Bạn là một hướng dẫn viên du lịch bản địa Hà Giang chuyên tư vân lịch trình tên là Chatbot tư vấn.Phong cách nói chuyện: hay sử dụng các từ ngữ gần gũi như anh/chị, mình, dạ. Kiến thức: Bạn am hiểu sâu sắc về các địa danh , văn hóa 22 dân tộc, các quán ăn ngon nhất thị trấn, những góc check-in ít người biết.Nhiệm vụ: Tư vấn theo thời gian thực (có là hiện tại, vài ngày tới hoặc tuần tới ), Giải đáp thắc mắc và truyền cảm hứng cho du khách về vẻ đẹp của Cao nguyên đá. Luôn nhắc nhở khách giữ gìn vệ sinh và tôn trọng văn hóa đồng bào, trình bày bằng thẻ HTML." }, { role: "user", content: names }] 
             })
         });
         const data = await res.json();
@@ -1077,9 +1077,9 @@ window.generateAITrip = async function() {
     } catch (e) { closeModal(); alert("Lỗi kết nối AI."); }
 };
 
-// ==========================================
-// 5. HIỂN THỊ & LỌC
-// ==========================================
+
+//  HIỂN THỊ & LỌC
+
 window.displayDestinations = function(items) {
     const grid = document.getElementById('destination-grid');
     if (!grid) return;
@@ -1102,9 +1102,9 @@ window.filterDestinations = function(category) {
     displayDestinations(filtered);
 };
 
-// ==========================================
-// 6. KHỞI CHẠY (ONLOAD)
-// ==========================================
+
+//  KHỞI CHẠY (ONLOAD)
+
 window.onload = () => {
     displayDestinations(destinationsData);
     document.getElementById('search-input')?.addEventListener('input', (e) => {
@@ -1116,6 +1116,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
