@@ -23,7 +23,7 @@ const destinationsData = [
         },
         food: {
             name: "Thắng Cố & Rượu Ngô Men Lá",
-            image: "images/mon-thangco.jpg",
+            image: "images/food-thangcoruoungo.png",
             price: "100.000đ - 200.000đ",
             location: "Chợ phiên Đồng Văn (Sáng CN hàng tuần)"
         },
@@ -57,7 +57,7 @@ const destinationsData = [
         },
         food: {
             name: "Cá suối nướng",
-            image: "images/mon-canuong.jpg",
+            image: "images/food-casuoinuong.jpg",
             price: "80.000đ/đĩa",
             location: "Các quán ăn ngay bến thuyền"
         },
@@ -91,7 +91,7 @@ const destinationsData = [
         },
         food: {
             name: "Thắng Dền & Rượu Ngô",
-            image: "images/mon-thangden.jpg",
+            image: "images/food-thangden.jpg",
             price: "20.000đ - 50.000đ",
             location: "Chợ Sà Phìn hoặc thị trấn Đồng Văn"
         },
@@ -125,7 +125,7 @@ const destinationsData = [
         },
         food: {
             name: "Bánh Tam Giác Mạch & Thịt Gác Bếp",
-            image: "images/mon-tamgiacmach.jpg",
+            image: "images/food-banhtgmvathitgacbep.png",
             price: "20.000đ - 150.000đ",
             location: "Các quán ăn gần trung tâm xã Lũng Cú"
         },
@@ -159,7 +159,7 @@ const destinationsData = [
         },
         food: {
             name: "Bánh Tam Giác Mạch & Mèn Mén",
-            image: "images/mon-menmen.jpg",
+            image: "images/food-memmen.jfif",
             price: "20.000đ - 80.000đ",
             location: "Sủng Là hoặc thị trấn Đồng Văn"
         },
@@ -193,7 +193,7 @@ const destinationsData = [
         },
         food: {
             name: "Lạp Xưởng Gác Bếp & Thịt Trâu",
-            image: "images/mon-lapxuong.jpg",
+            image: "images/food-lapxuong.jfif",
             price: "150.000đ - 300.000đ",
             location: "Các quán ăn dọc đường qua xã Phố Cáo"
         },
@@ -227,7 +227,7 @@ const destinationsData = [
         },
         food: {
             name: "Phở Chua & Lợn Cắp Nách",
-            image: "images/mon-phochua.jpg",
+            image: "images/food-phochua.jfif",
             price: "40.000đ - 150.000đ",
             location: "Thị trấn Tam Sơn, huyện Quản Bạ"
         },
@@ -261,7 +261,7 @@ const destinationsData = [
         },
         food: {
             name: "Gà Đen & Lẩu Rau Cải",
-            image: "images/mon-gaden.jpg",
+            image: "images/food-lau-ga-den-ha-giang.jpeg",
             price: "200.000đ - 400.000đ",
             location: "Các Homestay tại làng Lô Lô Chải"
         },
@@ -295,7 +295,7 @@ const destinationsData = [
         },
         food: {
             name: "Thịt Trâu Gác Bếp & Mèn Mén",
-            image: "images/mon-thitgacbep.jpg",
+            image: "images/food-traugacbep.jfif",
             price: "từng phân  theo trải nghiệm",
             location: "Thị trấn Đồng Văn hoặc các chợ phiên"
         },
@@ -329,7 +329,7 @@ const destinationsData = [
         },
         food: {
             name: "Ngô Nướng & Trứng Nướng",
-            image: "images/mon-ngonuong.jpg",
+            image: "images/food-trungngonuong.jfif",
             price: "10.000đ - 30.000đ",
             location: "Đỉnh dốc Thẩm Mã"
         },
@@ -366,7 +366,7 @@ const destinationsData = [
         },
         food: {
             name: "Bánh Ngô & Thịt Gác Bếp",
-            image: "images/mon-banhngo.jpg",
+            image: "images/food-banhngo.jfif",
             price: "20.000đ - 150.000đ",
             location: "Các quán nhỏ trong thị trấn Phó Bảng"
         },
@@ -402,7 +402,7 @@ const destinationsData = [
         },
         food: {
             name: "Ngô Luộc & Trứng Nướng",
-            image: "images/mon-ngoluoc.jpg",
+            image: "images/food-ngoluoc.jfif",
             price: "10.000đ - 40.000đ",
             location: "Các quán nhỏ ven Quốc lộ 4C"
         },
@@ -438,7 +438,7 @@ const destinationsData = [
         },
         food: {
             name: "Lạp Xưởng Gác Bếp & Rượu Ngô",
-            image: "images/mon-lapxuong.jpg",
+            image: "images/food-lapxuong.jfif",
             price: "50.000đ - 200.000đ",
             location: "Các quán ăn tại thị trấn Tam Sơn (Quản Bạ)"
         },
@@ -507,7 +507,7 @@ const destinationsData = [
         art: "Vẻ đẹp kỳ vĩ của tạo hóa."
     },
     food: {
-        name: "Lạp xưởng & Ngô nướng",
+        name: "images/food-lapxuong.jfif",
         image: "images/mon-lapxuong.jpg",
         price: "20.000đ - 50.000đ",
         location: "Dọc đường đi bộ"
@@ -542,7 +542,7 @@ const destinationsData = [
         },
         food: {
             name: "Thắng Dền & Ngô Nướng",
-            image: "images/mon-thangden.jpg",
+            image: "images/food-thangden.jpg",
             price: "15.000đ - 40.000đ",
             location: "Khu vực bến thuyền sông Nho Quế"
         },
@@ -580,7 +580,7 @@ const destinationsData = [
         },
         food: {
             name: "Thắng Cố & Bánh Tam Giác Mạch",
-            image: "images/mon-thangco.jpg",
+            image: "images/food-thangcoruoungo.png",
             price: "20.000đ - 120.000đ",
             location: "Các quán ăn và hàng rong khu phố cổ"
         },
