@@ -593,102 +593,103 @@ const destinationsData = [
     },
     // --- CÁC CHUYÊN ĐỀ VĂN HÓA (isCultureTopic: true) ---
 
-    {
+ {
         id: 101,
         isCultureTopic: true,
         category: "Văn hóa",
         name: "Văn hóa các dân tộc thiểu số",
         image: "images/nen-dantoc.jpg",
         desc: "Hà Giang là nơi sinh sống của 22 dân tộc anh em, mỗi cộng đồng mang một bản sắc riêng về trang phục, kiến trúc, lễ hội và tín ngưỡng.",
-      sections: [
-           {
-    title: "Người Mông",
-    content: "Người Mông là cộng đồng đông nhất tại Hà Giang, sinh sống chủ yếu ở các huyện vùng cao như Đồng Văn, Mèo Vạc, Yên Minh và Quản Bạ. Họ nổi bật với nhà trình tường bằng đất dày giúp giữ ấm vào mùa đông và mát vào mùa hè. Trang phục truyền thống của phụ nữ được làm từ vải lanh nhuộm chàm, trang trí bằng kỹ thuật thêu và vẽ sáp ong tinh xảo. Người Mông nổi tiếng với tiếng khèn trong các lễ hội và sinh hoạt cộng đồng, đặc biệt là lễ hội Gầu Tào – lễ cầu phúc, cầu con và cầu may mắn đầu năm. Cuộc sống của họ gắn liền với việc trồng ngô trên các triền đá của cao nguyên đá Đồng Văn, thể hiện sự thích nghi bền bỉ với điều kiện tự nhiên khắc nghiệt."
-},
-{
-    title: "Người Tày",
-    content: "Người Tày là một trong những dân tộc có dân số lớn ở vùng Đông Bắc Việt Nam và cũng sinh sống khá đông tại Hà Giang, đặc biệt ở các thung lũng và vùng ven suối. Họ thường ở nhà sàn gỗ truyền thống, sinh hoạt cộng đồng gắn bó với ruộng lúa nước. Văn hóa của người Tày nổi bật với hát then, đàn tính và nhiều làn điệu dân ca truyền thống. Lễ hội Lồng Tồng (xuống đồng) vào đầu xuân là nghi lễ quan trọng nhằm cầu mong mùa màng bội thu và cuộc sống ấm no. Người Tày còn có kho tàng truyện thơ, tục ngữ và phong tục truyền thống phong phú."
-},
-{
-    title: "Người Dao",
-    content: "Người Dao sinh sống ở nhiều vùng núi của Hà Giang và được chia thành nhiều nhóm như Dao đỏ, Dao tiền, Dao áo dài. Trang phục truyền thống của họ rất nổi bật với màu đỏ và các họa tiết thêu tay tinh xảo. Một nghi lễ quan trọng trong đời sống văn hóa của người Dao là lễ cấp sắc, đánh dấu sự trưởng thành của nam giới và công nhận họ là thành viên đầy đủ của cộng đồng. Người Dao còn nổi tiếng với tri thức dân gian về cây thuốc và phong tục tắm lá thuốc truyền thống, được cho là giúp thư giãn và phục hồi sức khỏe."
-},
-{
-    title: "Người Nùng",
-    content: "Người Nùng sinh sống chủ yếu ở các vùng thấp và trung du của Hà Giang. Họ có truyền thống canh tác lúa nước, trồng trọt và chăn nuôi. Nghề rèn thủ công và làm nông cụ của người Nùng khá phát triển. Văn hóa dân gian của họ phong phú với các làn điệu hát sli, hát lượn mượt mà, thường được hát trong các dịp lễ hội hoặc giao duyên. Các phiên chợ vùng cao cũng là nơi người Nùng giao lưu văn hóa và trao đổi hàng hóa."
-},
-{
-    title: "Người Lô Lô",
-    content: "Người Lô Lô là một dân tộc thiểu số có dân số ít, sinh sống chủ yếu tại khu vực Lũng Cú và Mèo Vạc. Trang phục truyền thống của họ rất đặc sắc với kỹ thuật ghép vải màu thành các họa tiết hình học tinh xảo. Người Lô Lô còn nổi tiếng với việc gìn giữ văn hóa trống đồng cổ truyền, được sử dụng trong các nghi lễ quan trọng của cộng đồng như lễ tang và lễ cầu mùa. Văn hóa của họ phản ánh sự gắn bó chặt chẽ với thiên nhiên và tổ tiên."
-},
-{
-    title: "Người Pà Thẻn",
-    content: "Người Pà Thẻn sống chủ yếu ở huyện Quang Bình và Bắc Quang của Hà Giang. Trang phục truyền thống của họ có màu đỏ nổi bật và được trang trí bằng nhiều họa tiết thêu tay. Lễ hội Nhảy lửa là nét văn hóa đặc trưng nhất của dân tộc Pà Thẻn. Trong nghi lễ này, các thanh niên sau khi thực hiện nghi thức tâm linh có thể nhảy chân trần vào đống than hồng mà không bị bỏng, thể hiện niềm tin vào sức mạnh thần linh và tinh thần cộng đồng."
-},
-{
-    title: "Người La Chí",
-    content: "Người La Chí sinh sống chủ yếu tại huyện Hoàng Su Phì, nơi nổi tiếng với những thửa ruộng bậc thang tuyệt đẹp. Họ có truyền thống canh tác lúa nước lâu đời và tổ chức nhiều nghi lễ liên quan đến nông nghiệp. Lễ hội Khu Cù Tê là một lễ hội lớn của người La Chí nhằm cầu mùa màng bội thu và tạ ơn thần linh. Trang phục truyền thống của họ thường mang màu chàm giản dị, thể hiện sự gần gũi với thiên nhiên."
-},
-{
-    title: "Người Cờ Lao",
-    content: "Người Cờ Lao là một trong những dân tộc rất ít người tại Hà Giang, sinh sống ở các vùng núi cao thuộc huyện Đồng Văn và Hoàng Su Phì. Họ duy trì nhiều tín ngưỡng cổ truyền, đặc biệt là tục thờ thần núi và thần đất. Cuộc sống của người Cờ Lao gắn liền với canh tác nương rẫy, trồng ngô và các loại cây lương thực trên sườn núi. Các nghi lễ cộng đồng và phong tục truyền thống vẫn được duy trì qua nhiều thế hệ."
-},
-{
-    title: "Người Pu Péo",
-    content: "Người Pu Péo là một trong những dân tộc ít người nhất ở Việt Nam và sinh sống chủ yếu ở vùng Đồng Văn của Hà Giang. Văn hóa của họ gắn liền với tín ngưỡng thờ thần đá và thờ tổ tiên. Người Pu Péo có nhiều nghi lễ truyền thống liên quan đến nông nghiệp và chu kỳ mùa vụ. Cuộc sống của họ gắn bó mật thiết với thiên nhiên vùng cao và các tập quán sinh hoạt cổ truyền vẫn được bảo tồn đến ngày nay."
-},
-{
-    title: "Người Bố Y",
-    content: "Người Bố Y là một dân tộc thiểu số sinh sống rải rác tại các huyện vùng cao của Hà Giang như Quản Bạ và Đồng Văn. Cuộc sống của họ chủ yếu dựa vào nông nghiệp, trồng lúa nương, ngô và chăn nuôi nhỏ. Người Bố Y thường ở nhà đất hoặc nhà sàn đơn giản, phù hợp với điều kiện vùng núi. Trang phục truyền thống mang sắc chàm với kiểu dáng giản dị. Trong đời sống văn hóa, họ duy trì nhiều lễ hội nông nghiệp như lễ cầu mùa, cầu mưa nhằm mong cho mùa màng tốt tươi. Tín ngưỡng của người Bố Y gắn với việc thờ cúng tổ tiên và các vị thần tự nhiên như thần núi, thần đất."
-},
-{
-    title: "Người Phù Lá",
-    content: "Người Phù Lá sinh sống tại một số vùng núi phía bắc Hà Giang, thường cư trú trên các triền núi và khu vực trung du. Họ chủ yếu canh tác nương rẫy, trồng lúa nương, ngô và các loại cây lương thực khác. Trang phục truyền thống của người Phù Lá thường có màu chàm, được may đơn giản nhưng mang nét đặc trưng riêng của từng nhóm địa phương. Trong sinh hoạt văn hóa, người Phù Lá duy trì nhiều phong tục cổ truyền, đặc biệt là các nghi lễ liên quan đến nông nghiệp, cầu mùa và tạ ơn thần linh. Các hoạt động cộng đồng, lễ hội và nghi lễ cúng tổ tiên đóng vai trò quan trọng trong đời sống tinh thần của họ."
-},
-{
-    title: "Người La Ha",
-    content: "Người La Ha là một dân tộc thiểu số sinh sống ở vùng núi phía Bắc Việt Nam, trong đó có một bộ phận cư trú tại Hà Giang. Họ sống chủ yếu bằng nương rẫy, trồng lúa nương, ngô và chăn nuôi gia súc. Nhà ở của người La Ha thường là nhà sàn gỗ hoặc nhà đất đơn giản phù hợp với địa hình miền núi. Văn hóa của họ gắn liền với nhiều nghi lễ nông nghiệp cổ truyền như lễ cầu mưa, cầu mùa và lễ tạ ơn sau thu hoạch. Người La Ha cũng có nhiều phong tục tập quán đặc sắc trong sinh hoạt cộng đồng, lễ cưới và lễ tang."
-},
-{
-    title: "Người Sán Chỉ",
-    content: "Người Sán Chỉ sinh sống tại một số vùng núi và trung du của Hà Giang. Họ chủ yếu làm nông nghiệp với các hoạt động trồng lúa nước, trồng ngô và chăn nuôi. Nhà ở truyền thống của người Sán Chỉ thường là nhà sàn hoặc nhà đất đơn giản. Nét văn hóa nổi bật của dân tộc này là làn điệu hát soóng cọ – hình thức hát giao duyên giữa nam và nữ trong các dịp lễ hội hoặc mùa xuân. Các lễ hội truyền thống không chỉ là dịp vui chơi mà còn là cơ hội để cộng đồng gắn kết và truyền lại các giá trị văn hóa cho thế hệ trẻ."
-},
-{
-    title: "Người Cao Lan (Sán Chay)",
-    content: "Người Cao Lan, thuộc nhóm dân tộc Sán Chay, sinh sống tại nhiều vùng trung du và miền núi phía Bắc, trong đó có Hà Giang. Họ có truyền thống canh tác lúa nước kết hợp trồng ngô và các loại cây hoa màu. Nhà ở thường là nhà sàn hoặc nhà đất đơn giản. Văn hóa của người Cao Lan nổi bật với các làn điệu hát đối đáp trong lễ hội và sinh hoạt cộng đồng. Ngoài ra, họ còn duy trì nhiều phong tục truyền thống trong cưới hỏi, lễ tết và thờ cúng tổ tiên, thể hiện sự gắn bó bền chặt của cộng đồng."
-},
-{
-    title: "Người Hoa",
-    content: "Người Hoa sinh sống chủ yếu tại các thị trấn và khu vực buôn bán của Hà Giang. Họ có truyền thống lâu đời trong các hoạt động thương mại, buôn bán và dịch vụ. Nhiều khu phố mang dấu ấn kiến trúc đặc trưng của người Hoa với các ngôi nhà mái ngói, mặt tiền buôn bán và các đền miếu thờ thần linh. Văn hóa của người Hoa còn thể hiện qua các lễ hội truyền thống như Tết Nguyên Đán, Tết Trung Thu và các hoạt động tín ngưỡng thờ cúng tổ tiên. Sự hiện diện của cộng đồng người Hoa góp phần tạo nên sự đa dạng văn hóa cho vùng đất Hà Giang."
-},
-{
-    title: "Người Kinh",
-    content: "Người Kinh là dân tộc chiếm đa số ở Việt Nam và cũng sinh sống tại nhiều khu vực của Hà Giang, đặc biệt ở các thị trấn, trung tâm hành chính và vùng thấp. Họ đóng vai trò quan trọng trong sự phát triển kinh tế – xã hội của tỉnh thông qua các hoạt động thương mại, giáo dục, dịch vụ và sản xuất nông nghiệp. Văn hóa người Kinh mang đặc trưng của nền văn minh lúa nước với các phong tục như thờ cúng tổ tiên, lễ Tết truyền thống và các hoạt động sinh hoạt cộng đồng. Tại Hà Giang, văn hóa người Kinh có sự giao thoa với văn hóa của các dân tộc vùng cao, tạo nên sự đa dạng và phong phú trong đời sống văn hóa địa phương."
-},
-{
-    title: "Người Thái",
-    content: "Người Thái sinh sống chủ yếu tại các vùng trung du và miền núi phía Bắc Việt Nam, trong đó có một bộ phận cư trú tại Hà Giang. Họ nổi tiếng với nhà sàn truyền thống được xây dựng bằng gỗ và tre, thích nghi với điều kiện khí hậu và địa hình vùng núi. Người Thái có nền văn hóa phong phú với các điệu múa xòe đặc trưng, thường được biểu diễn trong các dịp lễ hội và sinh hoạt cộng đồng. Cuộc sống của họ gắn liền với việc canh tác lúa nước, trồng trọt và chăn nuôi. Ẩm thực của người Thái cũng rất đặc sắc với nhiều món ăn truyền thống được chế biến từ gạo nếp, cá suối và các loại gia vị vùng núi."
-},
-{
-    title: "Người Mường",
-    content: "Người Mường là một trong những dân tộc có lịch sử lâu đời ở vùng núi phía Bắc Việt Nam. Tại Hà Giang, họ sinh sống rải rác ở một số khu vực và duy trì nhiều nét văn hóa truyền thống đặc sắc. Cuộc sống của người Mường gắn liền với nền văn hóa lúa nước và sinh hoạt cộng đồng trong các ngôi nhà sàn. Một nét văn hóa nổi bật của người Mường là nghệ thuật cồng chiêng, được sử dụng trong các nghi lễ, lễ hội và các dịp quan trọng của cộng đồng. Ngoài ra, họ còn có nhiều phong tục truyền thống trong cưới hỏi, tang lễ và thờ cúng tổ tiên."
-},
-{
-    title: "Người Giấy",
-    content: "Người Giấy sinh sống chủ yếu ở các vùng thung lũng và ven suối của Hà Giang, nơi có điều kiện thuận lợi cho việc trồng lúa nước. Họ thường ở nhà sàn truyền thống và có đời sống gắn bó với nông nghiệp. Trong văn hóa của người Giấy, lễ hội cầu mùa đầu năm là hoạt động quan trọng nhằm cầu mong mùa màng bội thu và cuộc sống bình an. Các nghi lễ trong lễ hội thường bao gồm cúng thần linh, tổ chức các trò chơi dân gian và các hoạt động sinh hoạt cộng đồng. Người Giấy cũng có nhiều phong tục truyền thống liên quan đến cưới hỏi và thờ cúng tổ tiên."
-},
-{
-    title: "Người Ngái",
-    content: "Người Ngái là một dân tộc thiểu số có nguồn gốc từ cộng đồng người Hoa di cư, sinh sống tại một số địa phương miền núi phía Bắc, trong đó có Hà Giang. Họ chủ yếu làm nông nghiệp, trồng lúa, trồng hoa màu và buôn bán nhỏ. Văn hóa của người Ngái mang sự giao thoa giữa văn hóa bản địa và văn hóa Hoa truyền thống. Trong đời sống cộng đồng, họ vẫn duy trì nhiều phong tục như thờ cúng tổ tiên, tổ chức lễ tết theo lịch âm và các nghi lễ truyền thống trong cưới hỏi và tang lễ."
-},
-{
-    title: "Người Khơ Mú",
-    content: "Người Khơ Mú là một dân tộc thiểu số sinh sống chủ yếu ở vùng núi phía Bắc và Tây Bắc Việt Nam, trong đó có một số nhóm cư trú tại Hà Giang. Họ thường sống ở các vùng núi cao và làm nương rẫy, trồng lúa nương, ngô và các loại cây lương thực khác. Nhà ở truyền thống của người Khơ Mú thường là nhà sàn hoặc nhà đất đơn giản. Trong đời sống văn hóa, họ duy trì nhiều phong tục gắn với tín ngưỡng tự nhiên như thờ thần núi, thần rừng và tổ tiên. Các nghi lễ cộng đồng và lễ hội truyền thống có vai trò quan trọng trong việc gắn kết cộng đồng."
-},
-{
-    title: "Người Hán",
-    content: "Một bộ phận nhỏ người Hán sinh sống tại Hà Giang, chủ yếu tại các khu vực thị trấn hoặc nơi có hoạt động giao thương. Họ mang theo nhiều nét văn hóa truyền thống của người Hán như phong tục thờ cúng tổ tiên, các lễ hội truyền thống và nghệ thuật ẩm thực đặc trưng. Trong quá trình sinh sống lâu dài, văn hóa của họ có sự giao thoa với các dân tộc địa phương, góp phần làm phong phú thêm bức tranh văn hóa đa dạng của tỉnh Hà Giang."
-    ]
+        sections: [
+            {
+                title: "Người Mông",
+                content: "Người Mông là cộng đồng đông nhất tại Hà Giang, sinh sống chủ yếu ở các huyện vùng cao như Đồng Văn, Mèo Vạc, Yên Minh và Quản Bạ. Họ nổi bật với nhà trình tường bằng đất dày giúp giữ ấm vào mùa đông và mát vào mùa hè. Trang phục truyền thống của phụ nữ được làm từ vải lanh nhuộm chàm, trang trí bằng kỹ thuật thêu và vẽ sáp ong tinh xảo. Người Mông nổi tiếng với tiếng khèn trong các lễ hội và sinh hoạt cộng đồng, đặc biệt là lễ hội Gầu Tào – lễ cầu phúc, cầu con và cầu may mắn đầu năm. Cuộc sống của họ gắn liền với việc trồng ngô trên các triền đá của cao nguyên đá Đồng Văn, thể hiện sự thích nghi bền bỉ với điều kiện tự nhiên khắc nghiệt."
+            },
+            {
+                title: "Người Tày",
+                content: "Người Tày là một trong những dân tộc có dân số lớn ở vùng Đông Bắc Việt Nam và cũng sinh sống khá đông tại Hà Giang, đặc biệt ở các thung lũng và vùng ven suối. Họ thường ở nhà sàn gỗ truyền thống, sinh hoạt cộng đồng gắn bó với ruộng lúa nước. Văn hóa của người Tày nổi bật với hát then, đàn tính và nhiều làn điệu dân ca truyền thống. Lễ hội Lồng Tồng (xuống đồng) vào đầu xuân là nghi lễ quan trọng nhằm cầu mong mùa màng bội thu và cuộc sống ấm no. Người Tày còn có kho tàng truyện thơ, tục ngữ và phong tục truyền thống phong phú."
+            },
+            {
+                title: "Người Dao",
+                content: "Người Dao sinh sống ở nhiều vùng núi của Hà Giang và được chia thành nhiều nhóm như Dao đỏ, Dao tiền, Dao áo dài. Trang phục truyền thống của họ rất nổi bật với màu đỏ và các họa tiết thêu tay tinh xảo. Một nghi lễ quan trọng trong đời sống văn hóa của người Dao là lễ cấp sắc, đánh dấu sự trưởng thành của nam giới và công nhận họ là thành viên đầy đủ của cộng đồng. Người Dao còn nổi tiếng với tri thức dân gian về cây thuốc và phong tục tắm lá thuốc truyền thống, được cho là giúp thư giãn và phục hồi sức khỏe."
+            },
+            {
+                title: "Người Nùng",
+                content: "Người Nùng sinh sống chủ yếu ở các vùng thấp và trung du của Hà Giang. Họ có truyền thống canh tác lúa nước, trồng trọt và chăn nuôi. Nghề rèn thủ công và làm nông cụ của người Nùng khá phát triển. Văn hóa dân gian của họ phong phú với các làn điệu hát sli, hát lượn mượt mà, thường được hát trong các dịp lễ hội hoặc giao duyên. Các phiên chợ vùng cao cũng là nơi người Nùng giao lưu văn hóa và trao đổi hàng hóa."
+            },
+            {
+                title: "Người Lô Lô",
+                content: "Người Lô Lô là một dân tộc thiểu số có dân số ít, sinh sống chủ yếu tại khu vực Lũng Cú và Mèo Vạc. Trang phục truyền thống của họ rất đặc sắc với kỹ thuật ghép vải màu thành các họa tiết hình học tinh xảo. Người Lô Lô còn nổi tiếng với việc gìn giữ văn hóa trống đồng cổ truyền, được sử dụng trong các nghi lễ quan trọng của cộng đồng như lễ tang và lễ cầu mùa. Văn hóa của họ phản ánh sự gắn bó chặt chẽ với thiên nhiên và tổ tiên."
+            },
+            {
+                title: "Người Pà Thẻn",
+                content: "Người Pà Thẻn sống chủ yếu ở huyện Quang Bình và Bắc Quang của Hà Giang. Trang phục truyền thống của họ có màu đỏ nổi bật và được trang trí bằng nhiều họa tiết thêu tay. Lễ hội Nhảy lửa là nét văn hóa đặc trưng nhất của dân tộc Pà Thẻn. Trong nghi lễ này, các thanh niên sau khi thực hiện nghi thức tâm linh có thể nhảy chân trần vào đống than hồng mà không bị bỏng, thể hiện niềm tin vào sức mạnh thần linh và tinh thần cộng đồng."
+            },
+            {
+                title: "Người La Chí",
+                content: "Người La Chí sinh sống chủ yếu tại huyện Hoàng Su Phì, nơi nổi tiếng với những thửa ruộng bậc thang tuyệt đẹp. Họ có truyền thống canh tác lúa nước lâu đời và tổ chức nhiều nghi lễ liên quan đến nông nghiệp. Lễ hội Khu Cù Tê là một lễ hội lớn của người La Chí nhằm cầu mùa màng bội thu và tạ ơn thần linh. Trang phục truyền thống của họ thường mang màu chàm giản dị, thể hiện sự gần gũi với thiên nhiên."
+            },
+            {
+                title: "Người Cờ Lao",
+                content: "Người Cờ Lao là một trong những dân tộc rất ít người tại Hà Giang, sinh sống ở các vùng núi cao thuộc huyện Đồng Văn và Hoàng Su Phì. Họ duy trì nhiều tín ngưỡng cổ truyền, đặc biệt là tục thờ thần núi và thần đất. Cuộc sống của người Cờ Lao gắn liền với canh tác nương rẫy, trồng ngô và các loại cây lương thực trên sườn núi. Các nghi lễ cộng đồng và phong tục truyền thống vẫn được duy trì qua nhiều thế hệ."
+            },
+            {
+                title: "Người Pu Péo",
+                content: "Người Pu Péo là một trong những dân tộc ít người nhất ở Việt Nam và sinh sống chủ yếu ở vùng Đồng Văn của Hà Giang. Văn hóa của họ gắn liền với tín ngưỡng thờ thần đá và thờ tổ tiên. Người Pu Péo có nhiều nghi lễ truyền thống liên quan đến nông nghiệp và chu kỳ mùa vụ. Cuộc sống của họ gắn bó mật thiết với thiên nhiên vùng cao và các tập quán sinh hoạt cổ truyền vẫn được bảo tồn đến ngày nay."
+            },
+            {
+                title: "Người Bố Y",
+                content: "Người Bố Y là một dân tộc thiểu số sinh sống rải rác tại các huyện vùng cao của Hà Giang như Quản Bạ và Đồng Văn. Cuộc sống của họ chủ yếu dựa vào nông nghiệp, trồng lúa nương, ngô và chăn nuôi nhỏ. Người Bố Y thường ở nhà đất hoặc nhà sàn đơn giản, phù hợp với điều kiện vùng núi. Trang phục truyền thống mang sắc chàm với kiểu dáng giản dị. Trong đời sống văn hóa, họ duy trì nhiều lễ hội nông nghiệp như lễ cầu mùa, cầu mưa nhằm mong cho mùa màng tốt tươi. Tín ngưỡng của người Bố Y gắn với việc thờ cúng tổ tiên và các vị thần tự nhiên như thần núi, thần đất."
+            },
+            {
+                title: "Người Phù Lá",
+                content: "Người Phù Lá sinh sống tại một số vùng núi phía bắc Hà Giang, thường cư trú trên các triền núi và khu vực trung du. Họ chủ yếu canh tác nương rẫy, trồng lúa nương, ngô và các loại cây lương thực khác. Trang phục truyền thống của người Phù Lá thường có màu chàm, được may đơn giản nhưng mang nét đặc trưng riêng của từng nhóm địa phương. Trong sinh hoạt văn hóa, người Phù Lá duy trì nhiều phong tục cổ truyền, đặc biệt là các nghi lễ liên quan đến nông nghiệp, cầu mùa và tạ ơn thần linh. Các hoạt động cộng đồng, lễ hội và nghi lễ cúng tổ tiên đóng vai trò quan trọng trong đời sống tinh thần của họ."
+            },
+            {
+                title: "Người La Ha",
+                content: "Người La Ha là một dân tộc thiểu số sinh sống ở vùng núi phía Bắc Việt Nam, trong đó có một bộ phận cư trú tại Hà Giang. Họ sống chủ yếu bằng nương rẫy, trồng lúa nương, ngô và chăn nuôi gia súc. Nhà ở của người La Ha thường là nhà sàn gỗ hoặc nhà đất đơn giản phù hợp với địa hình miền núi. Văn hóa của họ gắn liền với nhiều nghi lễ nông nghiệp cổ truyền như lễ cầu mưa, cầu mùa và lễ tạ ơn sau thu hoạch. Người La Ha cũng có nhiều phong tục tập quán đặc sắc trong sinh hoạt cộng đồng, lễ cưới và lễ tang."
+            },
+            {
+                title: "Người Sán Chỉ",
+                content: "Người Sán Chỉ sinh sống tại một số vùng núi và trung du của Hà Giang. Họ chủ yếu làm nông nghiệp với các hoạt động trồng lúa nước, trồng ngô và chăn nuôi. Nhà ở truyền thống của người Sán Chỉ thường là nhà sàn hoặc nhà đất đơn giản. Nét văn hóa nổi bật của dân tộc này là làn điệu hát soóng cọ – hình thức hát giao duyên giữa nam và nữ trong các dịp lễ hội hoặc mùa xuân. Các lễ hội truyền thống không chỉ là dịp vui chơi mà còn là cơ hội để cộng đồng gắn kết và truyền lại các giá trị văn hóa cho thế hệ trẻ."
+            },
+            {
+                title: "Người Cao Lan (Sán Chay)",
+                content: "Người Cao Lan, thuộc nhóm dân tộc Sán Chay, sinh sống tại nhiều vùng trung du và miền núi phía Bắc, trong đó có Hà Giang. Họ có truyền thống canh tác lúa nước kết hợp trồng ngô và các loại cây hoa màu. Nhà ở thường là nhà sàn hoặc nhà đất đơn giản. Văn hóa của người Cao Lan nổi bật với các làn điệu hát đối đáp trong lễ hội và sinh hoạt cộng đồng. Ngoài ra, họ còn duy trì nhiều phong tục truyền thống trong cưới hỏi, lễ tết và thờ cúng tổ tiên, thể hiện sự gắn bó bền chặt của cộng đồng."
+            },
+            {
+                title: "Người Hoa",
+                content: "Người Hoa sinh sống chủ yếu tại các thị trấn và khu vực buôn bán của Hà Giang. Họ có truyền thống lâu đời trong các hoạt động thương mại, buôn bán và dịch vụ. Nhiều khu phố mang dấu ấn kiến trúc đặc trưng của người Hoa với các ngôi nhà mái ngói, mặt tiền buôn bán và các đền miếu thờ thần linh. Văn hóa của người Hoa còn thể hiện qua các lễ hội truyền thống như Tết Nguyên Đán, Tết Trung Thu và các hoạt động tín ngưỡng thờ cúng tổ tiên. Sự hiện diện của cộng đồng người Hoa góp phần tạo nên sự đa dạng văn hóa cho vùng đất Hà Giang."
+            },
+            {
+                title: "Người Kinh",
+                content: "Người Kinh là dân tộc chiếm đa số ở Việt Nam và cũng sinh sống tại nhiều khu vực của Hà Giang, đặc biệt ở các thị trấn, trung tâm hành chính và vùng thấp. Họ đóng vai trò quan trọng trong sự phát triển kinh tế – xã hội của tỉnh thông qua các hoạt động thương mại, giáo dục, dịch vụ và sản xuất nông nghiệp. Văn hóa người Kinh mang đặc trưng của nền văn minh lúa nước với các phong tục như thờ cúng tổ tiên, lễ Tết truyền thống và các hoạt động sinh hoạt cộng đồng. Tại Hà Giang, văn hóa người Kinh có sự giao thoa với văn hóa của các dân tộc vùng cao, tạo nên sự đa dạng và phong phú trong đời sống văn hóa địa phương."
+            },
+            {
+                title: "Người Thái",
+                content: "Người Thái sinh sống chủ yếu tại các vùng trung du và miền núi phía Bắc Việt Nam, trong đó có một bộ phận cư trú tại Hà Giang. Họ nổi tiếng với nhà sàn truyền thống được xây dựng bằng gỗ và tre, thích nghi với điều kiện khí hậu và địa hình vùng núi. Người Thái có nền văn hóa phong phú với các điệu múa xòe đặc trưng, thường được biểu diễn trong các dịp lễ hội và sinh hoạt cộng đồng. Cuộc sống của họ gắn liền với việc canh tác lúa nước, trồng trọt và chăn nuôi. Ẩm thực của người Thái cũng rất đặc sắc với nhiều món ăn truyền thống được chế biến từ gạo nếp, cá suối và các loại gia vị vùng núi."
+            },
+            {
+                title: "Người Mường",
+                content: "Người Mường là một trong những dân tộc có lịch sử lâu đời ở vùng núi phía Bắc Việt Nam. Tại Hà Giang, họ sinh sống rải rác ở một số khu vực và duy trì nhiều nét văn hóa truyền thống đặc sắc. Cuộc sống của người Mường gắn liền với nền văn hóa lúa nước và sinh hoạt cộng đồng trong các ngôi nhà sàn. Một nét văn hóa nổi bật của người Mường là nghệ thuật cồng chiêng, được sử dụng trong các nghi lễ, lễ hội và các dịp quan trọng của cộng đồng. Ngoài ra, họ còn có nhiều phong tục truyền thống trong cưới hỏi, tang lễ và thờ cúng tổ tiên."
+            },
+            {
+                title: "Người Giấy",
+                content: "Người Giấy sinh sống chủ yếu ở các vùng thung lũng và ven suối của Hà Giang, nơi có điều kiện thuận lợi cho việc trồng lúa nước. Họ thường ở nhà sàn truyền thống và có đời sống gắn bó với nông nghiệp. Trong văn hóa của người Giấy, lễ hội cầu mùa đầu năm là hoạt động quan trọng nhằm cầu mong mùa màng bội thu và cuộc sống bình an. Các nghi lễ trong lễ hội thường bao gồm cúng thần linh, tổ chức các trò chơi dân gian và các hoạt động sinh hoạt cộng đồng. Người Giấy cũng có nhiều phong tục truyền thống liên quan đến cưới hỏi và thờ cúng tổ tiên."
+            },
+            {
+                title: "Người Ngái",
+                content: "Người Ngái là một dân tộc thiểu số có nguồn gốc từ cộng đồng người Hoa di cư, sinh sống tại một số địa phương miền núi phía Bắc, trong đó có Hà Giang. Họ chủ yếu làm nông nghiệp, trồng lúa, trồng hoa màu và buôn bán nhỏ. Văn hóa của người Ngái mang sự giao thoa giữa văn hóa bản địa và văn hóa Hoa truyền thống. Trong đời sống cộng đồng, họ vẫn duy trì nhiều phong tục như thờ cúng tổ tiên, tổ chức lễ tết theo lịch âm và các nghi lễ truyền thống trong cưới hỏi và tang lễ."
+            },
+            {
+                title: "Người Khơ Mú",
+                content: "Người Khơ Mú là một dân tộc thiểu số sinh sống chủ yếu ở vùng núi phía Bắc và Tây Bắc Việt Nam, trong đó có một số nhóm cư trú tại Hà Giang. Họ thường sống ở các vùng núi cao và làm nương rẫy, trồng lúa nương, ngô và các loại cây lương thực khác. Nhà ở truyền thống của người Khơ Mú thường là nhà sàn hoặc nhà đất đơn giản. Trong đời sống văn hóa, họ duy trì nhiều phong tục gắn với tín ngưỡng tự nhiên như thờ thần núi, thần rừng và tổ tiên. Các nghi lễ cộng đồng và lễ hội truyền thống có vai trò quan trọng trong việc gắn kết cộng đồng."
+            },
+            {
+                title: "Người Hán",
+                content: "Một bộ phận nhỏ người Hán sinh sống tại Hà Giang, chủ yếu tại các khu vực thị trấn hoặc nơi có hoạt động giao thương. Họ mang theo nhiều nét văn hóa truyền thống của người Hán như phong tục thờ cúng tổ tiên, các lễ hội truyền thống và nghệ thuật ẩm thực đặc trưng. Trong quá trình sinh sống lâu dài, văn hóa của họ có sự giao thoa với các dân tộc địa phương, góp phần làm phong phú thêm bức tranh văn hóa đa dạng của tỉnh Hà Giang."
+            }
+        ]
     },
     {
         id: 102,
@@ -1018,6 +1019,7 @@ window.onload = () => {
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
 document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
 
 
 
