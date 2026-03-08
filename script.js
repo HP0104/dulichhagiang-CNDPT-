@@ -926,7 +926,7 @@ async function updateWeatherUI(lat, lng, locationName) {
             <!-- Dòng chữ mới thêm vào -->
             <div class="w-full mb-6 border-b border-white/10 pb-3 flex items-center gap-2">
                 <i class="fas fa-map-marker-alt text-emerald-500 text-xs"></i>
-                <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Thời tiết hiện tại tại</span>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Thời tiết hiện tại ở</span>
                 <span class="text-[10px] uppercase tracking-[0.2em] text-emerald-400 font-black">${locationName}</span>
             </div>
 
@@ -1204,6 +1204,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
