@@ -912,29 +912,49 @@ async function fetchWeather(lat, lng) {
     } catch (e) { return null; }
 }
 
-async function updateWeatherUI(lat, lng) {
+async function updateWeatherUI(lat, lng, locationName) { 
     const wData = await fetchWeather(lat, lng);
     const weatherBox = document.getElementById('weather-box');
-    if (!weatherBox || !wData || !wData.current_weather) return;
+    if (!weatherBox) return;
 
-    const curr = interpretWeather(wData.current_weather.weathercode);
-    weatherBox.className = "bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 my-8 border border-white/5";
-    weatherBox.innerHTML = `
-        <div class="flex items-center gap-8 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-12">
-            <i class="fas ${curr.icon} text-8xl animate-pulse filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"></i>
-            <div class="text-left">
-                <p class="text-6xl font-black tracking-tighter">${wData.current_weather.temperature}°C</p>
-                <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold">${curr.txt}</p>
+    if (wData && wData.current_weather) {
+        const curr = interpretWeather(wData.current_weather.weathercode);
+        
+        weatherBox.className = "bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col items-start my-8 border border-white/5";
+        
+        weatherBox.innerHTML = `
+            <!-- Dòng chữ mới thêm vào -->
+            <div class="w-full mb-6 border-b border-white/10 pb-3 flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-emerald-500 text-xs"></i>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Thời tiết hiện tại tại</span>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-emerald-400 font-black">${locationName}</span>
             </div>
-        </div>
-        <div class="flex-1 grid grid-cols-3 gap-4 w-full">
-            ${wData.daily.time.slice(1, 4).map((t, i) => {
-                const d = interpretWeather(wData.daily.weathercode[i+1]);
-                return `<div class="text-center bg-white/5 p-4 rounded-3xl border border-white/5"><p class="text-[10px] opacity-40 font-bold mb-2">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${d.icon} text-2xl mb-2 block"></i><p class="font-black text-sm">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p></div>`;
-            }).join('')}
-        </div>`;
-}
 
+            <div class="flex flex-col md:flex-row items-center justify-between w-full gap-10">
+                <!-- Phần bên trái: Icon to và Nhiệt độ chính -->
+                <div class="flex items-center gap-8 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-12">
+                    <i class="fas ${curr.icon} text-7xl md:text-8xl animate-pulse filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"></i>
+                    <div class="text-left">
+                        <p class="text-6xl font-black tracking-tighter">${wData.current_weather.temperature}°C</p>
+                        <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold mt-1">${curr.txt}</p>
+                    </div>
+                </div>
+
+                <!-- Phần bên phải: Dự báo 3 ngày tới -->
+                <div class="flex-1 grid grid-cols-3 gap-4 w-full">
+                    ${wData.daily.time.slice(1, 4).map((t, i) => {
+                        const d = interpretWeather(wData.daily.weathercode[i+1]);
+                        return `
+                        <div class="text-center bg-white/5 p-4 rounded-3xl border border-white/5">
+                            <p class="text-[10px] opacity-40 uppercase font-bold mb-2">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p>
+                            <i class="fas ${d.icon} text-2xl mb-2 block"></i>
+                            <p class="font-black text-sm">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p>
+                        </div>`;
+                    }).join('')}
+                </div>
+            </div>`;
+    }
+}
 
 //  CORE UI (MODAL & GRID)
 
@@ -988,7 +1008,7 @@ window.openModal = async function(id) {
                     <div class="bg-zinc-800 p-6 rounded-[35px] border border-white/5"><h4 class="text-sm font-bold text-emerald-400 mb-4 uppercase">Đặc sản</h4><img src="${item.food?.image}" class="w-full h-32 object-cover rounded-2xl mb-4 border border-white/10" onerror="this.src='https://placehold.co/300x200?text=Food'"><p class="font-bold text-sm uppercase">${item.food?.name}</p><p class="text-orange-400 text-xs">${item.food?.price}</p></div>
                 </div>
             </div>`;
-        updateWeatherUI(item.lat, item.lng);
+        updateWeatherUI(item.lat, item.lng, item.name);
     }
 };
 
@@ -1184,6 +1204,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
