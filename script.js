@@ -767,20 +767,13 @@ const destinationsData = [
 ];
 
 
-// ==========================================
-// TÍNH NĂNG 1: HIỂN THỊ DANH SÁCH (GRID DISPLAY)
-// ==========================================
-// ==========================================
-// 1. CẤU HÌNH & DỮ LIỆU (ĐẢM BẢO KHÔNG TRÙNG ID)
-// ==========================================
+
 const API_KEY = "gsk_7n4qkJ7k14Uwo84wp4dOWGdy" + "b3FYitMCVaxwPsZpr2aLNrZFLM3n";
 let selectedTripIds = []; 
 
-// Chèn mảng destinationsData của bạn vào đây (Hãy chắc chắn mảng này nằm ở đầu file)
-// ... (Mảng destinationsData đã có ở các câu trả lời trước) ...
 
 // ==========================================
-// 2. HÀM HỖ TRỢ THỜI TIẾT
+// 2. TIỆN ÍCH (THỜI TIẾT)
 // ==========================================
 function interpretWeather(code) {
     const map = { 
@@ -806,44 +799,35 @@ async function fetchWeather(lat, lng) {
 async function updateWeatherUI(lat, lng) {
     const wData = await fetchWeather(lat, lng);
     const weatherBox = document.getElementById('weather-box');
-    if (!weatherBox) return;
+    if (!weatherBox || !wData || !wData.current_weather) return;
 
-    if (wData && wData.current_weather) {
-        const curr = interpretWeather(wData.current_weather.weathercode);
-        weatherBox.className = "bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 my-8 border border-white/5";
-        
-        weatherBox.innerHTML = `
-            <div class="flex items-center gap-8 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-12">
-                <!-- ICON THỜI TIẾT SIÊU TO (text-8xl) -->
-                <i class="fas ${curr.icon} text-8xl animate-pulse filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"></i>
-                <div class="text-left">
-                    <p class="text-6xl font-black tracking-tighter">${wData.current_weather.temperature}°C</p>
-                    <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold">${curr.txt}</p>
-                </div>
+    const curr = interpretWeather(wData.current_weather.weathercode);
+    weatherBox.className = "bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 my-8 border border-white/5";
+    weatherBox.innerHTML = `
+        <div class="flex items-center gap-8 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-12">
+            <i class="fas ${curr.icon} text-8xl animate-pulse filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"></i>
+            <div class="text-left">
+                <p class="text-6xl font-black tracking-tighter">${wData.current_weather.temperature}°C</p>
+                <p class="text-xs uppercase tracking-widest text-emerald-400 font-bold">${curr.txt}</p>
             </div>
-            <div class="flex-1 grid grid-cols-3 gap-4 w-full">
-                ${wData.daily.time.slice(1, 4).map((t, i) => {
-                    const d = interpretWeather(wData.daily.weathercode[i+1]);
-                    return `
-                    <div class="text-center bg-white/5 p-4 rounded-3xl border border-white/5">
-                        <p class="text-[10px] opacity-40 uppercase font-bold mb-2">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p>
-                        <i class="fas ${d.icon} text-2xl mb-2 block"></i>
-                        <p class="font-black text-sm">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p>
-                    </div>`;
-                }).join('')}
-            </div>`;
-    }
+        </div>
+        <div class="flex-1 grid grid-cols-3 gap-4 w-full">
+            ${wData.daily.time.slice(1, 4).map((t, i) => {
+                const d = interpretWeather(wData.daily.weathercode[i+1]);
+                return `<div class="text-center bg-white/5 p-4 rounded-3xl border border-white/5"><p class="text-[10px] opacity-40 font-bold mb-2">${new Date(t).toLocaleDateString('vi-VN', {weekday: 'short'})}</p><i class="fas ${d.icon} text-2xl mb-2 block"></i><p class="font-black text-sm">${Math.round(wData.daily.temperature_2m_max[i+1])}°</p></div>`;
+            }).join('')}
+        </div>`;
 }
 
 // ==========================================
-// 3. QUẢN LÝ MODAL & HIỂN THỊ CHI TIẾT
+// 3. CORE UI (MODAL & GRID)
 // ==========================================
-async function openModal(id) {
+window.openModal = async function(id) {
     const item = destinationsData.find(d => d.id === id);
+    if (!item) return;
+
     const modal = document.getElementById('modal');
     const content = document.getElementById('modal-content');
-    if (!item || !content) return;
-
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     modal.scrollTo(0, 0);
@@ -867,125 +851,119 @@ async function openModal(id) {
                         <div class="border-r border-white/10 pr-2"><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Giá vé</p><p class="text-xs font-medium">${item.ticketPrice || 'Miễn phí'}</p></div>
                         <div><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Di chuyển</p><p class="text-xs font-medium">${item.transport || 'Tự túc'}</p></div>
                     </div>
-                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4 uppercase tracking-wider">Tổng quan</h3><p class="text-gray-300 leading-relaxed italic text-lg">"${item.experience || item.desc}"</p></section>
+                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4 uppercase">Tổng quan</h3><p class="text-gray-300 italic text-lg">"${item.experience || item.desc}"</p></section>
                     <div id="weather-box" class="min-h-[100px] flex items-center justify-center bg-white/5 rounded-3xl italic text-gray-400"><i class="fas fa-circle-notch animate-spin mr-2"></i> Đang tải thời tiết...</div>
                     <section class="bg-zinc-900 p-8 rounded-[40px] border border-white/5">
-                        <h3 class="text-xl font-bold text-orange-400 mb-8 uppercase">Bản sắc văn hóa</h3>
+                        <h3 class="text-xl font-bold text-orange-400 mb-6 uppercase">Bản sắc văn hóa</h3>
                         <div class="space-y-4">
                             <p><span class="text-orange-500 font-bold uppercase text-[10px]">Lễ hội:</span> ${item.culture?.festival || 'Đang cập nhật'}</p>
                             <p><span class="text-orange-500 font-bold uppercase text-[10px]">Trang phục:</span> ${item.culture?.costume || 'Đang cập nhật'}</p>
                             <p><span class="text-orange-500 font-bold uppercase text-[10px]">Phong tục:</span> ${item.culture?.customs || 'Đang cập nhật'}</p>
                         </div>
-                        <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-center gap-3">
-                            ${linked.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-700/50 hover:bg-orange-600 text-white px-4 py-2 rounded-xl font-bold text-[9px] uppercase border border-white/10"># ${c.name}</button>`).join('')}
+                        <div class="mt-6 flex flex-wrap justify-center gap-3">
+                            ${linked.map(c => `<button onclick="openModal(${c.id})" class="bg-emerald-700/50 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-[9px] uppercase border border-white/10"># ${c.name}</button>`).join('')}
                         </div>
                     </section>
-                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-6 uppercase">Vị trí</h3><iframe src="${item.locationMap}" class="w-full h-72 rounded-3xl border-0 shadow-lg"></iframe></section>
+                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-6 uppercase">Vị trí</h3><iframe src="${item.locationMap}" class="w-full h-72 rounded-3xl border-0 opacity-80 shadow-lg"></iframe></section>
                 </div>
                 <div class="lg:col-span-1 space-y-6">
-                    <div class="bg-emerald-900/40 p-8 rounded-[40px] border border-emerald-500/20"><h3 class="text-lg font-bold mb-4 text-emerald-400 uppercase tracking-widest">Lịch trình gợi ý</h3><p class="leading-relaxed text-gray-200 italic text-sm">${item.logistics?.itinerary2D || 'Liên hệ sau'}</p></div>
+                    <div class="bg-emerald-900/40 p-8 rounded-[40px] border border-emerald-500/20 text-left"><h3 class="text-lg font-bold mb-4 text-emerald-400 uppercase tracking-widest">Lịch trình gợi ý</h3><p class="text-gray-200 italic text-sm">${item.logistics?.itinerary2D || 'Liên hệ sau'}</p></div>
                     <div class="bg-orange-950/30 p-8 rounded-[40px] border border-orange-500/20 text-center"><p class="text-[10px] text-orange-400 font-bold uppercase mb-2">Chi phí ước tính</p><p class="text-2xl font-bold text-orange-500">${item.logistics?.estimatedCost || 'Liên hệ sau'}</p></div>
                     <div class="bg-zinc-800 p-6 rounded-[35px] border border-white/5"><h4 class="text-sm font-bold text-emerald-400 mb-4 uppercase">Đặc sản</h4><img src="${item.food?.image}" class="w-full h-32 object-cover rounded-2xl mb-4 border border-white/10" onerror="this.src='https://placehold.co/300x200?text=Food'"><p class="font-bold text-sm uppercase">${item.food?.name}</p><p class="text-orange-400 text-xs">${item.food?.price}</p></div>
                 </div>
             </div>`;
         updateWeatherUI(item.lat, item.lng);
     }
-}
+};
 
-function closeModal() {
-    const modal = document.getElementById('modal');
-    if(modal) modal.classList.add('hidden');
+window.closeModal = function() {
+    document.getElementById('modal').classList.add('hidden');
     document.body.style.overflow = 'auto';
-}
+};
 
 // ==========================================
-// 4. LẬP LỊCH TRÌNH & CHATBOT (AI)
+// 4. FEATURE LOGIC (CHATBOT & TRIP)
 // ==========================================
-function addToTrip(id) {
-    if (!selectedTripIds.includes(id)) {
-        selectedTripIds.push(id);
-        const robotBtn = document.querySelector('.fa-robot').parentElement;
-        robotBtn.classList.add('animate-bounce');
-        setTimeout(() => robotBtn.classList.remove('animate-bounce'), 1000);
-        updateTripUI();
-    }
-}
+window.toggleChat = function() { 
+    const chat = document.getElementById('chat-window');
+    const tip = document.getElementById('chat-tooltip');
+    if (chat) chat.classList.toggle('hidden'); 
+    if (tip) tip.style.display = 'none';
+};
 
-function clearTrip() { selectedTripIds = []; updateTripUI(); }
-
-function updateTripUI() {
-    const planner = document.getElementById('trip-planner');
-    const list = document.getElementById('selected-list');
-    const count = document.getElementById('trip-count');
-    if (selectedTripIds.length > 0) {
-        planner.classList.remove('hidden');
-        planner.style.zIndex = "90"; 
-        count.innerText = selectedTripIds.length;
-        list.innerHTML = selectedTripIds.map(id => {
-            const place = destinationsData.find(d => d.id === id);
-            return `<div class="flex items-center gap-2 text-white mb-1"><i class="fas fa-check-circle text-emerald-500 text-[8px]"></i><span>${place.name}</span></div>`;
-        }).join('');
-    } else { planner.classList.add('hidden'); }
-}
-
-async function generateAITrip() {
-    if (selectedTripIds.length === 0) return;
-    const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(', ');
-    const modal = document.getElementById('modal');
-    const content = document.getElementById('modal-content');
-    modal.classList.remove('hidden');
-    content.innerHTML = `<div class="p-20 text-center bg-[#1a1a1a] text-white"><i class="fas fa-robot animate-spin text-5xl text-emerald-500 mb-6"></i><h2 class="text-2xl font-bold uppercase tracking-widest">Đang thiết kế tour cho bạn...</h2></div>`;
-
-    try {
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
-            body: JSON.stringify({ 
-                model: "llama-3.1-8b-instant", 
-                messages: [{ 
-                    role: "system", 
-                    content: "Bạn là chuyên gia du lịch Hà Giang. Hãy lập lịch trình 3 ngày cho danh sách các điểm sau, tư vấn phương tiện và tổng chi phí chi tiết bằng tiếng Việt." 
-                }, { 
-                    role: "user", 
-                    content: `Tôi muốn đi: ${names}` 
-                }] 
-            })
-        });
-        const data = await res.json();
-        content.innerHTML = `<div class="p-8 md:p-12 bg-[#1a1a1a] text-white min-h-screen"><h2 class="text-3xl font-bold text-emerald-400 mb-8 uppercase tracking-widest border-b border-emerald-500/20 pb-4">Lịch trình Tour đề xuất</h2><div class="prose prose-invert max-w-none text-gray-300 text-sm">${data.choices[0].message.content.replace(/\n/g, '<br>')}</div><div class="mt-12 text-center"><button onclick="closeModal()" class="bg-emerald-600 text-white px-10 py-3 rounded-full font-bold uppercase shadow-xl">Đóng</button></div></div>`;
-    } catch (e) { content.innerHTML = `<div class="p-20 text-center bg-red-900 text-white">Lỗi kết nối AI.</div>`; }
-}
-
-function toggleChat() { 
-    document.getElementById('chat-window')?.classList.toggle('hidden'); 
-    document.getElementById('chat-tooltip').style.display = 'none';
-}
-
-async function sendMessage() {
+window.sendMessage = async function() {
     const input = document.getElementById('chat-input');
     const content = document.getElementById('chat-content');
-    if (!input.value.trim()) return;
+    if (!input || !input.value.trim()) return;
+
     const msg = input.value.trim();
     input.value = "";
-    content.innerHTML += `<div class="bg-emerald-700 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs mb-2 text-right shadow-md">${msg}</div>`;
+    content.innerHTML += `<div class="bg-emerald-700 text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs mb-2 text-right">${msg}</div>`;
+    content.scrollTo(0, content.scrollHeight);
+
     try {
         const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
             body: JSON.stringify({ 
                 model: "llama-3.1-8b-instant", 
-                messages: [{ role: "system", content: "Bạn là hướng dẫn viên tư vấn du lịch Hà Giang nhiệt tình." }, { role: "user", content: msg }] 
+                messages: [{ role: "system", content: "Bạn là hướng dẫn viên bản địa Hà Giang tên Phúc. Tư vấn nhiệt tình, sử dụng từ 'dạ', 'mình'." }, { role: "user", content: msg }] 
             })
         });
         const data = await res.json();
         content.innerHTML += `<div class="bg-zinc-800 text-gray-200 p-3 rounded-2xl self-start max-w-[85%] text-xs mb-2 border border-white/5">${data.choices[0].message.content}</div>`;
-    } catch (e) { content.innerHTML += `<div class="text-red-400 text-xs">Lỗi kết nối AI.</div>`; }
+    } catch (e) { content.innerHTML += `<div class="text-red-400 text-xs">Lỗi kết nối.</div>`; }
     content.scrollTo(0, content.scrollHeight);
-}
+};
+
+window.addToTrip = function(id) {
+    if (!selectedTripIds.includes(id)) {
+        selectedTripIds.push(id);
+        const robot = document.querySelector('.fa-robot')?.parentElement;
+        robot?.classList.add('animate-bounce');
+        setTimeout(() => robot?.classList.remove('animate-bounce'), 1000);
+        updateTripUI();
+    }
+};
+
+window.clearTrip = function() { selectedTripIds = []; updateTripUI(); };
+
+window.updateTripUI = function() {
+    const planner = document.getElementById('trip-planner');
+    const list = document.getElementById('selected-list');
+    const count = document.getElementById('trip-count');
+    if (selectedTripIds.length > 0) {
+        planner.classList.remove('hidden');
+        count.innerText = selectedTripIds.length;
+        list.innerHTML = selectedTripIds.map(id => {
+            const place = destinationsData.find(d => d.id === id);
+            return `<div class="flex items-center gap-2 text-white text-[10px] mb-1"><i class="fas fa-check-circle text-emerald-500"></i><span>${place.name}</span></div>`;
+        }).join('');
+    } else { planner.classList.add('hidden'); }
+};
+
+window.generateAITrip = async function() {
+    if (selectedTripIds.length === 0) return;
+    const names = selectedTripIds.map(id => destinationsData.find(d => d.id === id).name).join(', ');
+    openModal(1); // Mượn modal để hiện loading
+    document.getElementById('modal-content').innerHTML = `<div class="p-20 text-center bg-[#1a1a1a] text-white"><i class="fas fa-robot animate-spin text-5xl text-emerald-500 mb-6"></i><h2 class="text-2xl font-bold uppercase">AI đang lập tour tối ưu...</h2></div>`;
+
+    try {
+        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+            body: JSON.stringify({ 
+                model: "llama-3.1-8b-instant", 
+                messages: [{ role: "system", content: "Bạn là chuyên gia tour Hà Giang. Lập lịch trình 3 ngày, tư vấn phương tiện và chi phí chi tiết bằng tiếng Việt, trình bày bằng thẻ HTML." }, { role: "user", content: names }] 
+            })
+        });
+        const data = await res.json();
+        document.getElementById('modal-content').innerHTML = `<div class="p-8 md:p-12 bg-[#1a1a1a] text-white min-h-screen"><h2 class="text-3xl font-bold text-emerald-400 mb-8 uppercase border-b border-white/10 pb-4">Tour chuyên gia đề xuất</h2><div class="prose prose-invert max-w-none text-gray-300 text-sm">${data.choices[0].message.content.replace(/\n/g, '<br>')}</div><div class="mt-12 text-center"><button onclick="closeModal()" class="bg-emerald-600 text-white px-10 py-3 rounded-full font-bold uppercase shadow-xl">Đóng</button></div></div>`;
+    } catch (e) { closeModal(); alert("Lỗi kết nối AI."); }
+};
 
 // ==========================================
-// 5. KHỞI CHẠY (ONLOAD)
+// 5. HIỂN THỊ & LỌC
 // ==========================================
-function displayDestinations(items) {
+window.displayDestinations = function(items) {
     const grid = document.getElementById('destination-grid');
     if (!grid) return;
     grid.innerHTML = items.map(item => `
@@ -993,34 +971,34 @@ function displayDestinations(items) {
             ${!item.isCultureTopic ? `<button onclick="addToTrip(${item.id})" class="absolute top-4 right-4 z-30 bg-white/90 text-emerald-700 w-10 h-10 rounded-full shadow-lg hover:bg-orange-500 hover:text-white transition-all"><i class="fas fa-plus"></i></button>` : ''}
             <div onclick="openModal(${item.id})" class="cursor-pointer">
                 <div class="relative h-60 overflow-hidden"><img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
-                <div class="p-6">
+                <div class="p-6 text-left">
                     <span class="text-[10px] font-bold uppercase text-emerald-600">${item.category}</span>
                     <h3 class="text-lg font-bold mt-2 mb-2 text-white uppercase">${item.name}</h3>
-                    <p class="text-gray-400 text-xs line-clamp-2 italic">${item.desc}</p>
+                    <p class="text-gray-400 text-xs line-clamp-2 italic">${item.desc || ""}</p>
                 </div>
             </div>
         </div>`).join('');
-}
+};
 
-function filterDestinations(category) {
+window.filterDestinations = function(category) {
     const filtered = category === 'all' ? destinationsData : destinationsData.filter(d => d.category.includes(category));
     displayDestinations(filtered);
-}
+};
 
+// ==========================================
+// 6. KHỞI CHẠY (ONLOAD)
+// ==========================================
 window.onload = () => {
     displayDestinations(destinationsData);
     document.getElementById('search-input')?.addEventListener('input', (e) => {
         const kw = e.target.value.toLowerCase();
-        const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc.toLowerCase().includes(kw));
+        const filtered = destinationsData.filter(d => d.name.toLowerCase().includes(kw) || d.desc?.toLowerCase().includes(kw));
         displayDestinations(filtered);
     });
     setTimeout(() => { document.getElementById('chat-tooltip')?.classList.remove('hidden'); }, 3000);
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
-document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
-
-
 
 
 
