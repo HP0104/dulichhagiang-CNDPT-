@@ -968,7 +968,7 @@ window.openModal = async function(id) {
                         <div class="border-r border-white/10 pr-2"><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Giá vé</p><p class="text-xs font-medium">${item.ticketPrice || 'Miễn phí'}</p></div>
                         <div><p class="text-[10px] uppercase text-orange-400 font-bold mb-1">Di chuyển</p><p class="text-xs font-medium">${item.transport || 'Tự túc'}</p></div>
                     </div>
-                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4 uppercase">Tổng quan</h3><p class="text-gray-300 italic text-lg">"${item.experience || item.desc}"</p></section>
+                    <section><h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4 uppercase">Kinh Nghiệm</h3><p class="text-gray-300 italic text-lg">"${item.experience || item.desc}"</p></section>
                     <div id="weather-box" class="min-h-[100px] flex items-center justify-center bg-white/5 rounded-3xl italic text-gray-400"><i class="fas fa-circle-notch animate-spin mr-2"></i> Đang tải thời tiết...</div>
                     <section class="bg-zinc-900 p-8 rounded-[40px] border border-white/5">
                         <h3 class="text-xl font-bold text-orange-400 mb-6 uppercase">Bản sắc văn hóa</h3>
@@ -1116,6 +1116,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
