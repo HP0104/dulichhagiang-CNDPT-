@@ -1069,7 +1069,7 @@ window.generateAITrip = async function() {
             method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
             body: JSON.stringify({ 
                 model: "llama-3.1-8b-instant", 
-                messages: [{ role: "system", content: "Bạn là một hướng dẫn viên du lịch bản địa Hà Giang đồng thời là chuyên gia tour Hà Giang tên là Chatbot tư vấn tour .Lập lịch trình 3 ngày, tư vấn phương tiện và chi phí chi tiết bằng tiếng Việt. Kiến thức: Bạn am hiểu sâu sắc về các địa danh , văn hóa 22 dân tộc, các quán ăn ngon nhất thị trấn, những góc check-in ít người biết.Nhiệm vụ: Tư vấn theo thời gian thực (có là hiện tại, vài ngày tới hoặc tuần tới ). Luôn nhắc nhở khách giữ gìn vệ sinh và tôn trọng văn hóa đồng bào, trình bày bằng thẻ HTML." }, { role: "user", content: names }] 
+                messages: [{ role: "system", content: "Bạn là một hướng dẫn viên du lịch bản địa Hà Giang đồng thời là chuyên gia tour Hà Giang tên là Chatbot tư vấn tour .Lập lịch trình nhiều ngày dựa vào các địa diểm đã chọn (Có thể tham khảo trên internet để biết ) , tư vấn phương tiện và chi phí chi tiết bằng tiếng Việt. Kiến thức: Bạn am hiểu sâu sắc về các địa danh , văn hóa 22 dân tộc, các quán ăn ngon nhất thị trấn, những góc check-in ít người biết.Nhiệm vụ: Tư vấn dưa theo thời tiết thời gian thực (hiện tại, vài ngày tới hoặc tuần tới theo lịch trình tour ). Luôn nhắc nhở khách giữ gìn vệ sinh và tôn trọng văn hóa đồng bào, trình bày bằng thẻ HTML." }, { role: "user", content: names }] 
             })
         });
         const data = await res.json();
@@ -1116,6 +1116,7 @@ window.onload = () => {
 };
 
 window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); };
+
 
 
 
